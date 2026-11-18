@@ -75,7 +75,7 @@
     <section class="pagina-cabeza" aria-labelledby="titulo-pagina">
       <div class="pagina-cabeza__texto">
         <h1 id="titulo-pagina" data-revela>Contacto y cita</h1>
-        <p class="pagina-cabeza__entrada" data-revela>Cuéntanos qué te pasa y cuándo te viene bien. Te respondemos el mismo día laborable con una propuesta de hora.</p>
+        <p class="pagina-cabeza__entrada" data-revela>Cuéntanos qué te pasa y cuándo te viene bien, o escríbenos por correo. Recuerda que es una web de demostración.</p>
       </div>
       <figure class="pagina-cabeza__forma" style="--fondo:var(--campo-3)" data-revela>
         <img src="assets/img/mano.webp" width="400" height="560" alt="Grabado antiguo de los músculos de la mano" fetchpriority="high" decoding="async">
@@ -90,18 +90,18 @@
         <p class="ayuda" id="form-ayuda">Los campos marcados con * son obligatorios. Esta es una web de demostración: el formulario no envía ni guarda nada.</p>
         <div class="campo">
           <label for="c-nombre">Nombre *</label>
-          <input id="c-nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="c-nombre-error">
+          <input id="c-nombre" type="text" autocomplete="name" required aria-describedby="c-nombre-error">
           <p class="error" id="c-nombre-error" data-error-de="c-nombre"></p>
         </div>
         <div class="campo">
           <label for="c-contacto">Teléfono o correo *</label>
-          <input id="c-contacto" name="contacto" type="text" autocomplete="email" required aria-describedby="c-contacto-ayuda c-contacto-error">
-          <p class="ayuda" id="c-contacto-ayuda">Donde prefieras que te respondamos.</p>
+          <input id="c-contacto" type="text" autocomplete="email" required aria-describedby="c-contacto-ayuda c-contacto-error">
+          <p class="ayuda" id="c-contacto-ayuda">El teléfono o el correo que prefieras.</p>
           <p class="error" id="c-contacto-error" data-error-de="c-contacto"></p>
         </div>
         <div class="campo">
           <label for="c-motivo">Motivo</label>
-          <select id="c-motivo" name="motivo" data-motivo-campo>
+          <select id="c-motivo" data-motivo-campo>
             <option value="">Elige la zona o el motivo</option>
                 <option>Zona lumbar</option>
                 <option>Espalda alta</option>
@@ -121,7 +121,7 @@
         </div>
         <div class="campo">
           <label for="c-cuando">Cuándo te viene bien</label>
-          <select id="c-cuando" name="cuando">
+          <select id="c-cuando">
             <option>Por la mañana</option>
             <option>Por la tarde</option>
             <option>Sábado por la mañana</option>
@@ -130,14 +130,17 @@
         </div>
         <div class="campo">
           <label for="c-mensaje">Cuéntanos un poco (opcional)</label>
-          <textarea id="c-mensaje" name="mensaje" rows="4"></textarea>
+          <textarea id="c-mensaje" rows="4"></textarea>
         </div>
         <div class="campo campo--check">
-          <input id="c-privacidad" name="privacidad" type="checkbox" required aria-describedby="c-privacidad-error">
+          <input id="c-privacidad" type="checkbox" required aria-describedby="c-privacidad-error">
           <label for="c-privacidad">He leído la <a class="enlace" href="privacidad.html">política de privacidad</a> *</label>
         </div>
         <p class="error" id="c-privacidad-error" data-error-de="c-privacidad"></p>
-        <button class="cupon__enviar" type="submit">Pedir cita</button>
+        <!-- Desactivado hasta que main.js instala su manejador: sin JS no se envía nada -->
+        <!-- Disabled until main.js installs its handler: without JS nothing is sent -->
+        <button class="cupon__enviar" type="submit" disabled>Pedir cita</button>
+        <noscript><p class="ayuda">Este formulario de demostración necesita JavaScript. Si lo prefieres, escribe a <a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a> (dirección de ejemplo).</p></noscript>
         <p class="estado-envio" role="status" data-estado-envio></p>
       </form>
 

@@ -270,7 +270,7 @@ h1, h2, h3 { font-weight: 500; letter-spacing: -0.025em; line-height: 1.05; text
 .etapa__cuerpo p { grid-column: 1; align-self: end; max-width: 36ch; font-size: var(--paso-cuerpo); }
 .etapa__foto { position: absolute; top: 0; right: 0; bottom: 0; width: 42%; background: var(--fondo-pagina); border-radius: 50% 0 0 0 / 30% 0 0 0; overflow: hidden; }
 .etapa__foto img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
-.etapa.is-abierta .etapa__foto img { animation: deriva 14s var(--ease-soft) both; }
+.etapa.is-abierta .etapa__foto img { animation: deriva 4.5s var(--ease-soft) both; }
 @keyframes deriva { from { transform: scale(1.12) translateY(2%); } to { transform: scale(1) translateY(0); } }
 @media (hover: hover) and (pointer: fine) { .etapa:not(.is-abierta):hover { filter: brightness(1.08); } }
 
@@ -399,7 +399,7 @@ html:not(.js) .etapa__cuerpo { position: static; display: grid; min-width: 0; op
 
   /* El punto elegido late despacio */
   /* The chosen hotspot pulses slowly */
-  .punto.is-activo::after { animation: late 1800ms var(--ease-out) infinite; }
+  .punto.is-activo::after { animation: late 1800ms var(--ease-out) 2; }
   @keyframes late { from { opacity: 0.6; transform: scale(1); } to { opacity: 0; transform: scale(2.6); } }
 
   /* Letras del pie que suben dentro de sus bloques */
@@ -793,3 +793,9 @@ main:focus { outline: none; }
 /* ---------- Sin JS la calculadora no puede calcular: se oculta */
 /* Without JS the calculator cannot calculate: hide it ---------- */
 html:not(.js) .calcula { display: none; }
+
+/* ---------- Movimiento reducido: sin deriva de fotos ni pulsos */
+/* Reduced motion: no photo drift and no pulses ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .etapa__foto img, .punto::after { animation: none !important; }
+}

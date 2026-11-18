@@ -361,7 +361,7 @@
           <button class="etapa__boton" type="button" aria-expanded="false" aria-controls="etapa-5"><span>Alta</span></button>
           <div class="etapa__cuerpo" id="etapa-5">
             <h3 class="etapa__titulo">Alta</h3>
-            <p>Cuando cumples los objetivos que pusimos el primer día, te damos el alta y una pauta corta para seguir por tu cuenta. Si vuelve, nos llamas y te vemos esa semana.</p>
+            <p>Cuando cumples los objetivos que pusimos el primer día, te damos el alta y una pauta corta para seguir por tu cuenta. Si vuelve, puedes pedir cita de nuevo.</p>
             <figure class="etapa__foto"><img src="assets/img/postal-cordoba.webp" width="1600" height="804" alt="Postal antigua de un paseo junto al Guadalquivir en Córdoba" loading="lazy" decoding="async"></figure>
           </div>
         </div>
@@ -456,17 +456,17 @@
       <form class="cupon" data-demo-form novalidate aria-labelledby="cita-titulo">
         <div class="cupon__izq">
           <h2 class="titulo-seccion cupon__titulo" id="cita-titulo" data-revela>Pide tu cita</h2>
-          <p data-revela>Déjanos tu nombre y tu teléfono y te llamamos para darte hora. También puedes escribir a <a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a>. Web de demostración: no se envía nada.</p>
+          <p data-revela>Déjanos tu nombre y tu teléfono para pedir hora. También puedes escribir a <a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a>. Web de demostración: no se envía nada.</p>
         </div>
         <div class="cupon__der">
           <label class="cupon__etiqueta" for="f-nombre">Nombre</label>
-          <input id="f-nombre" name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" required aria-describedby="f-nombre-error">
+          <input id="f-nombre" type="text" autocomplete="name" placeholder="Tu nombre" required aria-describedby="f-nombre-error">
           <p class="error" id="f-nombre-error" data-error-de="f-nombre"></p>
           <label class="cupon__etiqueta" for="f-telefono">Teléfono</label>
-          <input id="f-telefono" name="telefono" type="tel" autocomplete="tel" placeholder="Teléfono" required aria-describedby="f-telefono-error">
+          <input id="f-telefono" type="tel" autocomplete="tel" placeholder="Teléfono" required aria-describedby="f-telefono-error">
           <p class="error" id="f-telefono-error" data-error-de="f-telefono"></p>
           <label class="cupon__etiqueta" for="f-motivo">Motivo</label>
-          <select id="f-motivo" name="motivo" data-motivo-campo>
+          <select id="f-motivo" data-motivo-campo>
             <option value="">¿Qué te pasa? Elige la zona</option>
             <option>Cabeza y mandíbula</option>
             <option>Cuello</option>
@@ -483,14 +483,14 @@
             <option>Bono de cinco sesiones</option>
           </select>
           <label class="cupon__etiqueta" for="f-cuando">Cuándo te viene bien</label>
-          <select id="f-cuando" name="cuando">
+          <select id="f-cuando">
             <option>Por la mañana</option>
             <option>Por la tarde</option>
             <option>Sábado por la mañana</option>
             <option>Me da igual</option>
           </select>
           <button class="cupon__enviar" type="submit" disabled>Pedir cita</button>
-          <noscript><p class="ayuda">Activa JavaScript para probar este formulario de demostración.</p></noscript>
+          <noscript><p class="ayuda">Este formulario de demostración necesita JavaScript. Si lo prefieres, escribe a <a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a> (dirección de ejemplo).</p></noscript>
           <p class="cupon__estado estado-envio" data-estado-envio role="status"></p>
         </div>
       </form>

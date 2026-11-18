@@ -161,9 +161,6 @@
     };
     document.querySelectorAll('[data-demo-form]').forEach(function (form) {
       var estado = form.querySelector('[data-estado-envio]');
-      // Activa el botón (sin JS se queda desactivado: no hay nada que enviar)
-      // Enables the button (without JS it stays disabled: there is nothing to send)
-      form.querySelectorAll('[type="submit"]').forEach(function (b) { b.disabled = false; });
       form.addEventListener('submit', function (ev) {
         ev.preventDefault();
         var primero = null;
@@ -189,6 +186,9 @@
           estado.focus();
         }
       });
+      // Ya hay manejador: ahora sí se habilita el botón (sin JS sigue desactivado)
+      // The handler is in place: only now is the button enabled (without JS it stays disabled)
+      form.querySelectorAll('[type="submit"]').forEach(function (b) { b.disabled = false; });
       // El error se borra en cuanto el campo se rellena / The error clears as soon as the field is filled
       form.addEventListener('input', function (ev) {
         var c = ev.target;
@@ -212,16 +212,23 @@
     var campo = document.querySelector('[data-motivo-campo]');
     var h = window.location.hash;
     if (!campo || h.indexOf('#motivo=') !== 0) return;
-    var motivo = decodeURIComponent(h.slice(8));
-    for (var i = 0; i < campo.options.length; i++) {
-      if (campo.options[i].text === motivo) { campo.selectedIndex = i; break; }
-    }
+    var motivo;
+    // Un fragmento mal codificado se ignora sin romper el resto del arranque
+    // A badly encoded fragment is ignored without breaking the rest of the start-up
+    try { motivo = decodeURIComponent(h.slice(8)); } catch (e) { return; }
+    // Solo se aceptan motivos de la lista propia del formulario
+    // Only reasons from the form's own list are accepted
+    var validos = {};
+    for (var i = 0; i < campo.options.length; i++) { if (campo.options[i].value || campo.options[i].text) validos[campo.options[i].text] = i; }
+    if (!Object.prototype.hasOwnProperty.call(validos, motivo)) return;
+    campo.selectedIndex = validos[motivo];
     var form = document.getElementById('formulario');
     if (form) {
       form.scrollIntoView();
       var n = form.querySelector('input'); if (n) n.focus({ preventScroll: true });
     }
   }
+
 
 
   /* ---------- Menú en móvil ---------- */
@@ -234,7 +241,15 @@
     if (!cab || !boton) return;
     var menu = document.getElementById(boton.getAttribute('aria-controls'));
     function enlaces() { return Array.prototype.slice.call(menu.querySelectorAll('a')); }
+    // Hace inerte (o no) todo lo que no es la cabecera / Makes everything but the header inert (or not)
+    function fondoInerte(si) {
+      Array.prototype.forEach.call(document.body.children, function (el) {
+        if (el === cab || el.tagName === 'SCRIPT') return;
+        if (si) el.setAttribute('inert', ''); else el.removeAttribute('inert');
+      });
+    }
     function abrir() {
+      fondoInerte(true);
       cab.classList.add('is-abierta');
       boton.setAttribute('aria-expanded', 'true');
       boton.textContent = 'Cerrar';
@@ -242,6 +257,7 @@
       var l = enlaces(); if (l[0]) l[0].focus();
     }
     function cerrar(devolverFoco) {
+      fondoInerte(false);
       cab.classList.remove('is-abierta');
       boton.setAttribute('aria-expanded', 'false');
       boton.textContent = 'Menú';
@@ -361,4 +377,7 @@
   prepararMenu();
   prepararCalculadora();
   prepararAbierto();
+  // Se recalcula cada minuto y al volver a la pestaña / Recalculated every minute and on returning to the tab
+  setInterval(prepararAbierto, 60000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) prepararAbierto(); });
 })();
