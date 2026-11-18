@@ -20,7 +20,7 @@ Las imágenes Open Graph de `assets/og/` son capturas de las propias páginas.
 | `assets/img/vertebras-lairesse.webp` | *Cervical, thoracic and lumbar vertebrae* (1739) | Grabado según Gérard de Lairesse; Wellcome Collection | CC BY 4.0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Cervical,_thoracic_and_lumbar_vertebrae._Engraving_after_G._Wellcome_V0007769.jpg) |
 | `assets/img/esqueleto.webp` | *Primae delineationes Tabularum sceleti et musculorum corporis humani* (BPL 1802: 37) | Jan Wandelaar (1692-1759); Biblioteca de la Universidad de Leiden | Dominio público | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Primae_delineationes_Tabularum_sceleti_et_musculorum_corporis_humani_human_skeleton_with_added_abdominal_muscles_of_the_neck_and_back_BPL_1802_37.tiff) |
 | `assets/img/postal-cordoba.webp` | *Córdoba, postal* (años veinte), «Guadalquivir, escena típica» | Lucien Roisin Besnard | Dominio público | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:C%C3%B3rdoba,_postal.jpg) |
-| `assets/favicon.svg`, `assets/favicon-32.png`, `assets/apple-touch-icon.png` | Favicon de La Curva (cuarto de círculo) | Dibujo propio del proyecto | — | — |
+| `assets/favicon.svg`, `assets/favicon-32.png`, `assets/apple-touch-icon.png`, `favicon.ico` | Favicon de La Curva (cuarto de círculo) | Dibujo propio del proyecto | — | — |
 
 Licencia CC BY 4.0: <https://creativecommons.org/licenses/by/4.0/>
 

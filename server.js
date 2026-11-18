@@ -20,7 +20,7 @@ const TIPOS = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.xml': 'application/xml; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg',
-  '.webp': 'image/webp', '.woff2': 'font/woff2'
+  '.webp': 'image/webp', '.woff2': 'font/woff2', '.ico': 'image/x-icon'
 };
 
 /* ---------- Lee _headers (formato de Cloudflare Pages) ---------- */
@@ -88,15 +88,22 @@ http.createServer((req, res) => {
     if (ruta.includes('\0')) { res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' }); res.end('Petición no válida'); return; }
     let fichero = resolver(ruta === '/' ? '/index.html' : ruta);
     let estado = 200;
-    if (!fichero) { fichero = path.join(RAIZ, '404.html'); estado = 404; }
+    // La página 404 pasa por la misma comprobación de ruta real / The 404 page goes through the same real-path check
+    if (!fichero) { fichero = resolver('/404.html'); estado = 404; }
     // Aplica las cabeceras de cada regla que coincida
     // Applies the headers of every matching rule
     for (const r of reglas) if (coincide(r.patron, crudo)) for (const [k, v] of Object.entries(r.cabeceras)) res.setHeader(k, v);
-    res.setHeader('Content-Type', TIPOS[path.extname(fichero).toLowerCase()] || 'application/octet-stream');
-    const flujo = fs.createReadStream(fichero);
-    flujo.on('error', () => { if (!res.headersSent) res.writeHead(500); res.end(); });
-    res.writeHead(estado);
-    flujo.pipe(res);
+    if (!fichero) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); res.end('No encontrado'); return; }
+    // Abre el fichero antes de mandar las cabeceras: si falla, 500 en vez de un 200 vacío
+    // Opens the file before sending the headers: if it fails, 500 instead of an empty 200
+    fs.open(fichero, 'r', (error, fd) => {
+      if (error) { res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' }); res.end('Error interno'); return; }
+      res.setHeader('Content-Type', TIPOS[path.extname(fichero).toLowerCase()] || 'application/octet-stream');
+      res.writeHead(estado);
+      const flujo = fs.createReadStream(fichero, { fd });
+      flujo.on('error', () => res.destroy());
+      flujo.pipe(res);
+    });
   } catch (err) {
     // Cualquier fallo inesperado responde 500 sin tumbar el servidor
     // Any unexpected failure answers 500 without bringing the server down

@@ -274,12 +274,12 @@ h1, h2, h3 { font-weight: 500; letter-spacing: -0.025em; line-height: 1.05; text
 @keyframes deriva { from { transform: scale(1.12) translateY(2%); } to { transform: scale(1) translateY(0); } }
 @media (hover: hover) and (pointer: fine) { .etapa:not(.is-abierta):hover { filter: brightness(1.08); } }
 
-/* Sin JS: las cinco etapas se ven enteras, una debajo de otra */
-/* Without JS: all five stages show in full, one under another */
-html:not(.js) .acordeon { flex-direction: column; height: auto; }
-html:not(.js) .etapa { flex: none; }
-html:not(.js) .etapa__boton { display: none; }
-html:not(.js) .etapa__cuerpo { position: static; display: grid; min-width: 0; opacity: 1; visibility: visible; min-height: 24rem; }
+/* Sin JS (o hasta que main.js pone acordeon-listo): las cinco etapas se ven enteras, una debajo de otra */
+/* Without JS (or until main.js sets acordeon-listo): all five stages show in full, one under another */
+html:not(.acordeon-listo) .acordeon { flex-direction: column; height: auto; }
+html:not(.acordeon-listo) .etapa { flex: none; }
+html:not(.acordeon-listo) .etapa__boton { display: none; }
+html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-width: 0; opacity: 1; visibility: visible; min-height: 24rem; }
 
 /* ---------- BANDA DEL HORARIO */
 /* HOURS BAND ---------- */
@@ -325,8 +325,8 @@ html:not(.js) .etapa__cuerpo { position: static; display: grid; min-width: 0; op
 .tarjeta.is-abierta .tarjeta__pregunta button::after { transform: rotate(180deg); }
 .tarjeta__respuesta { padding: 0 1.75rem 1.75rem; }
 .tarjeta__respuesta p { max-width: 50ch; }
-.js .tarjeta:not(.is-abierta) .tarjeta__respuesta { display: none; }
-.js .tarjeta.is-abierta .tarjeta__respuesta p { animation: zona-entra 420ms var(--ease-out) both; }
+.cajon-listo .tarjeta:not(.is-abierta) .tarjeta__respuesta { display: none; }
+.cajon-listo .tarjeta.is-abierta .tarjeta__respuesta p { animation: zona-entra 420ms var(--ease-out) both; }
 
 /* ---------- CITA: el cupón */
 /* BOOKING: the coupon ---------- */
@@ -367,8 +367,12 @@ html:not(.js) .etapa__cuerpo { position: static; display: grid; min-width: 0; op
 .pie__final { margin-top: 3.5rem; display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; }
 .pie__final p { max-width: 62ch; }
 
-/* ---------- MOVIMIENTO (solo con JS y sin "reducir movimiento") */
-/* MOTION (only with JS and without "reduce motion") ---------- */
+/* ---------- MOVIMIENTO (solo con JS y sin "reducir movimiento"). La carga del héroe va bajo .js
+   (acaba siempre visible); las entradas, bajo .entradas-listas, que pone main.js con el observador
+   ya puesto: si main.js falla, todo se ve */
+/* MOTION (only with JS and without "reduce motion"). The hero load sits under .js (it always ends
+   visible); entrances sit under .entradas-listas, set by main.js once the observer is in place:
+   if main.js fails, everything shows ---------- */
 @media (prefers-reduced-motion: no-preference) {
   /* Carga: el titular sube desde su máscara y la curva entra desde la derecha */
   /* Load: headline rises from its mask, the curve slides in */
@@ -383,19 +387,19 @@ html:not(.js) .etapa__cuerpo { position: static; display: grid; min-width: 0; op
 
   /* Entradas por sección, escalonadas en orden de lectura */
   /* Section entrances, staggered in reading order */
-  .js [data-revela] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out); transition-delay: var(--retardo, 0ms); }
-  .js [data-revela].is-dentro { opacity: 1; transform: none; }
-  .js .ficha[data-revela] .ficha__pieza { clip-path: inset(100% 0 0 0); transition: clip-path 1000ms var(--ease-in-out); transition-delay: var(--retardo, 0ms); }
-  .js .ficha[data-revela].is-dentro .ficha__pieza { clip-path: inset(0); }
+  .entradas-listas [data-revela] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out); transition-delay: var(--retardo, 0ms); }
+  .entradas-listas [data-revela].is-dentro { opacity: 1; transform: none; }
+  .entradas-listas .ficha[data-revela] .ficha__pieza { clip-path: inset(100% 0 0 0); transition: clip-path 1000ms var(--ease-in-out); transition-delay: var(--retardo, 0ms); }
+  .entradas-listas .ficha[data-revela].is-dentro .ficha__pieza { clip-path: inset(0); }
 
   /* Movimiento de firma: la lámina se abre como un obturador */
   /* Signature move: the plate opens like a shutter */
-  .js .obturador { clip-path: inset(0 0 100% 0); transition: clip-path 1100ms var(--ease-in-out); }
-  .js .obturador img { transform: scale(1.12); transition: transform 1500ms var(--ease-soft); }
-  .js .obturador.is-dentro { clip-path: inset(0); }
-  .js .obturador.is-dentro img { transform: none; }
-  .js .obturador .punto { opacity: 0; transform: scale(0.4); transition: opacity 400ms ease, transform 500ms var(--ease-out); transition-delay: calc(900ms + var(--n, 0) * 60ms); }
-  .js .obturador.is-dentro .punto { opacity: 1; transform: none; }
+  .entradas-listas .obturador { clip-path: inset(0 0 100% 0); transition: clip-path 1100ms var(--ease-in-out); }
+  .entradas-listas .obturador img { transform: scale(1.12); transition: transform 1500ms var(--ease-soft); }
+  .entradas-listas .obturador.is-dentro { clip-path: inset(0); }
+  .entradas-listas .obturador.is-dentro img { transform: none; }
+  .entradas-listas .obturador .punto { opacity: 0; transform: scale(0.4); transition: opacity 400ms ease, transform 500ms var(--ease-out); transition-delay: calc(900ms + var(--n, 0) * 60ms); }
+  .entradas-listas .obturador.is-dentro .punto { opacity: 1; transform: none; }
 
   /* El punto elegido late despacio */
   /* The chosen hotspot pulses slowly */
@@ -404,8 +408,8 @@ html:not(.js) .etapa__cuerpo { position: static; display: grid; min-width: 0; op
 
   /* Letras del pie que suben dentro de sus bloques */
   /* Footer letters rising inside their blocks */
-  .js .pie__marca .pie__letra { display: block; transform: translateY(60%); opacity: 0; transition: transform 900ms var(--ease-expo), opacity 500ms ease; transition-delay: calc(var(--n, 0) * 70ms); }
-  .js .pie__marca.is-dentro .pie__letra { transform: none; opacity: 1; }
+  .entradas-listas .pie__marca .pie__letra { display: block; transform: translateY(60%); opacity: 0; transition: transform 900ms var(--ease-expo), opacity 500ms ease; transition-delay: calc(var(--n, 0) * 70ms); }
+  .entradas-listas .pie__marca.is-dentro .pie__letra { transform: none; opacity: 1; }
 
   /* La curva del héroe se mueve con el scroll (sin JS si el navegador lo permite) */
   /* The hero curve moves with scroll */
@@ -525,15 +529,15 @@ html:not(.js) .etapa__cuerpo { position: static; display: grid; min-width: 0; op
 /* ---------- Menú en pantallas estrechas: panel a pantalla completa */
 /* Menu on narrow screens: full-screen panel ---------- */
 @media (max-width: 1000px) {
-  .js .menu-boton { display: inline-flex; align-items: center; }
-  .js .menu { display: none; }
-  .js .cabecera.is-abierta .menu { display: flex; position: fixed; inset: 0; z-index: 7; flex-direction: column; align-items: flex-start; justify-content: center; gap: 0.5rem; padding: 6rem var(--margen) 3rem; background: var(--fondo-pagina); overflow-y: auto; }
-  .js .cabecera.is-abierta .menu a:not(.boton) { font-size: var(--paso-titulo); color: var(--tinta); background: none; }
-  .js .cabecera.is-abierta .menu .boton { margin-top: 1.5rem; }
-  /* Sin JS el menú se queda visible y se reparte en varias líneas */
-  /* Without JS the menu stays visible and wraps */
-  html:not(.js) .cabecera { flex-wrap: wrap; }
-  html:not(.js) .menu { flex-wrap: wrap; }
+  .menu-listo .menu-boton { display: inline-flex; align-items: center; }
+  .menu-listo .menu { display: none; }
+  .menu-listo .cabecera.is-abierta .menu { display: flex; position: fixed; inset: 0; z-index: 7; flex-direction: column; align-items: flex-start; justify-content: center; gap: 0.5rem; padding: 6rem var(--margen) 3rem; background: var(--fondo-pagina); overflow-y: auto; }
+  .menu-listo .cabecera.is-abierta .menu a:not(.boton) { font-size: var(--paso-titulo); color: var(--tinta); background: none; }
+  .menu-listo .cabecera.is-abierta .menu .boton { margin-top: 1.5rem; }
+  /* Sin JS (o hasta que main.js pone menu-listo) el menú se queda visible y se reparte en varias líneas */
+  /* Without JS (or until main.js sets menu-listo) the menu stays visible and wraps */
+  html:not(.menu-listo) .cabecera { flex-wrap: wrap; }
+  html:not(.menu-listo) .menu { flex-wrap: wrap; }
 }
 
 /* ---------- Cabeza de página interior: título, entrada y la curva con su lámina */
@@ -790,9 +794,9 @@ main:focus { outline: none; }
 /* Coupon: visible labels above each field ---------- */
 .cupon__etiqueta { font-size: var(--paso-pequeno); font-weight: 600; margin-top: 0.35rem; }
 
-/* ---------- Sin JS la calculadora no puede calcular: se oculta */
-/* Without JS the calculator cannot calculate: hide it ---------- */
-html:not(.js) .calcula { display: none; }
+/* ---------- Sin JS (o si main.js falla) la calculadora no puede calcular: se oculta hasta que main.js pone calculadora-lista */
+/* Without JS (or if main.js fails) the calculator cannot calculate: hidden until main.js sets calculadora-lista ---------- */
+html:not(.calculadora-lista) .calcula { display: none; }
 
 /* ---------- Movimiento reducido: sin deriva de fotos ni pulsos */
 /* Reduced motion: no photo drift and no pulses ---------- */

@@ -140,7 +140,9 @@
         <!-- Desactivado hasta que main.js instala su manejador: sin JS no se envía nada -->
         <!-- Disabled until main.js installs its handler: without JS nothing is sent -->
         <button class="cupon__enviar" type="submit" disabled>Pedir cita</button>
-        <noscript><p class="ayuda">Este formulario de demostración necesita JavaScript. Si lo prefieres, escribe a <a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a> (dirección de ejemplo).</p></noscript>
+        <!-- Aviso visible por defecto: main.js lo oculta al activar el botón (también sale si el script falla) -->
+        <!-- Note visible by default: main.js hides it when enabling the button (it also shows if the script fails) -->
+        <p class="ayuda" data-aviso-sin-js>Este formulario de demostración necesita JavaScript. Si lo prefieres, escribe a <a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a> (dirección de ejemplo).</p>
         <p class="estado-envio" role="status" data-estado-envio></p>
       </form>
 

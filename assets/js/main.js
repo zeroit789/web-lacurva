@@ -47,7 +47,19 @@
         if (e.isIntersecting) { mostrar(e.target); io.unobserve(e.target); }
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
-    objetivos.forEach(function (el) { io.observe(el); });
+    // Si la página ya se pintó con contenido (el script llegó tarde), lo que está en pantalla se queda
+    // visible y no se vigila, para que no parpadee; si aún no se pintó, todo entra animado como siempre
+    // If the page already painted content (the script arrived late), what is on screen stays visible
+    // and is not watched, so it does not flicker; if nothing was painted yet, everything animates in as usual
+    var pintada = !performance.getEntriesByName || performance.getEntriesByName('first-contentful-paint').length > 0;
+    objetivos.forEach(function (el) {
+      var caja = el.getBoundingClientRect();
+      if (pintada && caja.top < window.innerHeight && caja.bottom > 0) mostrar(el);
+      else io.observe(el);
+    });
+    // Solo ahora, con el observador puesto, el CSS puede ocultar lo que aún no ha entrado
+    // Only now, with the observer in place, may the CSS hide what has not entered yet
+    document.documentElement.classList.add('entradas-listas');
   }
 
   /* ---------- Mapa del dolor ---------- */
@@ -125,6 +137,9 @@
         if (titulo) { titulo.setAttribute('tabindex', '-1'); titulo.focus({ preventScroll: true }); }
       });
     });
+    // Botones listos: el CSS ya puede plegar las etapas (sin esta clase se ven todas enteras)
+    // Buttons ready: the CSS may now fold the stages (without this class they all show in full)
+    document.documentElement.classList.add('acordeon-listo');
   }
 
   /* ---------- Fichas de preguntas ---------- */
@@ -146,6 +161,9 @@
         });
       });
     });
+    // Botones listos: el CSS ya puede ocultar las respuestas cerradas (sin esta clase se ven todas)
+    // Buttons ready: the CSS may now hide closed answers (without this class they all show)
+    document.documentElement.classList.add('cajon-listo');
   }
 
   /* ---------- Formularios de demostración ---------- */
@@ -186,9 +204,12 @@
           estado.focus();
         }
       });
-      // Ya hay manejador: ahora sí se habilita el botón (sin JS sigue desactivado)
-      // The handler is in place: only now is the button enabled (without JS it stays disabled)
+      // Ya hay manejador: ahora sí se habilita el botón (sin JS sigue desactivado) y se oculta el
+      // aviso de «necesita JavaScript», que se ve por defecto
+      // The handler is in place: only now is the button enabled (without JS it stays disabled) and
+      // the "needs JavaScript" note, visible by default, is hidden
       form.querySelectorAll('[type="submit"]').forEach(function (b) { b.disabled = false; });
+      form.querySelectorAll('[data-aviso-sin-js]').forEach(function (p) { p.hidden = true; });
       // El error se borra en cuanto el campo se rellena / The error clears as soon as the field is filled
       form.addEventListener('input', function (ev) {
         var c = ev.target;
@@ -219,7 +240,8 @@
     // Solo se aceptan motivos de la lista propia del formulario
     // Only reasons from the form's own list are accepted
     var validos = {};
-    for (var i = 0; i < campo.options.length; i++) { if (campo.options[i].value || campo.options[i].text) validos[campo.options[i].text] = i; }
+    // La opción de marcador (valor vacío) no cuenta como motivo / The placeholder option (empty value) is not a reason
+    for (var i = 0; i < campo.options.length; i++) { if (campo.options[i].value) validos[campo.options[i].text] = i; }
     if (!Object.prototype.hasOwnProperty.call(validos, motivo)) return;
     campo.selectedIndex = validos[motivo];
     var form = document.getElementById('formulario');
@@ -267,7 +289,14 @@
     boton.addEventListener('click', function () {
       if (cab.classList.contains('is-abierta')) cerrar(true); else abrir();
     });
-    menu.addEventListener('click', function (ev) { if (ev.target.closest('a')) cerrar(false); });
+    // Un clic normal en un enlace cierra el menú; con Ctrl, Mayús, Alt o Cmd (abre otra pestaña o
+    // ventana) el menú se queda abierto para que el foco no acabe en un enlace oculto
+    // A plain click on a link closes the menu; with Ctrl, Shift, Alt or Cmd (opens another tab or
+    // window) the menu stays open so focus does not end up on a hidden link
+    menu.addEventListener('click', function (ev) {
+      if (ev.button !== 0 || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+      if (ev.target.closest('a')) cerrar(false);
+    });
     document.addEventListener('keydown', function (ev) {
       if (!cab.classList.contains('is-abierta')) return;
       if (ev.key === 'Escape') { ev.preventDefault(); cerrar(true); return; }
@@ -278,10 +307,33 @@
       if (ev.shiftKey && idx <= 0) { ev.preventDefault(); orden[orden.length - 1].focus(); }
       else if (!ev.shiftKey && idx === orden.length - 1) { ev.preventDefault(); orden[0].focus(); }
     });
-    // Si la ventana se ensancha con el menú abierto, se cierra / If the window widens with the menu open, close it
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 1000 && cab.classList.contains('is-abierta')) cerrar(false);
+    // Al cruzar el punto de corte (la misma media query que el CSS), el menú abierto se cierra y el
+    // foco nunca se queda en algo oculto: en escritorio el botón desaparece y el foco pasa al primer
+    // enlace; en pantallas estrechas el menú se pliega y el foco pasa al botón.
+    // When crossing the breakpoint (the same media query as the CSS), an open menu closes and focus
+    // never stays on something hidden: on desktop the button disappears and focus moves to the first
+    // link; on narrow screens the menu folds and focus moves to the button.
+    var estrecha = window.matchMedia('(max-width: 1000px)');
+    // El navegador puede quitar el foco de lo que se oculta antes de avisar del cambio (queda en body):
+    // se recuerda el último elemento enfocado; un clic con el puntero lo olvida
+    // The browser may drop focus from what hides before reporting the change (it lands on body): the
+    // last focused element is remembered; a pointer click forgets it
+    var ultimoFoco = null;
+    document.addEventListener('focusin', function (e) { ultimoFoco = e.target; });
+    document.addEventListener('pointerdown', function () { ultimoFoco = null; });
+    estrecha.addEventListener('change', function (m) {
+      var activo = document.activeElement;
+      if (!activo || activo === document.body) activo = ultimoFoco;
+      if (!activo) return;
+      var enMenu = activo === boton || menu.contains(activo);
+      if (!m.matches && cab.classList.contains('is-abierta')) cerrar(false);
+      if (!enMenu || activo.getClientRects().length) return;
+      if (m.matches) boton.focus();
+      else { var l = enlaces(); if (l[0]) l[0].focus(); }
     });
+    // Manejadores listos: ahora el CSS ya puede plegar el menú en pantallas estrechas
+    // Handlers ready: the CSS may now fold the menu on narrow screens
+    document.documentElement.classList.add('menu-listo');
   }
 
   /* ---------- Calculadora de bonos (tarifas.html) ---------- */
@@ -332,6 +384,8 @@
       });
     });
     pintar();
+    // Calculadora conectada: el CSS ya puede mostrarla / Calculator wired: the CSS may now show it
+    document.documentElement.classList.add('calculadora-lista');
   }
 
   /* ---------- Abierto ahora ---------- */
