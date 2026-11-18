@@ -1,0 +1,8 @@
+# robots.txt · La Curva Fisioterapia (web de demostración)
+# robots.txt · La Curva Fisioterapia (demo site)
+# Las páginas llevan "noindex": se pueden rastrear, pero no deben salir en buscadores.
+# Pages carry "noindex": they may be crawled but must not appear in search results.
+User-agent: *
+Allow: /
+
+Sitemap: https://lacurva.danimefle.com/sitemap.xml

@@ -1,0 +1,544 @@
+<!doctype html>
+<!--
+  index.html · Página de ejemplo de La Curva Fisioterapia (clínica ficticia de barrio en Córdoba).
+  index.html · Sample page for La Curva Fisioterapia (a fictional neighbourhood clinic in Córdoba).
+  Una sola página: héroe, presentación, mapa del dolor, tratamientos, cómo va, horario, precios,
+  preguntas, cita y pie. Todo el JS va en ficheros aparte por la CSP (sin scripts en línea).
+  One page: hero, intro, pain map, treatments, how it works, hours, prices, questions, booking and
+  footer. All JS lives in separate files because of the CSP (no inline scripts).
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Curva Fisioterapia · Clínica de fisioterapia en Córdoba</title>
+  <meta name="description" content="Clínica de fisioterapia de barrio en Córdoba: espalda, cuello, lesiones deportivas, suelo pélvico y readaptación. Sesiones de 50 minutos con el mismo fisio.">
+  <!-- Negocio ficticio: que no aparezca en buscadores como si existiera -->
+  <!-- Fictional business: keep it out of search results -->
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://lacurva.danimefle.com/">
+  <meta property="og:url" content="https://lacurva.danimefle.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="La Curva Fisioterapia">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="La Curva Fisioterapia · Clínica de fisioterapia en Córdoba">
+  <meta property="og:description" content="Clínica de fisioterapia de barrio en Córdoba: espalda, cuello, lesiones deportivas, suelo pélvico y readaptación. Sesiones de 50 minutos con el mismo fisio.">
+  <meta property="og:image" content="https://lacurva.danimefle.com/assets/og/portada.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Portada de La Curva Fisioterapia con su curva magenta">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="La Curva Fisioterapia · Clínica de fisioterapia en Córdoba">
+  <meta name="twitter:description" content="Clínica de fisioterapia de barrio en Córdoba: espalda, cuello, lesiones deportivas, suelo pélvico y readaptación. Sesiones de 50 minutos con el mismo fisio.">
+  <meta name="twitter:image" content="https://lacurva.danimefle.com/assets/og/portada.jpg">
+  <meta name="theme-color" content="#f7f7f5">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <!-- Fuente precargada -->
+  <!-- Preloaded font -->
+  <link rel="preload" href="assets/fonts/roundo-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/estilos.css">
+  <!-- Datos estructurados: solo WebSite (la clínica es ficticia) -->
+  <!-- Structured data: WebSite only (the clinic is fictional) -->
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "La Curva Fisioterapia", "url": "https://lacurva.danimefle.com/", "inLanguage": "es", "description": "Web de demostración de una clínica de fisioterapia ficticia."}</script>
+  <!-- Marca la página como "con JS" antes de pintar (fichero externo por la CSP) -->
+  <!-- Flags the page as "JS on" before paint (external file because of the CSP) -->
+  <script src="assets/js/init.js"></script>
+  <script src="assets/js/main.js" defer></script>
+  <!-- Analítica sin cookies (Plausible) -->
+  <!-- Cookieless analytics (Plausible) -->
+  <script defer data-domain="lacurva.danimefle.com" src="https://analytics.danimefle.com/js/script.js"></script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===== CABECERA -->
+  <!-- HEADER ===== -->
+  <header class="cabecera cabecera--portada" data-cabecera>
+    <a class="marca" href="index.html" aria-label="La Curva Fisioterapia, inicio">
+      <span class="marca__forma" aria-hidden="true"></span>
+      <span class="marca__nombre">la curva</span>
+    </a>
+    <!-- Botón del menú en móvil (lo maneja main.js) -->
+    <!-- Phone menu button (handled by main.js) -->
+    <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu" data-menu-boton>Menú</button>
+    <nav aria-label="Principal">
+      <ul class="menu" id="menu">
+        <li><a href="tratamientos.html">Tratamientos</a></li>
+        <li><a href="tarifas.html">Tarifas</a></li>
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a class="boton" href="contacto.html#formulario">Pedir cita</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <section class="heroe" id="inicio" aria-labelledby="titulo-portada">
+      <!-- La curva gigante: el único motivo de la página, en magenta -->
+      <!-- The giant curve: the page's one motif, in magenta -->
+      <div class="heroe__curva" aria-hidden="true"></div>
+
+
+      <div class="heroe__texto">
+        <h1 class="heroe__titulo lineas" id="titulo-portada">
+          <span class="linea"><span data-linea style="--i:0">Fisioterapia</span></span>
+          <span class="linea"><span data-linea style="--i:1">en la Curva</span></span>
+        </h1>
+        <p class="heroe__frase" data-carga style="--d:420ms">Clínica de barrio en Córdoba para la espalda, el cuello, las lesiones deportivas y el suelo pélvico, con sesiones de 50 minutos y siempre el mismo fisio.</p>
+        <a class="boton heroe__boton" data-carga style="--d:520ms" href="#cita">Pedir cita</a>
+          <a class="enlace heroe__enlace" data-carga style="--d:600ms" href="tratamientos.html">Ver tratamientos</a>
+      </div>
+
+      <!-- Aviso vivo: si la clínica está abierta ahora y hasta cuándo (lo calcula main.js) -->
+      <!-- Live note: whether the clinic is open now and until when (main.js works it out) -->
+      <p class="heroe__aviso" data-carga style="--d:700ms">
+        <span class="heroe__estado" data-abierto>Lunes a viernes, mañana y tarde</span>
+        <span>Calle de la Curva, 9 · Córdoba</span>
+      </p>
+    </section>
+
+    <!-- ===== PRESENTACIÓN: frase con miniaturas en línea -->
+    <!-- INTRO: statement with inline thumbnails ===== -->
+    <section class="intro" aria-label="La clínica">
+      <p class="intro__frase" data-revela>
+        Cincuenta minutos con las mismas manos<span class="miniatura"><img src="assets/img/mano.webp" width="400" height="560" alt="Grabado antiguo de los músculos de la mano" loading="lazy" decoding="async"></span>, de la valoración<span class="miniatura"><img src="assets/img/vertebra-lumbar.webp" width="440" height="370" alt="Grabado de una vértebra lumbar" loading="lazy" decoding="async"></span> al alta, en la calle de la Curva de Córdoba<span class="miniatura"><img src="assets/img/postal-cordoba.webp" width="1600" height="804" alt="Postal antigua de Córdoba junto al Guadalquivir" loading="lazy" decoding="async"></span>.
+      </p>
+    </section>
+
+    <!-- ===== MAPA DEL DOLOR: la cosa viva -->
+    <!-- PAIN MAP: the live thing ===== -->
+    <section class="mapa" id="donde" aria-labelledby="mapa-titulo">
+      <div class="mapa__lamina-caja">
+        <!-- Lámina con los puntos: la caja tiene la proporción exacta del recorte para que los % no se muevan -->
+        <!-- Plate with the hotspots: the box keeps the crop's exact ratio so the percentages never drift -->
+        <figure class="mapa__lamina obturador" data-obturador>
+          <img src="assets/img/cuerpo-espalda.webp" width="995" height="1350" alt="Grabado del siglo XVIII de un cuerpo humano visto de espaldas, con los músculos al descubierto" decoding="async">
+          <div class="mapa__puntos" data-puntos>
+            <button class="punto" type="button" data-zona="cabeza" style="--x:36.9%;--y:7%" aria-label="Cabeza y mandíbula"><span class="punto__nombre">Cabeza</span></button>
+            <button class="punto" type="button" data-zona="cuello" style="--x:37.8%;--y:15.6%" aria-label="Cuello"><span class="punto__nombre">Cuello</span></button>
+            <button class="punto" type="button" data-zona="hombro" style="--x:52.5%;--y:20.5%" aria-label="Hombro"><span class="punto__nombre">Hombro</span></button>
+            <button class="punto" type="button" data-zona="dorsal" style="--x:38%;--y:28%" aria-label="Espalda alta"><span class="punto__nombre">Espalda alta</span></button>
+            <button class="punto" type="button" data-zona="codo" style="--x:72.7%;--y:30.3%" aria-label="Codo y muñeca"><span class="punto__nombre">Codo y muñeca</span></button>
+            <button class="punto" type="button" data-zona="lumbar" style="--x:37.8%;--y:40.5%" aria-label="Zona lumbar"><span class="punto__nombre">Lumbar</span></button>
+            <button class="punto" type="button" data-zona="suelo-pelvico" style="--x:37.5%;--y:50%" aria-label="Suelo pélvico"><span class="punto__nombre">Suelo pélvico</span></button>
+            <button class="punto" type="button" data-zona="cadera" style="--x:47.5%;--y:48%" aria-label="Cadera"><span class="punto__nombre">Cadera</span></button>
+            <button class="punto" type="button" data-zona="muslo" style="--x:44.4%;--y:62.4%" aria-label="Muslo e isquiotibiales"><span class="punto__nombre">Muslo</span></button>
+            <button class="punto" type="button" data-zona="rodilla" style="--x:30.3%;--y:70.7%" aria-label="Rodilla"><span class="punto__nombre">Rodilla</span></button>
+            <button class="punto" type="button" data-zona="tobillo" style="--x:33.1%;--y:92%" aria-label="Tobillo y pie"><span class="punto__nombre">Tobillo y pie</span></button>
+          </div>
+        </figure>
+      </div>
+
+      <div class="mapa__texto">
+        <h2 class="titulo-seccion" id="mapa-titulo" data-revela>¿Dónde te duele?</h2>
+        <p class="mapa__intro" data-revela>Marca la zona y te contamos qué solemos tratar, cuántas sesiones calculamos y cuánto cuesta, antes de pedir cita.</p>
+
+        <!-- Lista de zonas: el mismo control que los puntos, cómodo con el pulgar -->
+        <!-- Zone list: same control as the hotspots, thumb-friendly -->
+        <ul class="zonas" aria-label="Zonas del cuerpo" data-revela>
+          <li><button type="button" class="zona-boton" data-zona="cabeza">Cabeza</button></li>
+          <li><button type="button" class="zona-boton" data-zona="cuello">Cuello</button></li>
+          <li><button type="button" class="zona-boton" data-zona="hombro">Hombro</button></li>
+          <li><button type="button" class="zona-boton" data-zona="dorsal">Espalda alta</button></li>
+          <li><button type="button" class="zona-boton" data-zona="codo">Codo y muñeca</button></li>
+          <li><button type="button" class="zona-boton" data-zona="lumbar">Lumbar</button></li>
+          <li><button type="button" class="zona-boton" data-zona="suelo-pelvico">Suelo pélvico</button></li>
+          <li><button type="button" class="zona-boton" data-zona="cadera">Cadera</button></li>
+          <li><button type="button" class="zona-boton" data-zona="muslo">Muslo</button></li>
+          <li><button type="button" class="zona-boton" data-zona="rodilla">Rodilla</button></li>
+          <li><button type="button" class="zona-boton" data-zona="tobillo">Tobillo y pie</button></li>
+        </ul>
+
+        <!-- Resultados: sin JS se ven todos como lista; con JS solo el elegido -->
+        <!-- Results: without JS all show as a list; with JS only the chosen one -->
+        <div class="resultados" aria-live="polite" data-resultados>
+          <article class="zona" data-zona="lumbar">
+            <h3 class="zona__titulo">Zona lumbar</h3>
+            <p class="zona__suele">Lumbalgia, ciática, hernia o protrusión discal, dolor al estar mucho rato sentado o de pie.</p>
+            <p>Te explicamos lo que vemos, trabajamos con terapia manual para moverte con menos molestia y desde la primera semana hacemos ejercicio de fuerza y movimiento.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">4–8</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">160–320</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Zona lumbar">Pedir cita para la lumbar</a>
+          </article>
+          <article class="zona" data-zona="cabeza">
+            <h3 class="zona__titulo">Cabeza y mandíbula</h3>
+            <p class="zona__suele">Dolor de cabeza tensional, bruxismo, chasquido o dolor al abrir la boca.</p>
+            <p>Tratamos cuello y mandíbula juntos con terapia manual y ejercicios sencillos de relajación y control. Si aprietas los dientes de noche, nos coordinamos con tu dentista.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">3–5</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">120–200</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Cabeza y mandíbula">Pedir cita para la cabeza</a>
+          </article>
+          <article class="zona" data-zona="cuello">
+            <h3 class="zona__titulo">Cuello</h3>
+            <p class="zona__suele">Cervicalgia, tortícolis, hormigueo en el brazo, dolor por muchas horas de pantalla.</p>
+            <p>Terapia manual, punción seca si hace falta y ejercicio de control cervical. Revisamos tu puesto de trabajo con una foto que nos traigas.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">3–6</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">120–240</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Cuello">Pedir cita para el cuello</a>
+          </article>
+          <article class="zona" data-zona="hombro">
+            <h3 class="zona__titulo">Hombro</h3>
+            <p class="zona__suele">Tendinopatía del manguito rotador, hombro congelado, dolor al levantar el brazo o dormir de lado.</p>
+            <p>Trabajamos el hombro con carga bien dosificada: ejercicio progresivo, terapia manual para ganar rango y revisiones cada dos semanas.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">6–10</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">240–400</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Hombro">Pedir cita para el hombro</a>
+          </article>
+          <article class="zona" data-zona="dorsal">
+            <h3 class="zona__titulo">Espalda alta</h3>
+            <p class="zona__suele">Dolor entre los omóplatos, rigidez dorsal, molestias al respirar hondo o al girarte.</p>
+            <p>Movilizamos la columna dorsal y las costillas, y te damos dos o tres ejercicios para hacer en el trabajo sin cambiarte de ropa.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">3–5</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">120–200</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Espalda alta">Pedir cita para la espalda</a>
+          </article>
+          <article class="zona" data-zona="codo">
+            <h3 class="zona__titulo">Codo y muñeca</h3>
+            <p class="zona__suele">Epicondilitis (codo de tenista o de pádel), túnel carpiano, tendinitis de muñeca.</p>
+            <p>Ejercicio de carga para el tendón, terapia manual y ajustes en el gesto: la raqueta, el ratón o la forma de coger peso.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">4–8</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">160–320</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Codo y muñeca">Pedir cita para el codo</a>
+          </article>
+          <article class="zona" data-zona="suelo-pelvico">
+            <h3 class="zona__titulo">Suelo pélvico</h3>
+            <p class="zona__suele">Escapes de orina, recuperación tras el parto, dolor pélvico o en las relaciones, sensación de peso.</p>
+            <p>En sala aparte y con la fisioterapeuta de suelo pélvico. Primero hablamos; la valoración interna solo si tú quieres. Puedes venir con tu bebé.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">6–10</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">240–400</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Suelo pélvico">Pedir cita de suelo pélvico</a>
+          </article>
+          <article class="zona" data-zona="cadera">
+            <h3 class="zona__titulo">Cadera</h3>
+            <p class="zona__suele">Dolor en el lateral de la cadera, tendinopatía glútea, artrosis incipiente, chasquidos.</p>
+            <p>Fuerza de glúteo y cadera con progresión semanal, consejos para dormir y subir escaleras con menos molestia, y terapia manual cuando la valoración lo aconseja.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">5–8</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">200–320</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Cadera">Pedir cita para la cadera</a>
+          </article>
+          <article class="zona" data-zona="muslo">
+            <h3 class="zona__titulo">Muslo e isquios</h3>
+            <p class="zona__suele">Rotura fibrilar, sobrecarga de isquiotibiales o cuádriceps, pinchazo al esprintar.</p>
+            <p>Readaptación por fases con pruebas de fuerza antes de volver a correr o a jugar. Te decimos cuándo sí y cuándo todavía no.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">4–8</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">160–320</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Muslo e isquios">Pedir cita para el muslo</a>
+          </article>
+          <article class="zona" data-zona="rodilla">
+            <h3 class="zona__titulo">Rodilla</h3>
+            <p class="zona__suele">Menisco, ligamentos, dolor delante de la rótula, recuperación tras operación de cruzado.</p>
+            <p>Del primer día tras la cirugía a la vuelta al deporte. Medimos fuerza y salto de las dos piernas antes de dar cada paso.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">6–12</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">240–480</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Rodilla">Pedir cita para la rodilla</a>
+          </article>
+          <article class="zona" data-zona="tobillo">
+            <h3 class="zona__titulo">Tobillo y pie</h3>
+            <p class="zona__suele">Esguince, tendón de Aquiles, fascitis plantar, dolor al empezar a caminar por la mañana.</p>
+            <p>Un esguince mal recuperado tiende a repetirse. Trabajamos movilidad, equilibrio y fuerza, y probamos el salto antes de volver al deporte.</p>
+            <dl class="zona__datos">
+              <div><dt>Sesiones</dt><dd><span class="cifra">3–8</span></dd></div>
+              <div><dt>Cada sesión</dt><dd><span class="cifra">50</span> min</dd></div>
+              <div class="zona__total"><dt>Total con bono</dt><dd><span class="cifra">120–320</span> €</dd></div>
+            </dl>
+            <a class="boton" href="#cita" data-motivo="Tobillo y pie">Pedir cita para el tobillo</a>
+          </article>
+        </div>
+        <p class="nota">Son cifras orientativas: la primera sesión, que incluye la valoración, las confirma o las cambia. Esta información no sustituye la valoración de un profesional sanitario.</p>
+      </div>
+    </section>
+
+    <!-- ===== LO QUE TRATAMOS: piezas sobre fichas de color -->
+    <!-- WHAT WE TREAT: specimens on colour tiles ===== -->
+    <section class="tratamos" id="tratamos" aria-labelledby="tratamos-titulo">
+      <div class="tratamos__cabeza">
+        <h2 class="titulo-seccion" id="tratamos-titulo" data-revela>Lo que tratamos</h2>
+        <p data-revela>Cinco consultas que vemos cada semana, y todas con el mismo método: entender, tratar, fortalecer.</p>
+      </div>
+      <ul class="fichas">
+        <li class="ficha" data-revela style="--fondo:var(--campo-3)">
+          <div class="ficha__pieza"><img src="assets/img/ficha-atlas.webp" width="720" height="900" alt="Grabado de la primera vértebra del cuello, el atlas" loading="lazy" decoding="async"></div>
+          <h3 class="ficha__nombre">Cuello y cervicales</h3>
+          <p class="ficha__dato">Cervicalgia, dolor de cabeza tensional y mandíbula.</p>
+        </li>
+        <li class="ficha ficha--doble" data-revela style="--fondo:var(--campo-1)">
+          <div class="ficha__pieza"><img src="assets/img/ficha-pelvis.webp" width="1280" height="800" alt="Grabado de los huesos de la pelvis" loading="lazy" decoding="async"></div>
+          <h3 class="ficha__nombre">Suelo pélvico</h3>
+          <p class="ficha__dato">Posparto, escapes de orina y dolor pélvico, en sala aparte.</p>
+        </li>
+        <li class="ficha" data-revela style="--fondo:var(--campo-2)">
+          <div class="ficha__pieza"><img src="assets/img/ficha-lumbar.webp" width="880" height="1100" alt="Grabado de una vértebra lumbar" loading="lazy" decoding="async"></div>
+          <h3 class="ficha__nombre">Espalda y lumbares</h3>
+          <p class="ficha__dato">Lumbalgia, ciática y hernia, con ejercicio desde el primer día.</p>
+        </li>
+        <li class="ficha" data-revela style="--fondo:var(--campo-3)">
+          <div class="ficha__pieza"><img src="assets/img/ficha-pie.webp" width="960" height="1200" alt="Grabado de los músculos de la planta del pie" loading="lazy" decoding="async"></div>
+          <h3 class="ficha__nombre">Lesiones deportivas</h3>
+          <p class="ficha__dato">Esguinces, roturas fibrilares, tendones y vuelta al deporte.</p>
+        </li>
+        <li class="ficha" data-revela style="--fondo:var(--campo-2)">
+          <div class="ficha__pieza"><img src="assets/img/ficha-piernas.webp" width="992" height="1240" alt="Grabado de las piernas vistas por detrás, con los músculos al descubierto" loading="lazy" decoding="async"></div>
+          <h3 class="ficha__nombre">Readaptación</h3>
+          <p class="ficha__dato">Después de una operación o de una lesión larga, hasta el alta.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== CÓMO VA: acordeón de paneles teñidos -->
+    <!-- HOW IT GOES: accordion of tinted panels ===== -->
+    <section class="como" id="como" aria-labelledby="como-titulo">
+      <div class="como__intro">
+        <h2 class="titulo-seccion" id="como-titulo" data-revela>Cómo va el tratamiento</h2>
+        <p data-revela>Cinco etapas y una persona. El fisio que te valora es el que te trata, el que te manda los ejercicios y el que te da el alta, así nadie te pregunta dos veces lo mismo.</p>
+      </div>
+      <div class="acordeon" data-acordeon>
+        <div class="etapa is-abierta" style="--tinte:#142057;--tinta:#ffffff">
+          <button class="etapa__boton" type="button" aria-expanded="true" aria-controls="etapa-1"><span>Valoración</span></button>
+          <div class="etapa__cuerpo" id="etapa-1">
+            <h3 class="etapa__titulo">Valoración</h3>
+            <p>La primera sesión es más hablar y mirar que tocar: cómo empezó, qué lo empeora, cómo te mueves. Sales con un diagnóstico de fisioterapia y un plan con número de sesiones.</p>
+            <figure class="etapa__foto"><img src="assets/img/esqueleto.webp" width="900" height="1575" alt="Lámina antigua de un esqueleto visto de espaldas" loading="lazy" decoding="async"></figure>
+          </div>
+        </div>
+        <div class="etapa" style="--tinte:#263a8f;--tinta:#ffffff">
+          <button class="etapa__boton" type="button" aria-expanded="false" aria-controls="etapa-2"><span>Tratamiento</span></button>
+          <div class="etapa__cuerpo" id="etapa-2">
+            <h3 class="etapa__titulo">Tratamiento</h3>
+            <p>Terapia manual, ejercicio y, si hace falta, punción seca o electroterapia. En sala cerrada y con una sola persona a la vez, nunca tres camillas con cortina.</p>
+            <figure class="etapa__foto"><img src="assets/img/vertebras-lairesse.webp" width="820" height="1200" alt="Lámina antigua con vértebras cervicales, dorsales y lumbares" loading="lazy" decoding="async"></figure>
+          </div>
+        </div>
+        <div class="etapa" style="--tinte:#4b62c9;--tinta:#ffffff">
+          <button class="etapa__boton" type="button" aria-expanded="false" aria-controls="etapa-3"><span>En casa</span></button>
+          <div class="etapa__cuerpo" id="etapa-3">
+            <h3 class="etapa__titulo">Ejercicio en casa</h3>
+            <p>Te llevas tres o cuatro ejercicios, no veinte. Los grabamos con tu móvil en la consulta para que los repitas igual, y los cambiamos cuando ya te salen fáciles.</p>
+            <figure class="etapa__foto"><img src="assets/img/ficha-piernas.webp" width="992" height="1240" alt="Grabado de las piernas vistas por detrás" loading="lazy" decoding="async"></figure>
+          </div>
+        </div>
+        <div class="etapa" style="--tinte:#97aaf6;--tinta:#000000">
+          <button class="etapa__boton" type="button" aria-expanded="false" aria-controls="etapa-4"><span>Readaptación</span></button>
+          <div class="etapa__cuerpo" id="etapa-4">
+            <h3 class="etapa__titulo">Readaptación</h3>
+            <p>Vuelta poco a poco a lo que hacías: correr, coger a tu hijo en brazos, jugar al pádel. Medimos fuerza y movilidad antes de cada paso para no ir a ciegas.</p>
+            <figure class="etapa__foto"><img src="assets/img/ficha-pie.webp" width="960" height="1200" alt="Grabado de los músculos del pie" loading="lazy" decoding="async"></figure>
+          </div>
+        </div>
+        <div class="etapa" style="--tinte:#cdd6fb;--tinta:#000000">
+          <button class="etapa__boton" type="button" aria-expanded="false" aria-controls="etapa-5"><span>Alta</span></button>
+          <div class="etapa__cuerpo" id="etapa-5">
+            <h3 class="etapa__titulo">Alta</h3>
+            <p>Cuando cumples los objetivos que pusimos el primer día, te damos el alta y una pauta corta para seguir por tu cuenta. Si vuelve, nos llamas y te vemos esa semana.</p>
+            <figure class="etapa__foto"><img src="assets/img/postal-cordoba.webp" width="1600" height="804" alt="Postal antigua de un paseo junto al Guadalquivir en Córdoba" loading="lazy" decoding="async"></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HORARIO: la banda magenta que parte la página -->
+    <!-- HOURS: the magenta band that splits the page ===== -->
+    <section class="banda" id="horario" aria-labelledby="horario-titulo">
+      <div class="banda__dentro">
+        <h2 class="titulo-seccion banda__titulo" id="horario-titulo" data-revela>Mañana y tarde, en la Curva</h2>
+        <dl class="horario" data-revela>
+          <div><dt>Lunes a viernes</dt><dd>8:00 a 14:00 y 16:00 a 21:30</dd></div>
+          <div><dt>Sábados</dt><dd>9:00 a 13:00</dd></div>
+          <div><dt>Dónde</dt><dd>Calle de la Curva, 9, bajo · Córdoba</dd></div>
+          <div><dt>Cómo llegar</dt><dd>A cinco minutos andando del mercado del barrio, con aparcamiento de bicis en la puerta</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===== PRECIOS: dos planes, dos campos de color -->
+    <!-- PRICES: two plans, two colour fields ===== -->
+    <section class="precios" id="precios" aria-labelledby="precios-titulo">
+      <h2 class="titulo-seccion precios__titulo" id="precios-titulo" data-revela>Precios sin letra pequeña</h2>
+      <div class="planes">
+        <article class="plan plan--suelta">
+          <div class="plan__arriba">
+            <h3 class="plan__nombre" data-revela>Sesión suelta</h3>
+            <p class="plan__para" data-revela>Para una molestia concreta o para probar antes de decidir.</p>
+            <p class="plan__incluye" data-revela>La valoración va dentro de la primera visita. Terapia manual, ejercicio y punción seca sin suplementos. Pagas al terminar, en efectivo, con tarjeta o con Bizum.</p>
+          </div>
+          <div class="plan__abajo">
+            <p class="plan__precio" data-revela><span class="cifra">45 €</span> <span class="plan__periodo">la sesión de 50 min</span></p>
+            <a class="boton" href="#cita" data-motivo="Sesión suelta">Reservar una sesión</a>
+          </div>
+        </article>
+        <article class="plan plan--bono">
+          <div class="plan__arriba">
+            <h3 class="plan__nombre" data-revela>Bono de cinco</h3>
+            <p class="plan__para" data-revela>Para tratamientos de varias semanas: espalda, rodilla o posparto.</p>
+            <p class="plan__incluye" data-revela>Sale a 40 € la sesión. Vale seis meses desde el primer día y puedes compartirlo con alguien que viva contigo. Suelo pélvico y readaptación, al mismo precio.</p>
+          </div>
+          <div class="plan__abajo">
+            <p class="plan__precio" data-revela><span class="cifra">200 €</span> <span class="plan__periodo">cinco sesiones</span></p>
+            <a class="boton" href="#cita" data-motivo="Bono de cinco sesiones">Quiero el bono</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== PREGUNTAS: fichas con pestaña, como en un cajón -->
+    <!-- QUESTIONS: tabbed index cards, like a drawer ===== -->
+    <section class="preguntas" id="preguntas" aria-labelledby="preguntas-titulo">
+      <h2 class="titulo-seccion preguntas__titulo" id="preguntas-titulo" data-revela>Antes de venir</h2>
+      <div class="cajon" data-cajon>
+        <div class="tarjeta is-abierta" style="--fondo:var(--campo-3);--paso:0">
+          <span class="tarjeta__pestana" aria-hidden="true">Receta</span>
+          <h3 class="tarjeta__pregunta"><button type="button" aria-expanded="true" aria-controls="r-1">¿Necesito que me mande el médico?</button></h3>
+          <div class="tarjeta__respuesta" id="r-1"><p>No. Puedes venir directamente. Si tienes informes o pruebas, como una resonancia o una radiografía, tráelos a la primera sesión. Si tu seguro te pide la prescripción para devolverte el dinero, te avisamos al darte la cita.</p></div>
+        </div>
+        <div class="tarjeta" style="--fondo:var(--campo-2);--paso:1">
+          <span class="tarjeta__pestana" aria-hidden="true">Seguros</span>
+          <h3 class="tarjeta__pregunta"><button type="button" aria-expanded="false" aria-controls="r-2">¿Trabajáis con mutuas?</button></h3>
+          <div class="tarjeta__respuesta" id="r-2"><p>Somos una clínica privada sin concierto con aseguradoras. Te damos factura a tu nombre de cada sesión o del bono para que la presentes si tu póliza tiene reembolso de gastos.</p></div>
+        </div>
+        <div class="tarjeta" style="--fondo:var(--campo-1);--paso:2">
+          <span class="tarjeta__pestana" aria-hidden="true">Ropa</span>
+          <h3 class="tarjeta__pregunta"><button type="button" aria-expanded="false" aria-controls="r-3">¿Qué me pongo para la sesión?</button></h3>
+          <div class="tarjeta__respuesta" id="r-3"><p>Ropa cómoda con la que puedas moverte. Para espalda o cuello ayuda una camiseta de tirantes. Si se te olvida, tenemos pantalones cortos limpios en la consulta.</p></div>
+        </div>
+        <div class="tarjeta" style="--fondo:var(--campo-3);--paso:3">
+          <span class="tarjeta__pestana" aria-hidden="true">Cancelar</span>
+          <h3 class="tarjeta__pregunta"><button type="button" aria-expanded="false" aria-controls="r-4">¿Y si al final no puedo ir?</button></h3>
+          <div class="tarjeta__respuesta" id="r-4"><p>Avísanos con 24 horas por correo o desde el formulario y cambiamos la cita sin coste. Si no avisas, la sesión se cobra o se descuenta del bono.</p></div>
+        </div>
+        <div class="tarjeta" style="--fondo:var(--campo-2);--paso:4">
+          <span class="tarjeta__pestana" aria-hidden="true">Primera vez</span>
+          <h3 class="tarjeta__pregunta"><button type="button" aria-expanded="false" aria-controls="r-5">¿Cuánto tardo en notar mejora?</button></h3>
+          <div class="tarjeta__respuesta" id="r-5"><p>Depende de cada caso. En la valoración te damos una estimación y la revisamos en la tercera sesión. Si no hay cambios, lo hablamos y, si hace falta, te orientamos hacia tu médico con un informe.</p></div>
+        </div>
+        <div class="tarjeta" style="--fondo:var(--campo-1);--paso:5">
+          <span class="tarjeta__pestana" aria-hidden="true">Pago</span>
+          <h3 class="tarjeta__pregunta"><button type="button" aria-expanded="false" aria-controls="r-6">¿Cómo se paga?</button></h3>
+          <div class="tarjeta__respuesta" id="r-6"><p>Al terminar cada sesión, o el bono entero el primer día. En efectivo, con tarjeta o con Bizum.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CITA: cupón para recortar -->
+    <!-- BOOKING: a coupon to cut out ===== -->
+    <section class="cita" id="cita" aria-labelledby="cita-titulo">
+      <form class="cupon" data-demo-form novalidate aria-labelledby="cita-titulo">
+        <div class="cupon__izq">
+          <h2 class="titulo-seccion cupon__titulo" id="cita-titulo" data-revela>Pide tu cita</h2>
+          <p data-revela>Déjanos tu nombre y tu teléfono y te llamamos para darte hora. También puedes escribir a <a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a>. Web de demostración: no se envía nada.</p>
+        </div>
+        <div class="cupon__der">
+          <label class="cupon__etiqueta" for="f-nombre">Nombre</label>
+          <input id="f-nombre" name="nombre" type="text" autocomplete="name" placeholder="Tu nombre" required aria-describedby="f-nombre-error">
+          <p class="error" id="f-nombre-error" data-error-de="f-nombre"></p>
+          <label class="cupon__etiqueta" for="f-telefono">Teléfono</label>
+          <input id="f-telefono" name="telefono" type="tel" autocomplete="tel" placeholder="Teléfono" required aria-describedby="f-telefono-error">
+          <p class="error" id="f-telefono-error" data-error-de="f-telefono"></p>
+          <label class="cupon__etiqueta" for="f-motivo">Motivo</label>
+          <select id="f-motivo" name="motivo" data-motivo-campo>
+            <option value="">¿Qué te pasa? Elige la zona</option>
+            <option>Cabeza y mandíbula</option>
+            <option>Cuello</option>
+            <option>Hombro</option>
+            <option>Espalda alta</option>
+            <option>Codo y muñeca</option>
+            <option>Zona lumbar</option>
+            <option>Suelo pélvico</option>
+            <option>Cadera</option>
+            <option>Muslo e isquios</option>
+            <option>Rodilla</option>
+            <option>Tobillo y pie</option>
+            <option>Sesión suelta</option>
+            <option>Bono de cinco sesiones</option>
+          </select>
+          <label class="cupon__etiqueta" for="f-cuando">Cuándo te viene bien</label>
+          <select id="f-cuando" name="cuando">
+            <option>Por la mañana</option>
+            <option>Por la tarde</option>
+            <option>Sábado por la mañana</option>
+            <option>Me da igual</option>
+          </select>
+          <button class="cupon__enviar" type="submit" disabled>Pedir cita</button>
+          <noscript><p class="ayuda">Activa JavaScript para probar este formulario de demostración.</p></noscript>
+          <p class="cupon__estado estado-envio" data-estado-envio role="status"></p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- ===== PIE: la marca construida en grande -->
+  <!-- FOOTER: the mark built large ===== -->
+  <footer class="pie" aria-labelledby="pie-titulo">
+    <h2 class="oculto" id="pie-titulo">La Curva Fisioterapia</h2>
+    <div class="pie__marca" aria-hidden="true">
+      <span style="--alto:78%;--fondo:var(--campo-1)"><b class="pie__letra">l</b></span>
+      <span style="--alto:62%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+      <span class="pie__hueco"></span>
+      <span style="--alto:100%;--fondo:var(--acento);--letra:var(--acento-tinta)"><b class="pie__letra">c</b></span>
+      <span style="--alto:86%;--fondo:var(--campo-2)"><b class="pie__letra">u</b></span>
+      <span style="--alto:70%;--fondo:var(--campo-3)"><b class="pie__letra">r</b></span>
+      <span style="--alto:92%;--fondo:var(--campo-1)"><b class="pie__letra">v</b></span>
+      <span style="--alto:66%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+    </div>
+    <div class="pie__columnas">
+      <ul class="pie__lista" aria-label="La clínica">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="tratamientos.html">Tratamientos</a></li>
+        <li><a href="tarifas.html">Tarifas</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Más">
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="creditos.html">Créditos</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Legal">
+        <li><a href="aviso-legal.html">Aviso legal</a></li>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="cookies.html">Cookies</a></li>
+      </ul>
+      <address class="pie__contacto">
+        <p>Calle de la Curva, 9, bajo<br>Córdoba</p>
+        <p><a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a></p>
+      </address>
+    </div>
+    <div class="pie__final">
+      <div>
+        <p class="pie__demo">Marca ficticia. Web de demostración de <a class="enlace" href="https://danimefle.com">danimefle.com</a>.</p>
+        <p>© 2026 La Curva Fisioterapia. La información de esta web es orientativa y no sustituye la valoración de un profesional sanitario. Láminas y fotos: <a class="enlace" href="creditos.html">créditos</a>.</p>
+      </div>
+      <a class="boton boton--pequeno" href="#contenido">Volver arriba</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,795 @@
+/*
+  estilos.css · Hoja de estilos de La Curva Fisioterapia.
+  estilos.css · Stylesheet for La Curva Fisioterapia.
+  Un único motivo manda en toda la página: el cuarto de círculo (la curva de la columna y de la calle).
+  Aparece a varias escalas: la forma gigante del héroe, la banda del horario, la esquina de cada foto
+  y ficha, el botón, la viñeta y los puntos del mapa.
+  One motif runs the whole page: the quarter circle (the curve of the spine and of the street). It shows
+  at several scales: the giant hero shape, the hours band, the corner of every picture and tile, the
+  button, the bullet and the map's hotspots.
+*/
+
+/* ---------- Fuentes locales (Roundo, licencia SIL OFL) */
+/* Local fonts (Roundo, SIL OFL licence) ---------- */
+@font-face { font-family: 'Roundo'; src: url('../fonts/roundo-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Roundo'; src: url('../fonts/roundo-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Roundo'; src: url('../fonts/roundo-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+
+/* ---------- Tokens: color, tipo, espacio y movimiento */
+/* Tokens: colour, type, space and motion ---------- */
+:root {
+  --fondo-pagina: #f7f7f5;
+  --superficie: #ebebe8;
+  --tinta: #000000;
+  --tinta-suave: #5f5f5b;
+  --acento: #d0106f;          /* magenta: el motivo, la marca, el correo y los enlaces */
+  /* magenta: the motif, logo, email and links */
+  --acento-tinta: #ffffff;
+  --campo-1: #97aaf6;         /* bígaro */
+  /* periwinkle */
+  --campo-2: #bbf697;         /* lima */
+  /* lime */
+  --campo-3: #fed878;         /* ámbar */
+  /* amber */
+
+  /* Cinco pasos de tipo */
+  /* Five type steps */
+  --paso-pequeno: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --paso-cuerpo: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --paso-entrada: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --paso-titulo: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --paso-grande: clamp(3rem, 6.4vw, 6.25rem);
+
+  /* Un solo par de márgenes y una separación entre secciones */
+  /* One pair of margins and one section gap */
+  /* Margen con tope de ancho en pantallas grandes */
+  /* Margin with a width cap on large screens */
+  --margen: max(clamp(1rem, 5.5vw, 5.5rem), calc((100vw - 1760px) / 2));
+  --hueco: 1.25rem;
+  --seccion: clamp(4.5rem, 7vw, 7.5rem);
+
+  /* La curva a escala de control: el radio del botón es su altura */
+  /* The curve at control scale: the button radius is its height */
+  --alto-boton: 3.25rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--fondo-pagina); color: var(--tinta);
+  font-family: 'Roundo', system-ui, sans-serif; font-weight: 400; font-size: var(--paso-cuerpo); line-height: 1.5;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
+}
+h1, h2, h3, p, figure, dl, dd, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+button, input, select { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+:target { scroll-margin-top: 2rem; }
+::selection { background: var(--acento); color: var(--acento-tinta); }
+:focus-visible { outline: 3px solid var(--tinta); outline-offset: 3px; }
+h1, h2, h3 { font-weight: 500; letter-spacing: -0.025em; line-height: 1.05; text-wrap: balance; }
+.cifra { font-variant-numeric: tabular-nums; }
+
+/* Texto solo para lectores de pantalla */
+/* Screen-reader-only text */
+.oculto { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.saltar { position: absolute; left: var(--margen); top: -4rem; z-index: 10; background: var(--tinta); color: var(--fondo-pagina); padding: 0.75rem 1rem; }
+.saltar:focus { top: 1rem; }
+
+/* Títulos de sección: un paso, todas iguales */
+/* Section titles: one step, all the same */
+.titulo-seccion { font-size: var(--paso-titulo); }
+
+/* Enlaces de texto en magenta */
+/* Text links in magenta */
+.enlace { color: var(--acento); text-decoration: underline; text-decoration-thickness: 0.07em; text-underline-offset: 0.2em; text-decoration-color: transparent; transition: text-decoration-color var(--t-hover) ease; }
+@media (hover: hover) and (pointer: fine) { .enlace:hover { text-decoration-color: currentColor; } }
+
+/* ---------- El botón: rectángulo con una esquina en cuarto de círculo */
+/* The button: a rectangle with one quarter-circle corner ---------- */
+.boton {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  min-height: var(--alto-boton); padding: 0 1.5rem 0 calc(var(--alto-boton) * 0.75);
+  background: var(--tinta); color: var(--fondo-pagina);
+  font-weight: 500; text-decoration: none;
+  border-radius: var(--alto-boton) 0 0 0;
+  transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease, border-radius var(--t-ui) var(--ease-out);
+}
+.boton:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  /* Al pasar, la curva cambia de esquina: el motivo responde */
+  /* On hover the curve moves corner: the motif answers */
+  .boton:hover { background: var(--acento); border-radius: 0 0 var(--alto-boton) 0; }
+}
+.boton--pequeno { --alto-boton: 2.75rem; font-size: var(--paso-pequeno); }
+
+/* ---------- HÉROE */
+/* HERO ---------- */
+.heroe { position: relative; min-height: 100svh; overflow: clip; display: grid; grid-template-rows: 1fr; padding-top: 5rem; }
+/* La forma gigante: cuadrado de 120vh con la esquina inferior izquierda en cuarto de círculo, centrado
+   cerca del 78 % / 55 % y recortado por arriba, derecha y abajo.
+   The giant shape: a 120vh square whose bottom-left corner is a quarter circle, centred near 78% / 55%,
+   cropped by the top, right and bottom edges. */
+.heroe__curva {
+  position: absolute; z-index: 0;
+  width: 120vh; height: 120vh;
+  left: calc(78vw - 60vh); top: calc(55vh - 60vh);
+  background: var(--acento);
+  border-radius: 0 0 0 100%;
+  transform-origin: 100% 0;
+}
+/* ---------- CABECERA COMÚN: marca, menú y botón de cita */
+/* SHARED HEADER: mark, menu and booking button ---------- */
+.cabecera { position: relative; z-index: 6; display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding: 1.25rem var(--margen); }
+/* En la portada la cabecera flota sobre el héroe */
+/* On the home page the header floats over the hero */
+.cabecera--portada { position: absolute; top: 0; left: 0; right: 0; }
+.marca { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 44px; color: var(--acento); text-decoration: none; font-weight: 600; font-size: var(--paso-entrada); letter-spacing: -0.02em; }
+/* La marca es la curva a escala de letra */
+/* The mark is the curve at letter scale */
+.marca__forma { width: 1.6rem; height: 1.6rem; background: var(--acento); border-radius: 0 0 0 100%; }
+.menu { display: flex; align-items: center; gap: clamp(0.75rem, 2vw, 2rem); }
+.menu a:not(.boton) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.25rem; color: var(--tinta); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.3em; text-decoration-thickness: 0.08em; font-weight: 500; transition: text-decoration-color var(--t-hover) ease; }
+.menu a[aria-current="page"] { text-decoration-color: currentColor; }
+@media (hover: hover) and (pointer: fine) { .menu a:not(.boton):hover { text-decoration-color: currentColor; } }
+/* Sobre la curva magenta de la portada, enlaces claros con su propio fondo magenta */
+/* Over the home page's magenta curve, light links with their own magenta ground */
+.cabecera--portada .menu a:not(.boton) { color: var(--acento-tinta); background: var(--acento); }
+/* El menú de la portada va en una pestaña magenta con la esquina de la curva */
+/* The home page menu sits in a magenta tab with the curve's corner */
+.cabecera--portada nav { background: var(--acento); padding: 0.35rem 0.5rem 0.35rem 1.5rem; border-radius: 0 0 0 2.25rem; }
+.menu .boton { --alto-boton: 2.75rem; }
+/* Botón del menú en móvil: oculto en escritorio */
+/* Phone menu button: hidden on desktop */
+.menu-boton { display: none; min-height: 44px; padding: 0 1rem 0 1.1rem; background: var(--tinta); color: var(--fondo-pagina); font-weight: 600; border-radius: 22px 0 0 0; position: relative; z-index: 8; }
+
+.heroe__texto { position: relative; z-index: 1; align-self: center; padding: 0 var(--margen); max-width: calc(var(--margen) * 2 + min(44vw, 44rem)); }
+.heroe__titulo { font-size: clamp(4rem, 6.4vw, 6.25rem); letter-spacing: -0.03em; line-height: 1; font-weight: 500; }
+.heroe__frase { margin-top: 2.25rem; font-size: var(--paso-entrada); line-height: 1.4; max-width: 30ch; }
+.heroe__boton { margin-top: 2rem; }
+
+/* Aviso dentro de la curva: abierto ahora y dirección, en la tinta clara */
+/* Note inside the curve: open now and address, in light ink */
+.heroe__aviso { position: absolute; z-index: 1; right: var(--margen); top: 54%; background: var(--acento); padding: 0.25rem 0.4rem; color: var(--acento-tinta); text-align: right; display: grid; gap: 0.25rem; }
+.heroe__estado { font-size: var(--paso-entrada); font-weight: 600; }
+
+/* Líneas del titular con máscara */
+/* Masked headline lines */
+.lineas .linea { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+.lineas [data-linea] { display: block; }
+
+/* ---------- PRESENTACIÓN */
+/* INTRO ---------- */
+.intro { padding: calc(var(--seccion) * 0.6) var(--margen) var(--seccion); display: grid; place-items: center; }
+.intro__frase { width: min(64vw, 60rem); text-align: center; font-size: min(var(--paso-titulo), 2.25rem); line-height: 1.22; font-weight: 500; letter-spacing: -0.02em; }
+/* Miniatura en línea con la esquina de la curva */
+/* Inline thumbnail with the curve corner */
+.miniatura { display: inline-block; height: 0.85em; width: 1.25em; margin: 0 0.12em; vertical-align: -0.1em; overflow: hidden; background: var(--campo-3); border-radius: 0.85em 0 0 0; }
+.miniatura img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+.miniatura:nth-of-type(2) { background: var(--campo-2); }
+.miniatura:nth-of-type(3) { background: var(--campo-1); }
+
+/* ---------- MAPA DEL DOLOR */
+/* PAIN MAP ---------- */
+.mapa { padding: 0 var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); align-items: start; }
+.mapa__lamina-caja { grid-column: 1 / span 6; position: sticky; top: 2rem; }
+/* El fondo lima va también aquí: el recorte aísla la mezcla y sin él el papel saldría blanco */
+/* The lime ground sits here too: the clip isolates the blend, so without it the paper would stay white */
+.mapa__lamina { position: relative; aspect-ratio: 995 / 1350; overflow: hidden; background: var(--campo-2); border-radius: 34% 0 0 0 / 25% 0 0 0; max-height: 88vh; margin-right: auto; }
+.mapa__lamina img { width: 100%; height: 100%; object-fit: fill; mix-blend-mode: multiply; }
+.mapa__puntos { position: absolute; inset: 0; }
+/* Punto: zona táctil de 44 px con la curva magenta dentro */
+/* Hotspot: 44px touch target with the magenta curve inside */
+.punto { position: absolute; left: var(--x); top: var(--y); width: 44px; height: 44px; margin: -22px 0 0 -22px; display: grid; place-items: center; }
+.punto::before { content: ''; width: 22px; height: 22px; background: var(--acento); border-radius: 0 0 0 100%; transition: transform var(--t-ui) var(--ease-out), background-color var(--t-hover) ease; }
+.punto::after { content: ''; position: absolute; width: 22px; height: 22px; background: var(--acento); border-radius: 0 0 0 100%; opacity: 0; }
+.punto__nombre { position: absolute; left: 34px; top: 50%; transform: translateY(-50%); white-space: nowrap; background: var(--tinta); color: var(--fondo-pagina); font-size: var(--paso-pequeno); padding: 0.2rem 0.6rem; opacity: 0; pointer-events: none; transition: opacity var(--t-hover) ease; }
+.punto.is-activo::before { background: var(--tinta); transform: scale(1.35); }
+.punto.is-activo .punto__nombre, .punto:focus-visible .punto__nombre { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .punto:hover::before { transform: scale(1.25); }
+  .punto:hover .punto__nombre { opacity: 1; }
+}
+
+.mapa__texto { grid-column: 8 / span 5; padding-top: 2rem; }
+.mapa__intro { margin-top: 1.5rem; max-width: 40ch; }
+.zonas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+/* Botones de zona: la curva a escala pequeña */
+/* Zone buttons: the curve at a small scale */
+.zona-boton { min-height: 44px; padding: 0 1rem 0 1.1rem; background: var(--superficie); border-radius: 22px 0 0 0; font-weight: 500; transition: background-color var(--t-hover) ease, color var(--t-hover) ease, transform var(--t-press) var(--ease-out); }
+.zona-boton:active { transform: scale(0.96); }
+.zona-boton[aria-pressed="true"] { background: var(--tinta); color: var(--fondo-pagina); }
+@media (hover: hover) and (pointer: fine) { .zona-boton:hover { background: var(--campo-2); } .zona-boton[aria-pressed="true"]:hover { background: var(--tinta); } }
+
+.resultados { margin-top: 2.5rem; display: grid; gap: 3rem; }
+.zona { display: grid; gap: 1rem; }
+.zona__titulo { font-size: var(--paso-titulo); }
+.zona__suele { font-weight: 600; }
+.zona p { max-width: 58ch; }
+.zona__datos { display: grid; grid-template-columns: auto auto; justify-content: start; column-gap: 3rem; row-gap: 1rem; margin: 0.75rem 0 1rem; }
+.zona__datos > div { display: flex; flex-direction: column-reverse; gap: 0.35rem; }
+.zona__datos dt { font-size: var(--paso-pequeno); color: var(--tinta-suave); }
+.zona__datos dd { font-size: var(--paso-cuerpo); }
+.zona__datos .cifra { font-size: var(--paso-titulo); font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
+.zona__total { grid-column: 1 / -1; }
+.zona .boton { justify-self: start; }
+.nota { margin-top: 1.5rem; font-size: var(--paso-pequeno); color: var(--tinta-suave); max-width: 46ch; }
+/* Con JS: solo se ve la zona elegida, que entra deslizando */
+/* With JS: only the chosen zone shows, sliding in */
+.js .zona[hidden] { display: none; }
+.js .zona.is-entrando { animation: zona-entra 520ms var(--ease-out) both; }
+@keyframes zona-entra { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* ---------- LO QUE TRATAMOS */
+/* WHAT WE TREAT ---------- */
+.tratamos { padding: 0 var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.tratamos__cabeza { grid-column: 1 / span 3; }
+.tratamos__cabeza p { margin-top: 1.25rem; max-width: 30ch; }
+.fichas { grid-column: 4 / span 9; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.25rem 10px; }
+.ficha--doble { grid-column: span 2; }
+/* Ficha: campo de color con la esquina de la curva; la pieza al 70 % de alto */
+/* Tile: colour field with the curve corner; the specimen at 70% height */
+.ficha__pieza { aspect-ratio: 4 / 5; background: var(--fondo); border-radius: 42% 0 0 0 / 34% 0 0 0; overflow: hidden; }
+.ficha--doble .ficha__pieza { aspect-ratio: 8 / 5; border-radius: 21% 0 0 0 / 34% 0 0 0; }
+.ficha__pieza img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; transition: transform 900ms var(--ease-soft); }
+.ficha__nombre { margin-top: 1rem; font-size: var(--paso-cuerpo); font-weight: 600; letter-spacing: 0; line-height: 1.3; }
+.ficha__dato { margin-top: 0.25rem; color: var(--tinta-suave); max-width: 32ch; }
+@media (hover: hover) and (pointer: fine) { .ficha:hover .ficha__pieza img { transform: scale(1.05); } }
+
+/* ---------- CÓMO VA */
+/* HOW IT GOES ---------- */
+.como { padding: 0 var(--margen) var(--seccion); }
+.como__intro { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); align-items: end; }
+.como__intro h2 { grid-column: 1 / span 5; }
+.como__intro p { grid-column: 7 / span 5; font-size: var(--paso-cuerpo); max-width: 52ch; }
+.acordeon { margin-top: 4rem; display: flex; height: 33rem; border-radius: 12rem 0 0 0; overflow: hidden; }
+/* La primera etapa baja su título para librar la curva de la esquina */
+/* The first stage drops its title clear of the corner curve */
+.etapa:first-child .etapa__cuerpo { padding-top: 6.5rem; }
+.etapa { flex: 0 0 10.5%; background: var(--tinte); color: var(--tinta); position: relative; overflow: hidden; transition: flex-basis 450ms var(--ease-in-out); }
+.etapa.is-abierta { flex-basis: 58%; }
+/* La pestaña vertical: nombre girado leyendo hacia arriba */
+/* The sliver: name rotated reading upward */
+.etapa__boton { position: absolute; inset: 0; z-index: 1; text-align: left; }
+.etapa__boton span { position: absolute; left: calc(1.4rem + 1em); bottom: 1.5rem; transform: rotate(-90deg); transform-origin: left bottom; white-space: nowrap; font-size: var(--paso-entrada); font-weight: 600; display: block; width: max-content; }
+.etapa.is-abierta .etapa__boton { display: none; }
+.etapa__cuerpo { position: absolute; inset: 0; width: 100%; min-width: 34rem; padding: 2.25rem calc(42% + 2.5rem) 2.25rem 2.5rem; display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 1.5rem; opacity: 0; visibility: hidden; transition: opacity 300ms ease; }
+.etapa.is-abierta .etapa__cuerpo { opacity: 1; visibility: visible; transition-delay: 220ms; }
+.etapa__titulo { font-size: var(--paso-titulo); grid-column: 1; }
+.etapa__cuerpo p { grid-column: 1; align-self: end; max-width: 36ch; font-size: var(--paso-cuerpo); }
+.etapa__foto { position: absolute; top: 0; right: 0; bottom: 0; width: 42%; background: var(--fondo-pagina); border-radius: 50% 0 0 0 / 30% 0 0 0; overflow: hidden; }
+.etapa__foto img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+.etapa.is-abierta .etapa__foto img { animation: deriva 14s var(--ease-soft) both; }
+@keyframes deriva { from { transform: scale(1.12) translateY(2%); } to { transform: scale(1) translateY(0); } }
+@media (hover: hover) and (pointer: fine) { .etapa:not(.is-abierta):hover { filter: brightness(1.08); } }
+
+/* Sin JS: las cinco etapas se ven enteras, una debajo de otra */
+/* Without JS: all five stages show in full, one under another */
+html:not(.js) .acordeon { flex-direction: column; height: auto; }
+html:not(.js) .etapa { flex: none; }
+html:not(.js) .etapa__boton { display: none; }
+html:not(.js) .etapa__cuerpo { position: static; display: grid; min-width: 0; opacity: 1; visibility: visible; min-height: 24rem; }
+
+/* ---------- BANDA DEL HORARIO */
+/* HOURS BAND ---------- */
+/* La curva a escala de banda: la esquina superior izquierda es un cuarto de círculo tan alto como la banda */
+/* The curve at band scale: the top-left corner is a quarter circle as tall as the band */
+.banda { margin-bottom: var(--seccion); background: var(--acento); color: var(--acento-tinta); border-radius: min(34rem, 40vw) 0 0 0; }
+.banda__dentro { padding: clamp(5rem, 9vw, 9rem) var(--margen) clamp(4rem, 7vw, 7rem); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.banda__titulo { grid-column: 4 / span 9; max-width: 14ch; }
+.horario { grid-column: 4 / span 9; margin-top: 3rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem var(--hueco); }
+.horario dt { font-weight: 600; }
+.horario dd { font-size: var(--paso-entrada); line-height: 1.3; max-width: 26ch; }
+
+/* ---------- PRECIOS */
+/* PRICES ---------- */
+.precios__titulo { padding: 0 var(--margen); margin-bottom: 3rem; }
+.planes { display: grid; grid-template-columns: 5fr 7fr; }
+.plan { padding: 3rem var(--margen) 3rem 3rem; display: flex; flex-direction: column; justify-content: space-between; gap: 2.5rem; }
+.plan--suelta { background: var(--campo-3); padding-left: var(--margen); border-radius: 9rem 0 0 0; }
+.plan--bono { background: var(--campo-1); }
+.plan__nombre { font-size: var(--paso-titulo); }
+.plan__para { margin-top: 1rem; font-size: var(--paso-entrada); line-height: 1.3; max-width: 26ch; }
+.plan__incluye { margin-top: 1.5rem; max-width: 44ch; }
+.plan__abajo { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; }
+.plan__precio { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+.plan__precio .cifra { font-size: var(--paso-grande); font-weight: 500; letter-spacing: -0.04em; line-height: 0.9; }
+.plan--bono .plan__precio .cifra { font-size: min(calc(var(--paso-grande) * 1.4), 8rem); }
+.plan__periodo { font-size: var(--paso-cuerpo); }
+
+/* ---------- PREGUNTAS */
+/* QUESTIONS ---------- */
+.preguntas { padding: var(--seccion) var(--margen); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.preguntas__titulo { grid-column: 3 / span 8; margin-bottom: 2.5rem; }
+.cajon { grid-column: 3 / span 8; display: grid; }
+/* Ficha con pestaña: la pestaña lleva la curva y se desplaza 150 px por ficha */
+/* Card with a tab: the tab carries the curve and steps 150px right per card */
+.tarjeta { position: relative; background: var(--fondo); margin-top: 40px; }
+.tarjeta__pestana { position: absolute; bottom: 100%; left: calc(var(--paso) * min(150px, 13%)); width: 200px; height: 40px; background: var(--fondo); border-radius: 40px 0 0 0; display: flex; align-items: center; padding-left: 2rem; font-weight: 500; }
+.tarjeta__pregunta { font-size: var(--paso-cuerpo); font-weight: 600; letter-spacing: 0; line-height: 1.3; }
+.tarjeta__pregunta button { width: 100%; min-height: 56px; padding: 0.9rem 1.75rem; text-align: left; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+/* Signo de abrir/cerrar hecho con la curva */
+/* Open/close sign made from the curve */
+.tarjeta__pregunta button::after { content: ''; flex: none; width: 18px; height: 18px; background: var(--tinta); border-radius: 0 0 0 100%; transition: transform var(--t-ui) var(--ease-out); }
+.tarjeta.is-abierta .tarjeta__pregunta button::after { transform: rotate(180deg); }
+.tarjeta__respuesta { padding: 0 1.75rem 1.75rem; }
+.tarjeta__respuesta p { max-width: 50ch; }
+.js .tarjeta:not(.is-abierta) .tarjeta__respuesta { display: none; }
+.js .tarjeta.is-abierta .tarjeta__respuesta p { animation: zona-entra 420ms var(--ease-out) both; }
+
+/* ---------- CITA: el cupón */
+/* BOOKING: the coupon ---------- */
+.cita { padding: 0 var(--margen) calc(var(--seccion) * 0.6); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.cupon { grid-column: 2 / span 10; background: var(--campo-1); display: grid; grid-template-columns: 46fr 54fr; border-radius: 9rem 0 0 0; position: relative; }
+.cupon__izq { padding: 3.5rem 3rem 3rem; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
+.cupon__titulo { max-width: 8ch; }
+.cupon__izq p { max-width: 34ch; }
+.cupon__izq .enlace { color: var(--tinta); text-decoration-color: currentColor; }
+/* Perforación: puntos gruesos del color del fondo de página (dentro del formulario) */
+/* Perforation: thick dots in the page ground colour (inside the form) */
+.cupon__der { padding: 3rem; border-left: 5px dotted var(--fondo-pagina); display: grid; gap: 10px; align-content: center; }
+.cupon input, .cupon select { width: 100%; height: 52px; border: 0; border-radius: 0; background: #c9d3fb; padding: 0 1rem; font-size: var(--paso-cuerpo); color: var(--tinta); appearance: none; }
+.cupon select { background-image: none; }
+.cupon input::placeholder { color: #3a3f55; }
+.cupon input:focus-visible, .cupon select:focus-visible { outline: 3px solid var(--tinta); outline-offset: 0; }
+.cupon__enviar { height: 56px; background: var(--tinta); color: var(--fondo-pagina); font-weight: 600; border-radius: 0 0 56px 0; transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease; }
+.cupon__enviar:active { transform: scale(0.98); }
+@media (hover: hover) and (pointer: fine) { .cupon__enviar:hover { background: var(--acento); } }
+.cupon__estado { min-height: 1.5em; font-size: var(--paso-pequeno); }
+
+/* ---------- PIE */
+/* FOOTER ---------- */
+.pie { padding: 0 var(--margen) 2rem; }
+/* La marca construida con bloques: cada letra sale de su bloque, con la curva arriba */
+/* The mark built from blocks: each letter knocked out of its block, the curve on top */
+.pie__marca { height: clamp(9rem, 15vw, 15rem); display: flex; align-items: flex-end; gap: 4px; }
+.pie__marca span { flex: 1; height: var(--alto); background: var(--fondo); color: var(--letra, var(--tinta)); border-radius: 100% 0 0 0 / 60% 0 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 0.08em; font-size: var(--paso-grande); font-weight: 500; line-height: 1; transform-origin: bottom; }
+.pie__marca .pie__hueco { flex: 0.4; background: none; }
+.pie__letra { font-weight: inherit; }
+.pie__columnas { margin-top: 3.5rem; display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.pie__lista { grid-column: span 2; display: grid; gap: 0.4rem; align-content: start; }
+.pie__lista a { text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .pie__lista a:hover { color: var(--acento); } }
+/* La dirección se alinea al margen derecho y cierra la fila */
+/* The address aligns to the right margin and closes the row */
+.pie__contacto { grid-column: 9 / span 4; font-style: normal; display: grid; gap: 0.75rem; text-align: right; }
+.pie__final { margin-top: 3.5rem; display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; }
+.pie__final p { max-width: 62ch; }
+
+/* ---------- MOVIMIENTO (solo con JS y sin "reducir movimiento") */
+/* MOTION (only with JS and without "reduce motion") ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Carga: el titular sube desde su máscara y la curva entra desde la derecha */
+  /* Load: headline rises from its mask, the curve slides in */
+  .js .heroe [data-linea] { transform: translateY(105%); animation: sube-linea 900ms var(--ease-expo) forwards; animation-delay: calc(120ms + var(--i) * 110ms); }
+  .js .heroe [data-carga] { opacity: 0; transform: translateY(14px); animation: sube 600ms var(--ease-out) forwards; animation-delay: var(--d); }
+  .js .heroe__curva { animation: curva-entra 1300ms var(--ease-expo) both; }
+  .js .cabecera--portada { animation: aparece 600ms ease 200ms both; }
+  @keyframes sube-linea { to { transform: none; } }
+  @keyframes sube { to { opacity: 1; transform: none; } }
+  @keyframes curva-entra { from { transform: translateX(18%) scale(0.92); } to { transform: none; } }
+  @keyframes aparece { from { opacity: 0; } to { opacity: 1; } }
+
+  /* Entradas por sección, escalonadas en orden de lectura */
+  /* Section entrances, staggered in reading order */
+  .js [data-revela] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out); transition-delay: var(--retardo, 0ms); }
+  .js [data-revela].is-dentro { opacity: 1; transform: none; }
+  .js .ficha[data-revela] .ficha__pieza { clip-path: inset(100% 0 0 0); transition: clip-path 1000ms var(--ease-in-out); transition-delay: var(--retardo, 0ms); }
+  .js .ficha[data-revela].is-dentro .ficha__pieza { clip-path: inset(0); }
+
+  /* Movimiento de firma: la lámina se abre como un obturador */
+  /* Signature move: the plate opens like a shutter */
+  .js .obturador { clip-path: inset(0 0 100% 0); transition: clip-path 1100ms var(--ease-in-out); }
+  .js .obturador img { transform: scale(1.12); transition: transform 1500ms var(--ease-soft); }
+  .js .obturador.is-dentro { clip-path: inset(0); }
+  .js .obturador.is-dentro img { transform: none; }
+  .js .obturador .punto { opacity: 0; transform: scale(0.4); transition: opacity 400ms ease, transform 500ms var(--ease-out); transition-delay: calc(900ms + var(--n, 0) * 60ms); }
+  .js .obturador.is-dentro .punto { opacity: 1; transform: none; }
+
+  /* El punto elegido late despacio */
+  /* The chosen hotspot pulses slowly */
+  .punto.is-activo::after { animation: late 1800ms var(--ease-out) infinite; }
+  @keyframes late { from { opacity: 0.6; transform: scale(1); } to { opacity: 0; transform: scale(2.6); } }
+
+  /* Letras del pie que suben dentro de sus bloques */
+  /* Footer letters rising inside their blocks */
+  .js .pie__marca .pie__letra { display: block; transform: translateY(60%); opacity: 0; transition: transform 900ms var(--ease-expo), opacity 500ms ease; transition-delay: calc(var(--n, 0) * 70ms); }
+  .js .pie__marca.is-dentro .pie__letra { transform: none; opacity: 1; }
+
+  /* La curva del héroe se mueve con el scroll (sin JS si el navegador lo permite) */
+  /* The hero curve moves with scroll */
+  @supports (animation-timeline: scroll()) {
+    .banda { animation: banda-scroll linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+    @keyframes banda-scroll { from { border-top-left-radius: min(6rem, 10vw); } to { border-top-left-radius: min(34rem, 40vw); } }
+  }
+}
+
+/* ---------- PANTALLA VERTICAL (tableta y móvil): composición del héroe */
+/* PORTRAIT SCREENS (tablet and phone): hero composition ---------- */
+@media (max-aspect-ratio: 1/1), (max-width: 1000px) {
+  /* La forma pasa abajo: 130vw, centrada, empezando al 56 % de la pantalla */
+  /* The shape moves down: 130vw, centred, from 56% of the screen */
+  .heroe__curva { width: 130vw; height: 130vw; left: -15vw; top: 56svh; border-radius: 100% 0 0 0; transform-origin: 100% 100%; }
+  .heroe__texto { max-width: none; align-self: start; padding-top: 13svh; }
+  .heroe__titulo { font-size: 11.5vw; }
+  .heroe__frase { margin-top: 1.25rem; font-size: var(--paso-cuerpo); max-width: 34ch; }
+  .heroe__boton { margin-top: 1.5rem; }
+  .cabecera--portada .menu a:not(.boton) { color: var(--tinta); background: none; }
+  .cabecera--portada nav { background: none; padding: 0; }
+  .heroe__aviso { top: auto; bottom: 1.5rem; }
+  .intro__frase { width: min(84vw, 60rem); font-size: min(var(--paso-titulo), 1.75rem); }
+}
+
+/* ---------- TABLETA */
+/* TABLET ---------- */
+@media (max-width: 1100px) {
+  /* El acordeón se pone en vertical: barras de 64 px de oscuro a claro */
+  /* The accordion turns vertical: 64px bars from dark to light */
+  .acordeon { flex-direction: column; height: auto; border-radius: 6rem 0 0 0; margin-top: 2.5rem; }
+  .etapa, .etapa.is-abierta { flex: none; }
+  .etapa__boton { position: relative; inset: auto; display: block; width: 100%; height: 64px; }
+  .etapa__boton span { position: static; transform: none; padding: 0 1.25rem; line-height: 64px; font-size: var(--paso-cuerpo); }
+  .etapa.is-abierta .etapa__boton { display: none; }
+  .etapa__cuerpo { position: static; min-width: 0; display: none; grid-template-columns: 1fr; padding: 1.75rem 1.25rem 1.5rem; opacity: 1; visibility: visible; }
+  .etapa.is-abierta .etapa__cuerpo { display: grid; }
+  .etapa:first-child .etapa__cuerpo { padding-top: 3rem; }
+  .etapa__cuerpo { padding-right: 1.25rem; }
+  .etapa__foto { position: static; width: auto; aspect-ratio: 16 / 10; margin: 0.5rem -1.25rem -1.5rem; }
+
+  .tratamos__cabeza { grid-column: 1 / -1; }
+  .fichas { grid-column: 1 / -1; margin-top: 2rem; }
+  .mapa__lamina-caja { grid-column: 1 / span 6; }
+  .mapa__texto { grid-column: 7 / span 6; }
+}
+
+/* ---------- MÓVIL: su propia composición */
+/* PHONE: its own composition ---------- */
+@media (max-width: 760px) {
+  :root { --margen: 1.25rem; --seccion: 6rem; --alto-boton: 3.375rem; }
+
+  .intro { place-items: start; }
+  .intro__frase { width: 100%; text-align: left; font-size: 1.5rem; line-height: 1.25; }
+  .heroe__aviso { display: none; }
+  .intro__frase .miniatura:nth-of-type(3) { display: none; }
+
+  .mapa, .tratamos, .preguntas, .cita { grid-template-columns: 1fr; }
+  .mapa__lamina-caja, .mapa__texto, .tratamos__cabeza, .fichas, .preguntas__titulo, .cajon, .cupon { grid-column: 1 / -1; }
+  .mapa__lamina-caja { position: relative; top: 0; order: 2; margin-top: 2rem; }
+  .mapa__texto { order: 1; padding-top: 0; display: contents; }
+  .mapa__texto > * { grid-column: 1 / -1; }
+  .mapa__texto h2 { order: 0; }
+  .mapa__intro { order: 1; }
+  .mapa__lamina-caja { order: 2; }
+  .zonas { order: 3; }
+  .resultados { order: 4; }
+  .nota { order: 5; }
+  .punto__nombre { display: none; }
+  .punto::before, .punto::after { width: 15px; height: 15px; }
+
+  .fichas { grid-template-columns: 1fr 1fr; gap: 1.75rem 8px; }
+  .ficha--doble { grid-column: 1 / -1; order: -1; }
+  
+  .ficha__dato { font-size: var(--paso-pequeno); }
+
+  .como__intro { grid-template-columns: 1fr; gap: 1.25rem; }
+  .como__intro h2, .como__intro p { grid-column: 1; }
+  
+
+  .banda { border-radius: 9rem 0 0 0; }
+  .banda__titulo, .horario { grid-column: 1 / -1; }
+  .banda__dentro { grid-template-columns: 1fr; }
+  .horario { grid-template-columns: 1fr; gap: 1.25rem; margin-top: 2rem; }
+
+  .planes { grid-template-columns: 1fr; }
+  .plan { padding: 2rem 1.25rem 1.25rem; }
+  .plan--bono { order: -1; border-radius: 8rem 0 0 0; }
+  .plan--suelta { border-radius: 0; }
+  .plan__precio .cifra, .plan--bono .plan__precio .cifra { font-size: 24vw; }
+  .plan__abajo .boton { width: 100%; justify-content: center; }
+
+  .tarjeta__pestana { width: 120px; left: calc(var(--paso) * 48px); padding-left: 1.4rem; font-size: var(--paso-pequeno); }
+  .tarjeta:nth-child(n+5) .tarjeta__pestana { left: calc((var(--paso) - 4) * 48px); }
+  .tarjeta__pregunta button { padding: 0.9rem 1.25rem; }
+  .tarjeta__respuesta { padding: 0 1.25rem 1.25rem; }
+
+  .cita { padding-left: 12px; padding-right: 12px; }
+  .cupon { grid-template-columns: 1fr; border-radius: 6rem 0 0 0; }
+  .cupon__izq { padding: 3rem 1.25rem 1.5rem; }
+  .cupon__der { border-left: 0; border-top: 5px dotted var(--fondo-pagina); padding: 1.5rem 1.25rem 1.5rem; }
+  .cupon input, .cupon select { height: 54px; }
+  .cupon__enviar { height: 54px; }
+
+  .pie__marca { height: 9rem; }
+  .pie__marca span { font-size: 12vw; }
+  .pie__columnas { grid-template-columns: 1fr 1fr; row-gap: 1.75rem; }
+  .pie__lista { grid-column: span 1; }
+  .pie__contacto { grid-column: 1 / -1; }
+  .pie__final { flex-direction: column; align-items: flex-start; }
+}
+
+/* ==========================================================================
+   PÁGINAS INTERIORES / INNER PAGES
+   ========================================================================== */
+
+/* ---------- Menú en pantallas estrechas: panel a pantalla completa */
+/* Menu on narrow screens: full-screen panel ---------- */
+@media (max-width: 1000px) {
+  .js .menu-boton { display: inline-flex; align-items: center; }
+  .js .menu { display: none; }
+  .js .cabecera.is-abierta .menu { display: flex; position: fixed; inset: 0; z-index: 7; flex-direction: column; align-items: flex-start; justify-content: center; gap: 0.5rem; padding: 6rem var(--margen) 3rem; background: var(--fondo-pagina); overflow-y: auto; }
+  .js .cabecera.is-abierta .menu a:not(.boton) { font-size: var(--paso-titulo); color: var(--tinta); background: none; }
+  .js .cabecera.is-abierta .menu .boton { margin-top: 1.5rem; }
+  /* Sin JS el menú se queda visible y se reparte en varias líneas */
+  /* Without JS the menu stays visible and wraps */
+  html:not(.js) .cabecera { flex-wrap: wrap; }
+  html:not(.js) .menu { flex-wrap: wrap; }
+}
+
+/* ---------- Cabeza de página interior: título, entrada y la curva con su lámina */
+/* Inner page head: title, lead and the curve with its plate ---------- */
+.pagina-cabeza { padding: clamp(2rem, 5vw, 4.5rem) var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); align-items: center; }
+.pagina-cabeza__texto { grid-column: 1 / span 7; }
+.pagina-cabeza h1 { font-size: clamp(3rem, 6.4vw, 6.25rem); letter-spacing: -0.03em; line-height: 1; }
+.pagina-cabeza__entrada { margin-top: 1.75rem; font-size: var(--paso-entrada); line-height: 1.4; max-width: 34ch; }
+.pagina-cabeza__acciones { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; }
+/* La curva de la página: cuarto de círculo relleno entero por su lámina */
+/* The page's curve: a quarter circle wholly filled by its plate */
+.pagina-cabeza__forma { grid-column: 9 / span 4; aspect-ratio: 1; background: var(--fondo, var(--campo-2)); border-radius: 100% 0 0 0; overflow: hidden; margin: 0; }
+.pagina-cabeza__forma img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+.pagina-cabeza--sola .pagina-cabeza__texto { grid-column: 1 / span 9; }
+.pagina-cabeza--sola .pagina-cabeza__forma { grid-column: 11 / span 2; background: var(--acento); }
+
+/* ---------- Aviso sanitario */
+/* Health notice ---------- */
+.aviso-salud { margin: 0 var(--margen) var(--seccion); padding: 2rem clamp(1.5rem, 4vw, 3rem); background: var(--superficie); border-radius: 4rem 0 0 0; display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.aviso-salud h2 { grid-column: 1 / span 4; font-size: var(--paso-entrada); line-height: 1.25; }
+.aviso-salud p { grid-column: 5 / span 8; max-width: 62ch; }
+
+/* ---------- TRATAMIENTOS */
+/* TREATMENTS ---------- */
+.trat { padding: 0 var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); align-items: start; }
+.trat__indice { grid-column: 1 / span 3; position: sticky; top: 1.5rem; }
+.trat__indice h2 { font-size: var(--paso-entrada); margin-bottom: 1rem; }
+.trat__indice ul { display: grid; gap: 0.25rem; }
+.trat__indice a { display: flex; align-items: center; gap: 0.6rem; min-height: 40px; text-decoration: none; font-weight: 500; }
+/* Viñeta: la curva a tamaño de texto */
+/* Bullet: the curve at text size */
+.trat__indice a::before, .lista-curva li::before { content: ''; flex: none; width: 0.7em; height: 0.7em; background: var(--acento); border-radius: 0 0 0 100%; }
+@media (hover: hover) and (pointer: fine) { .trat__indice a:hover { text-decoration: underline; text-underline-offset: 0.25em; } }
+.trat__lista { grid-column: 5 / span 8; display: grid; gap: var(--seccion); }
+.tratamiento { display: grid; grid-template-columns: repeat(8, 1fr); gap: 1.25rem var(--hueco); scroll-margin-top: 1.5rem; }
+.tratamiento__lamina { grid-column: 1 / span 3; aspect-ratio: 4 / 5; background: var(--fondo); border-radius: 42% 0 0 0 / 34% 0 0 0; overflow: hidden; margin: 0; }
+.tratamiento__lamina img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+.tratamiento__texto { grid-column: 4 / span 5; display: grid; gap: 1rem; align-content: start; }
+.tratamiento__texto h2 { font-size: var(--paso-titulo); }
+.tratamiento__texto h3 { font-size: var(--paso-cuerpo); font-weight: 600; letter-spacing: 0; margin-top: 0.5rem; }
+.tratamiento__texto p { max-width: 60ch; }
+.datos-linea { display: flex; flex-wrap: wrap; gap: 0.5rem 2.5rem; margin-top: 0.5rem; }
+.datos-linea > div { display: flex; flex-direction: column-reverse; gap: 0.25rem; }
+.datos-linea dt { font-size: var(--paso-pequeno); color: var(--tinta-suave); }
+.datos-linea dd { font-size: var(--paso-entrada); font-weight: 500; }
+.lista-curva { display: grid; gap: 0.5rem; }
+.lista-curva li { display: flex; gap: 0.7rem; align-items: baseline; max-width: 62ch; }
+.lista-curva li::before { transform: translateY(0.05em); }
+
+/* Técnicas: dos columnas de definición sobre un campo de color */
+/* Techniques: two definition columns on a colour field */
+.tecnicas { margin: 0 0 var(--seccion); padding: var(--seccion) var(--margen); background: var(--campo-1); border-radius: min(26rem, 30vw) 0 0 0; display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.tecnicas h2 { grid-column: 1 / span 4; }
+.tecnicas dl { grid-column: 5 / span 8; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem var(--hueco); }
+.tecnicas dt { font-size: var(--paso-entrada); font-weight: 600; margin-bottom: 0.4rem; }
+.tecnicas dd { max-width: 44ch; }
+
+/* ---------- TARIFAS */
+/* PRICES ---------- */
+.tarifas { padding: 0 var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.tarifas h2 { grid-column: 1 / -1; margin-bottom: 1rem; }
+.tabla-caja { grid-column: 1 / -1; overflow-x: auto; }
+.tabla { width: 100%; border-collapse: collapse; font-size: var(--paso-cuerpo); }
+.tabla caption { text-align: left; color: var(--tinta-suave); font-size: var(--paso-pequeno); padding-bottom: 0.75rem; }
+.tabla th, .tabla td { text-align: left; padding: 1rem 1rem 1rem 0; border-bottom: 2px solid var(--superficie); vertical-align: top; }
+.tabla thead th { font-size: var(--paso-pequeno); color: var(--tinta-suave); font-weight: 500; }
+.tabla tbody th { font-weight: 600; }
+.tabla .precio { font-size: var(--paso-entrada); font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Calculadora de bono: campo ámbar con la curva */
+/* Bundle calculator: amber field with the curve */
+.calcula { margin: 0 var(--margen) var(--seccion); padding: clamp(2rem, 5vw, 4.5rem); background: var(--campo-3); border-radius: 12rem 0 0 0; display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); align-items: center; }
+.calcula__texto { grid-column: 1 / span 5; }
+.calcula__texto p { margin-top: 1rem; max-width: 40ch; }
+.calcula__control { grid-column: 7 / span 6; display: grid; gap: 1.25rem; }
+.calcula label { font-weight: 600; }
+.calcula__fila { display: flex; align-items: center; gap: 1rem; }
+.calcula input[type="range"] { flex: 1; accent-color: var(--tinta); min-height: 44px; }
+.paso-boton { width: 44px; height: 44px; background: var(--tinta); color: var(--fondo-pagina); font-size: 1.5rem; line-height: 1; border-radius: 22px 0 0 0; transition: transform var(--t-press) var(--ease-out); }
+.paso-boton:active { transform: scale(0.94); }
+.calcula__cifra { font-size: var(--paso-grande); font-weight: 500; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.calcula output { display: block; }
+.calcula__detalle { max-width: 46ch; }
+
+.condiciones { padding: 0 var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.condiciones h2 { grid-column: 1 / span 4; }
+.condiciones dl { grid-column: 5 / span 8; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem var(--hueco); }
+.condiciones dt { font-weight: 600; margin-bottom: 0.35rem; }
+.condiciones dd { max-width: 46ch; }
+
+/* ---------- SOBRE NOSOTROS */
+/* ABOUT ---------- */
+.historia { padding: 0 var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.historia h2 { grid-column: 1 / span 4; }
+.historia__texto { grid-column: 5 / span 7; display: grid; gap: 1.25rem; }
+.historia__texto p { max-width: 62ch; }
+.historia__texto p:first-child { font-size: var(--paso-entrada); line-height: 1.4; }
+.equipo { padding: 0 var(--margen) var(--seccion); }
+.equipo > h2 { margin-bottom: 2.5rem; }
+.equipo__lista { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem var(--hueco); }
+/* Sin fotos de personas: la inicial en una curva de color */
+/* No photos of people: the initial in a colour curve */
+.persona__inicial { aspect-ratio: 1; display: flex; align-items: flex-end; justify-content: flex-end; padding: 1.5rem 2rem; background: var(--fondo); border-radius: 100% 0 0 0; font-size: var(--paso-grande); font-weight: 500; line-height: 1; }
+.persona h3 { margin-top: 1.25rem; font-size: var(--paso-entrada); }
+.persona p { margin-top: 0.5rem; max-width: 42ch; }
+.valores { margin-bottom: var(--seccion); padding: var(--seccion) var(--margen); background: var(--campo-2); border-radius: min(26rem, 30vw) 0 0 0; display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.valores h2 { grid-column: 1 / span 4; }
+.valores dl { grid-column: 5 / span 8; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem var(--hueco); }
+.valores dt { font-size: var(--paso-entrada); font-weight: 600; margin-bottom: 0.4rem; }
+.valores dd { max-width: 44ch; }
+.lugar { padding: 0 var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); align-items: center; }
+.lugar__foto { grid-column: 1 / span 6; aspect-ratio: 16 / 10; border-radius: 40% 0 0 0 / 60% 0 0 0; overflow: hidden; margin: 0; background: var(--superficie); }
+.lugar__foto img { width: 100%; height: 100%; object-fit: cover; }
+.lugar__texto { grid-column: 8 / span 5; display: grid; gap: 1rem; }
+.lugar__texto p { max-width: 52ch; }
+
+/* ---------- CONTACTO */
+/* CONTACT ---------- */
+.contacto { padding: 0 var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); align-items: start; }
+.formulario { grid-column: 1 / span 6; background: var(--campo-1); padding: clamp(1.75rem, 4vw, 3.5rem); border-radius: 9rem 0 0 0; display: grid; gap: 1rem; }
+.formulario h2 { font-size: var(--paso-titulo); margin-bottom: 0.5rem; }
+.campo { display: grid; gap: 0.35rem; }
+.campo label, .campo legend { font-weight: 600; }
+.campo input, .campo select, .campo textarea { width: 100%; min-height: 52px; border: 0; border-radius: 0; background: #c9d3fb; padding: 0.75rem 1rem; font-size: var(--paso-cuerpo); color: var(--tinta); }
+.campo textarea { min-height: 8rem; resize: vertical; }
+.campo input:focus-visible, .campo select:focus-visible, .campo textarea:focus-visible { outline: 3px solid var(--tinta); outline-offset: 0; }
+.campo--check { display: flex; gap: 0.75rem; align-items: flex-start; }
+.campo--check input { width: 24px; height: 24px; min-height: 0; margin-top: 0.15rem; accent-color: var(--tinta); flex: none; }
+.campo--check label { font-weight: 400; }
+.campo .enlace { color: var(--tinta); text-decoration-color: currentColor; }
+.ayuda { font-size: var(--paso-pequeno); color: #23283b; }
+.error { font-size: var(--paso-pequeno); font-weight: 600; color: #6d0035; background: #fde7f1; padding: 0.15rem 0.5rem; justify-self: start; }
+.error:empty { display: none; }
+.campo [aria-invalid="true"] { outline: 3px solid #6d0035; outline-offset: 0; }
+.formulario .cupon__enviar { margin-top: 0.5rem; }
+.estado-envio { font-weight: 600; }
+.estado-envio:empty { display: none; }
+.estado-envio:not(:empty) { background: var(--fondo-pagina); padding: 1rem 1.25rem; border-radius: 1.5rem 0 0 0; }
+.datos-contacto { grid-column: 8 / span 5; display: grid; gap: 2rem; }
+.datos-contacto h2 { font-size: var(--paso-entrada); margin-bottom: 0.5rem; }
+.datos-contacto dl { display: grid; gap: 0.75rem; }
+.datos-contacto dt { font-size: var(--paso-pequeno); color: var(--tinta-suave); }
+.plano { margin: 0; }
+.plano svg { width: 100%; height: auto; display: block; background: var(--superficie); border-radius: 30% 0 0 0 / 40% 0 0 0; }
+.plano figcaption { margin-top: 0.6rem; font-size: var(--paso-pequeno); color: var(--tinta-suave); }
+
+/* ---------- TEXTO LEGAL Y CRÉDITOS */
+/* LEGAL TEXT AND CREDITS ---------- */
+.prosa { padding: 0 var(--margen) var(--seccion); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--hueco); }
+.prosa__cuerpo { grid-column: 3 / span 8; display: grid; gap: 1rem; }
+.prosa__cuerpo h2 { font-size: var(--paso-entrada); line-height: 1.25; margin-top: 1.75rem; }
+.prosa__cuerpo p, .prosa__cuerpo li { max-width: 60ch; }
+.prosa__cuerpo ul { display: grid; gap: 0.5rem; }
+.prosa__cuerpo .enlace { overflow-wrap: anywhere; }
+.creditos-tabla img { width: 128px; height: 160px; object-fit: cover; background: var(--superficie); border-radius: 64px 0 0 0; }
+
+/* ---------- 404 ---------- */
+.error404 { min-height: 70svh; position: relative; isolation: isolate; overflow: clip; padding: var(--seccion) var(--margen); display: grid; align-content: center; }
+.error404__curva { position: absolute; z-index: -1; right: 0; bottom: 0; width: min(52vw, 44rem); aspect-ratio: 1; background: var(--acento); border-radius: 100% 0 0 0; }
+.error404 h1 { font-size: clamp(3rem, 6.4vw, 6.25rem); letter-spacing: -0.03em; line-height: 1; max-width: 12ch; }
+.error404 p { margin-top: 1.5rem; font-size: var(--paso-entrada); max-width: 34ch; }
+.error404 .pagina-cabeza__acciones { margin-top: 2rem; }
+
+/* ---------- Pie: línea de demostración */
+/* Footer: demo line ---------- */
+.pie__demo { font-size: var(--paso-pequeno); }
+
+/* ---------- Páginas interiores en tableta y móvil */
+/* Inner pages on tablet and phone ---------- */
+@media (max-width: 1000px) {
+  .pagina-cabeza__texto { grid-column: 1 / span 8; }
+  .pagina-cabeza__forma { grid-column: 9 / span 4; }
+  .trat__indice { display: none; }
+  .trat__lista { grid-column: 1 / -1; }
+  .tecnicas h2, .tecnicas dl, .condiciones h2, .condiciones dl, .valores h2, .valores dl, .historia h2, .historia__texto { grid-column: 1 / -1; }
+  .formulario, .datos-contacto { grid-column: 1 / -1; }
+  .datos-contacto { margin-top: 2rem; grid-template-columns: 1fr 1fr; }
+  .plano { grid-column: 1 / -1; }
+  .calcula__texto, .calcula__control { grid-column: 1 / -1; }
+  .lugar__foto, .lugar__texto { grid-column: 1 / -1; }
+  .prosa__cuerpo { grid-column: 1 / -1; }
+  .aviso-salud h2, .aviso-salud p { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .pagina-cabeza { grid-template-columns: 1fr; padding-top: 1rem; }
+  .pagina-cabeza__texto, .pagina-cabeza--sola .pagina-cabeza__texto { grid-column: 1; }
+  .pagina-cabeza__forma { grid-column: 1; width: 62%; justify-self: end; margin-top: 1rem; }
+  .pagina-cabeza--sola .pagina-cabeza__forma { display: none; }
+  .tratamiento { grid-template-columns: 1fr; }
+  .tratamiento__lamina { grid-column: 1; width: 70%; }
+  .tratamiento__texto { grid-column: 1; }
+  .tecnicas dl, .condiciones dl, .valores dl { grid-template-columns: 1fr; }
+  .equipo__lista { grid-template-columns: 1fr; }
+  .persona__inicial { width: 60%; }
+  .datos-contacto { grid-template-columns: 1fr; }
+  .calcula { border-radius: 6rem 0 0 0; }
+  .tabla thead { display: none; }
+  .tabla tr { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 1rem; padding: 1rem 0; border-bottom: 2px solid var(--superficie); }
+  .tabla th, .tabla td { padding: 0; border: 0; }
+  .tabla td.nota { grid-column: 1 / -1; color: var(--tinta-suave); font-size: var(--paso-pequeno); }
+  .tabla td.duracion { grid-column: 1 / -1; font-size: var(--paso-pequeno); }
+  .creditos-tabla tr { grid-template-columns: 72px 1fr; }
+  .creditos-tabla td { grid-column: 2; }
+  .creditos-tabla td:first-child { grid-column: 1; grid-row: 1 / span 4; }
+}
+
+/* ---------- Ajustes de la ronda 3 en la portada */
+/* Round 3 tweaks on the home page ---------- */
+.heroe__enlace { margin-left: 1.5rem; display: inline-flex; align-items: center; min-height: 44px; }
+.cupon .error { justify-self: stretch; }
+.cupon__enviar:disabled { background: #3d3d3a; cursor: not-allowed; }
+
+/* ---------- Tres partes con lámina (tarifas y contacto) */
+/* Three parts with a plate (prices and contact) ---------- */
+.partes { padding: 0 var(--margen) var(--seccion); }
+.partes > h2 { margin-bottom: 2.5rem; }
+.partes__lista { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem var(--hueco); }
+.parte__lamina { aspect-ratio: 4 / 3; background: var(--fondo); border-radius: 50% 0 0 0 / 66% 0 0 0; overflow: hidden; margin: 0; }
+.parte__lamina img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+.parte h3 { margin-top: 1.25rem; font-size: var(--paso-entrada); }
+.parte p { margin-top: 0.5rem; max-width: 40ch; }
+/* Equipo: la lámina de su especialidad en lugar de una foto */
+/* Team: their specialty's plate instead of a photo */
+.persona__lamina { aspect-ratio: 1; background: var(--fondo); border-radius: 100% 0 0 0; overflow: hidden; margin: 0; }
+.persona__lamina img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+@media (max-width: 760px) {
+  .pie__contacto { text-align: left; }
+  .creditos-tabla img { width: 72px; height: 90px; border-radius: 36px 0 0 0; }
+}
+@media (max-width: 760px) {
+  .partes__lista { grid-template-columns: 1fr; }
+  .persona__lamina { width: 70%; }
+}
+
+/* ---------- Encuadre de las láminas altas en piezas apaisadas */
+/* Framing of tall plates in landscape pieces ---------- */
+.parte__lamina img { object-position: 50% 20%; }
+
+/* ---------- Créditos: la columna de la vista no se encoge */
+/* Credits: the preview column does not shrink ---------- */
+.creditos-tabla td:first-child { width: 144px; }
+.creditos-tabla img { max-width: none; }
+@media (max-width: 760px) { .creditos-tabla td:first-child { width: auto; } }
+
+/* ---------- Foco visible dentro de paneles recortados */
+/* Visible focus inside clipped panels ---------- */
+.etapa__boton:focus-visible { outline: 3px solid currentColor; outline-offset: -8px; }
+.ficha__pieza:focus-visible, .zona-boton:focus-visible { outline-offset: 2px; }
+/* El salto a main es programático: sin anillo alrededor de toda la página */
+/* The jump to main is programmatic: no ring around the whole page */
+main:focus { outline: none; }
+
+/* ---------- Cupón: etiquetas visibles encima de cada campo */
+/* Coupon: visible labels above each field ---------- */
+.cupon__etiqueta { font-size: var(--paso-pequeno); font-weight: 600; margin-top: 0.35rem; }
+
+/* ---------- Sin JS la calculadora no puede calcular: se oculta */
+/* Without JS the calculator cannot calculate: hide it ---------- */
+html:not(.js) .calcula { display: none; }

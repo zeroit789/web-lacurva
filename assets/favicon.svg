@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Favicon de La Curva: el cuarto de círculo magenta de la marca -->
+  <!-- La Curva favicon: the brand's magenta quarter circle -->
+  <style>
+    path { fill: #d0106f; }
+    /* En pestañas oscuras, un magenta algo más claro para que destaque */
+    /* On dark tabs, a slightly lighter magenta so it stands out */
+    @media (prefers-color-scheme: dark) { path { fill: #f0429a; } }
+  </style>
+  <path d="M1 1H31V31A30 30 0 0 1 1 1Z"/>
+</svg>

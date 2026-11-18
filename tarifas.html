@@ -1,0 +1,211 @@
+<!doctype html>
+<!--
+  tarifas.html · Tarifas y bonos · La Curva Fisioterapia
+  Página de la web de demostración de La Curva Fisioterapia (marca ficticia).
+  Page of the La Curva Fisioterapia demo site (fictional brand).
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tarifas y bonos · La Curva Fisioterapia</title>
+  <meta name="description" content="Sesiones de 50 minutos a 45 €, bono de cinco a 200 € y de diez a 370 €. Calcula qué te sale mejor y consulta las condiciones.">
+  <!-- Negocio ficticio: que no aparezca en buscadores como si existiera -->
+  <!-- Fictional business: keep it out of search results -->
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://lacurva.danimefle.com/tarifas">
+  <meta property="og:url" content="https://lacurva.danimefle.com/tarifas">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="La Curva Fisioterapia">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Tarifas y bonos · La Curva Fisioterapia">
+  <meta property="og:description" content="Sesiones de 50 minutos a 45 €, bono de cinco a 200 € y de diez a 370 €. Calcula qué te sale mejor y consulta las condiciones.">
+  <meta property="og:image" content="https://lacurva.danimefle.com/assets/og/tarifas.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Página de tarifas de La Curva Fisioterapia">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tarifas y bonos · La Curva Fisioterapia">
+  <meta name="twitter:description" content="Sesiones de 50 minutos a 45 €, bono de cinco a 200 € y de diez a 370 €. Calcula qué te sale mejor y consulta las condiciones.">
+  <meta name="twitter:image" content="https://lacurva.danimefle.com/assets/og/tarifas.jpg">
+  <meta name="theme-color" content="#f7f7f5">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <!-- Fuente precargada -->
+  <!-- Preloaded font -->
+  <link rel="preload" href="assets/fonts/roundo-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/estilos.css">
+  <!-- Marca la página como "con JS" antes de pintar (fichero externo por la CSP) -->
+  <!-- Flags the page as "JS on" before paint (external file because of the CSP) -->
+  <script src="assets/js/init.js"></script>
+  <script src="assets/js/main.js" defer></script>
+  <!-- Analítica sin cookies (Plausible) -->
+  <!-- Cookieless analytics (Plausible) -->
+  <script defer data-domain="lacurva.danimefle.com" src="https://analytics.danimefle.com/js/script.js"></script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===== CABECERA -->
+  <!-- HEADER ===== -->
+  <header class="cabecera" data-cabecera>
+    <a class="marca" href="index.html" aria-label="La Curva Fisioterapia, inicio">
+      <span class="marca__forma" aria-hidden="true"></span>
+      <span class="marca__nombre">la curva</span>
+    </a>
+    <!-- Botón del menú en móvil (lo maneja main.js) -->
+    <!-- Phone menu button (handled by main.js) -->
+    <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu" data-menu-boton>Menú</button>
+    <nav aria-label="Principal">
+      <ul class="menu" id="menu">
+        <li><a href="tratamientos.html">Tratamientos</a></li>
+        <li><a href="tarifas.html" aria-current="page">Tarifas</a></li>
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a class="boton" href="contacto.html#formulario">Pedir cita</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <!-- ===== CABEZA DE PÁGINA -->
+    <!-- PAGE HEAD ===== -->
+    <section class="pagina-cabeza" aria-labelledby="titulo-pagina">
+      <div class="pagina-cabeza__texto">
+        <h1 id="titulo-pagina" data-revela>Tarifas y bonos</h1>
+        <p class="pagina-cabeza__entrada" data-revela>Todas las sesiones duran 50 minutos y cuestan lo mismo, sea el tratamiento que sea. La valoración va dentro de la primera.</p>
+      </div>
+      <figure class="pagina-cabeza__forma" style="--fondo:var(--campo-3)" data-revela>
+        <img src="assets/img/ficha-lumbar.webp" width="880" height="1100" alt="Grabado de una vértebra lumbar" fetchpriority="high" decoding="async">
+      </figure>
+    </section>
+
+    <!-- ===== TABLA DE PRECIOS -->
+    <!-- PRICE TABLE ===== -->
+    <section class="tarifas" aria-labelledby="precios-titulo">
+      <h2 class="titulo-seccion" id="precios-titulo" data-revela>Precios</h2>
+      <div class="tabla-caja" data-revela>
+        <table class="tabla">
+          <caption>Precios con IVA exento (servicios sanitarios). Datos de ejemplo de una clínica ficticia.</caption>
+          <thead>
+            <tr><th scope="col">Qué</th><th scope="col" class="duracion">Duración</th><th scope="col">Precio</th><th scope="col">Detalles</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Primera sesión</th><td class="duracion">50 min</td><td class="precio">45 €</td><td class="nota">Incluye la valoración y el plan de tratamiento.</td></tr>
+            <tr><th scope="row">Sesión de tratamiento</th><td class="duracion">50 min</td><td class="precio">45 €</td><td class="nota">Con el mismo fisio que te valoró.</td></tr>
+            <tr><th scope="row">Sesión de suelo pélvico</th><td class="duracion">50 min</td><td class="precio">45 €</td><td class="nota">En sala aparte, mismo precio que el resto.</td></tr>
+            <tr><th scope="row">Bono de cinco sesiones</th><td class="duracion">5 × 50 min</td><td class="precio">200 €</td><td class="nota">Sale a 40 € la sesión. Válido seis meses.</td></tr>
+            <tr><th scope="row">Bono de diez sesiones</th><td class="duracion">10 × 50 min</td><td class="precio">370 €</td><td class="nota">Sale a 37 € la sesión. Válido doce meses.</td></tr>
+            <tr><th scope="row">Informe para tu médico o tu seguro</th><td class="duracion">·</td><td class="precio">0 €</td><td class="nota">Si estás en tratamiento con nosotros.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ===== QUÉ HAY EN UNA SESIÓN -->
+    <!-- WHAT A SESSION HOLDS ===== -->
+    <section class="partes" aria-labelledby="partes-titulo">
+      <h2 class="titulo-seccion" id="partes-titulo" data-revela>Qué pagas en 50 minutos</h2>
+      <ul class="partes__lista">
+        <li class="parte" data-revela>
+          <figure class="parte__lamina" style="--fondo:var(--campo-1)"><img src="assets/img/esqueleto.webp" width="900" height="1575" alt="Lámina antigua de un esqueleto visto de espaldas" loading="lazy" decoding="async"></figure>
+          <h3>Hablar y revisar</h3>
+          <p>Unos diez minutos para ver cómo ha ido la semana, qué ha cambiado y cómo responde la zona.</p>
+        </li>
+        <li class="parte" data-revela>
+          <figure class="parte__lamina" style="--fondo:var(--campo-2)"><img src="assets/img/cuerpo-espalda.webp" width="995" height="1350" alt="Grabado de la musculatura de la espalda" loading="lazy" decoding="async"></figure>
+          <h3>Tratamiento</h3>
+          <p>Terapia manual y, si toca, punción seca o electroterapia. La parte que más varía de un día a otro.</p>
+        </li>
+        <li class="parte" data-revela>
+          <figure class="parte__lamina" style="--fondo:var(--campo-3)"><img src="assets/img/ficha-piernas.webp" width="992" height="1240" alt="Grabado de las piernas vistas por detrás" loading="lazy" decoding="async"></figure>
+          <h3>Ejercicio</h3>
+          <p>Los ejercicios de la semana, hechos en la sala con el fisio delante, para que en casa te salgan igual.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== CALCULADORA DE BONO: la cosa viva de esta página -->
+    <!-- BUNDLE CALCULATOR: this page's live thing ===== -->
+    <section class="calcula" aria-labelledby="calcula-titulo" data-calculadora>
+      <div class="calcula__texto">
+        <h2 class="titulo-seccion" id="calcula-titulo" data-revela>¿Qué te sale mejor?</h2>
+        <p data-revela>Pon las sesiones que te han calculado en la valoración y te decimos la forma más barata de pagarlas.</p>
+      </div>
+      <div class="calcula__control">
+        <label for="sesiones">Sesiones que necesitas</label>
+        <div class="calcula__fila">
+          <button class="paso-boton" type="button" data-paso="-1" aria-label="Una sesión menos">−</button>
+          <input id="sesiones" type="range" min="1" max="20" value="6" step="1" aria-describedby="calcula-resultado">
+          <button class="paso-boton" type="button" data-paso="1" aria-label="Una sesión más">+</button>
+        </div>
+        <output id="calcula-resultado" for="sesiones" aria-live="polite">
+          <span class="calcula__cifra" data-total>245 €</span>
+          <span class="calcula__detalle" data-detalle>Para 6 sesiones: un bono de cinco y una sesión suelta. Sesión a sesión serían 270 €.</span>
+        </output>
+      </div>
+    </section>
+
+    <!-- ===== CONDICIONES -->
+    <!-- TERMS ===== -->
+    <section class="condiciones" aria-labelledby="condiciones-titulo">
+      <h2 class="titulo-seccion" id="condiciones-titulo" data-revela>Condiciones claras</h2>
+      <dl data-revela>
+        <div><dt>Cancelar o cambiar una cita</dt><dd>Avísanos con 24 horas por correo o desde el formulario y la cambiamos sin coste. Si no avisas, la sesión se cobra o se descuenta del bono.</dd></div>
+        <div><dt>Compartir el bono</dt><dd>Puedes compartirlo con alguien que viva contigo. Cada persona empieza con su propia valoración.</dd></div>
+        <div><dt>Sin permanencia</dt><dd>No hay matrícula ni cuotas. Si dejas el tratamiento con sesiones sin usar, te devolvemos la parte proporcional a precio de sesión suelta.</dd></div>
+        <div><dt>Cómo pagar</dt><dd>Al terminar cada sesión, o el bono entero el primer día. En efectivo, con tarjeta o con Bizum.</dd></div>
+        <div><dt>Facturas</dt><dd>Te damos factura a tu nombre de cada sesión o del bono, por si tu seguro tiene reembolso de gastos.</dd></div>
+        <div><dt>Mutuas y seguros</dt><dd>Somos una clínica privada sin concierto con aseguradoras. Pregunta a tu seguro si cubre reembolso de fisioterapia.</dd></div>
+      </dl>
+    </section>
+  </main>
+
+  <!-- ===== PIE: la marca construida en grande -->
+  <!-- FOOTER: the mark built large ===== -->
+  <footer class="pie" aria-labelledby="pie-titulo">
+    <h2 class="oculto" id="pie-titulo">La Curva Fisioterapia</h2>
+    <div class="pie__marca" aria-hidden="true">
+      <span style="--alto:78%;--fondo:var(--campo-1)"><b class="pie__letra">l</b></span>
+      <span style="--alto:62%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+      <span class="pie__hueco"></span>
+      <span style="--alto:100%;--fondo:var(--acento);--letra:var(--acento-tinta)"><b class="pie__letra">c</b></span>
+      <span style="--alto:86%;--fondo:var(--campo-2)"><b class="pie__letra">u</b></span>
+      <span style="--alto:70%;--fondo:var(--campo-3)"><b class="pie__letra">r</b></span>
+      <span style="--alto:92%;--fondo:var(--campo-1)"><b class="pie__letra">v</b></span>
+      <span style="--alto:66%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+    </div>
+    <div class="pie__columnas">
+      <ul class="pie__lista" aria-label="La clínica">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="tratamientos.html">Tratamientos</a></li>
+        <li><a href="tarifas.html">Tarifas</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Más">
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="creditos.html">Créditos</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Legal">
+        <li><a href="aviso-legal.html">Aviso legal</a></li>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="cookies.html">Cookies</a></li>
+      </ul>
+      <address class="pie__contacto">
+        <p>Calle de la Curva, 9, bajo<br>Córdoba</p>
+        <p><a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a></p>
+      </address>
+    </div>
+    <div class="pie__final">
+      <div>
+        <p class="pie__demo">Marca ficticia. Web de demostración de <a class="enlace" href="https://danimefle.com">danimefle.com</a>.</p>
+        <p>© 2026 La Curva Fisioterapia. La información de esta web es orientativa y no sustituye la valoración de un profesional sanitario. Láminas y fotos: <a class="enlace" href="creditos.html">créditos</a>.</p>
+      </div>
+      <a class="boton boton--pequeno" href="#contenido">Volver arriba</a>
+    </div>
+  </footer>
+</body>
+</html>

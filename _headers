@@ -1,0 +1,18 @@
+# _headers · Cabeceras de seguridad para Cloudflare Pages
+# _headers · Security headers for Cloudflare Pages
+# La CSP solo deja cargar lo propio y la analítica de analytics.danimefle.com.
+# The CSP only allows the site's own files and the analytics at analytics.danimefle.com.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://analytics.danimefle.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self' https://analytics.danimefle.com; frame-ancestors 'self' https://danimefle.com; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  X-Robots-Tag: noindex, follow
+
+# Las fuentes y las imágenes no cambian a menudo: caché larga
+# Fonts and images rarely change: long cache
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/img/*
+  Cache-Control: public, max-age=2592000

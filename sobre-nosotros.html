@@ -1,0 +1,189 @@
+<!doctype html>
+<!--
+  sobre-nosotros.html · Sobre nosotros · La Curva Fisioterapia
+  Página de la web de demostración de La Curva Fisioterapia (marca ficticia).
+  Page of the La Curva Fisioterapia demo site (fictional brand).
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sobre nosotros · La Curva Fisioterapia</title>
+  <meta name="description" content="Una clínica de fisioterapia de barrio en Córdoba: por qué se llama así, quiénes somos, cómo trabajamos y cómo es el sitio.">
+  <!-- Negocio ficticio: que no aparezca en buscadores como si existiera -->
+  <!-- Fictional business: keep it out of search results -->
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://lacurva.danimefle.com/sobre-nosotros">
+  <meta property="og:url" content="https://lacurva.danimefle.com/sobre-nosotros">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="La Curva Fisioterapia">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Sobre nosotros · La Curva Fisioterapia">
+  <meta property="og:description" content="Una clínica de fisioterapia de barrio en Córdoba: por qué se llama así, quiénes somos, cómo trabajamos y cómo es el sitio.">
+  <meta property="og:image" content="https://lacurva.danimefle.com/assets/og/sobre-nosotros.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Página Sobre nosotros de La Curva Fisioterapia">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sobre nosotros · La Curva Fisioterapia">
+  <meta name="twitter:description" content="Una clínica de fisioterapia de barrio en Córdoba: por qué se llama así, quiénes somos, cómo trabajamos y cómo es el sitio.">
+  <meta name="twitter:image" content="https://lacurva.danimefle.com/assets/og/sobre-nosotros.jpg">
+  <meta name="theme-color" content="#f7f7f5">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <!-- Fuente precargada -->
+  <!-- Preloaded font -->
+  <link rel="preload" href="assets/fonts/roundo-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/estilos.css">
+  <!-- Marca la página como "con JS" antes de pintar (fichero externo por la CSP) -->
+  <!-- Flags the page as "JS on" before paint (external file because of the CSP) -->
+  <script src="assets/js/init.js"></script>
+  <script src="assets/js/main.js" defer></script>
+  <!-- Analítica sin cookies (Plausible) -->
+  <!-- Cookieless analytics (Plausible) -->
+  <script defer data-domain="lacurva.danimefle.com" src="https://analytics.danimefle.com/js/script.js"></script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===== CABECERA -->
+  <!-- HEADER ===== -->
+  <header class="cabecera" data-cabecera>
+    <a class="marca" href="index.html" aria-label="La Curva Fisioterapia, inicio">
+      <span class="marca__forma" aria-hidden="true"></span>
+      <span class="marca__nombre">la curva</span>
+    </a>
+    <!-- Botón del menú en móvil (lo maneja main.js) -->
+    <!-- Phone menu button (handled by main.js) -->
+    <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu" data-menu-boton>Menú</button>
+    <nav aria-label="Principal">
+      <ul class="menu" id="menu">
+        <li><a href="tratamientos.html">Tratamientos</a></li>
+        <li><a href="tarifas.html">Tarifas</a></li>
+        <li><a href="sobre-nosotros.html" aria-current="page">Sobre nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a class="boton" href="contacto.html#formulario">Pedir cita</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <!-- ===== CABEZA DE PÁGINA -->
+    <!-- PAGE HEAD ===== -->
+    <section class="pagina-cabeza" aria-labelledby="titulo-pagina">
+      <div class="pagina-cabeza__texto">
+        <h1 id="titulo-pagina" data-revela>Sobre nosotros</h1>
+        <p class="pagina-cabeza__entrada" data-revela>Una clínica pequeña en un bajo de la calle de la Curva, en Córdoba. Tres fisios, tres salas y una forma de trabajar.</p>
+      </div>
+      <figure class="pagina-cabeza__forma" style="--fondo:var(--campo-1)" data-revela>
+        <img src="assets/img/postal-cordoba.webp" width="1600" height="804" alt="Postal antigua de un paseo junto al Guadalquivir en Córdoba" fetchpriority="high" decoding="async">
+      </figure>
+    </section>
+
+    <!-- ===== HISTORIA -->
+    <!-- STORY ===== -->
+    <section class="historia" aria-labelledby="historia-titulo">
+      <h2 class="titulo-seccion" id="historia-titulo" data-revela>Por qué la Curva</h2>
+      <div class="historia__texto">
+        <p data-revela>El nombre viene de la calle, que hace una curva justo delante de la puerta, y de la espalda, que también tiene las suyas y funciona mejor cuando las conserva.</p>
+        <p data-revela>Abrimos en 2019 en el bajo de una antigua mercería del barrio. Veníamos de clínicas donde cada fisio llevaba a tres pacientes a la vez, con sesiones de veinte minutos y una máquina detrás de cada cortina. Queríamos lo contrario: una persona, una sala cerrada y cincuenta minutos.</p>
+        <p data-revela>La mayoría de la gente que viene vive o trabaja a pocas calles. Por eso los horarios llegan hasta las nueve y media de la noche y abrimos los sábados por la mañana.</p>
+      </div>
+    </section>
+
+    <!-- ===== EQUIPO (sin fotos: iniciales sobre la curva) -->
+    <!-- TEAM (no photos: initials on the curve) ===== -->
+    <section class="equipo" aria-labelledby="equipo-titulo">
+      <h2 class="titulo-seccion" id="equipo-titulo" data-revela>Quiénes somos</h2>
+      <ul class="equipo__lista">
+        <li class="persona" data-revela>
+          <figure class="persona__lamina" style="--fondo:var(--campo-2)"><img src="assets/img/ficha-lumbar.webp" width="880" height="1100" alt="Grabado de una vértebra lumbar" loading="lazy" decoding="async"></figure>
+          <h3>Lucía</h3>
+          <p>Fisioterapeuta. Lleva sobre todo espalda, cuello y lesiones deportivas. Corre los domingos por la ribera y entiende bien a quien no quiere parar.</p>
+        </li>
+        <li class="persona" data-revela>
+          <figure class="persona__lamina" style="--fondo:var(--campo-3)"><img src="assets/img/ficha-piernas.webp" width="992" height="1240" alt="Grabado de las piernas vistas por detrás" loading="lazy" decoding="async"></figure>
+          <h3>Andrés</h3>
+          <p>Fisioterapeuta. Se ocupa de la readaptación y de los posoperatorios de rodilla, cadera y hombro, en coordinación con el traumatólogo de cada paciente.</p>
+        </li>
+        <li class="persona" data-revela>
+          <figure class="persona__lamina" style="--fondo:var(--campo-1)"><img src="assets/img/ficha-pelvis.webp" width="1280" height="800" alt="Grabado de los huesos de la pelvis" loading="lazy" decoding="async"></figure>
+          <h3>Marta</h3>
+          <p>Fisioterapeuta de suelo pélvico. Atiende en la sala aparte, con tiempo para hablar antes de hacer nada, y se coordina con matronas y ginecólogas.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== VALORES -->
+    <!-- VALUES ===== -->
+    <section class="valores" aria-labelledby="valores-titulo">
+      <h2 class="titulo-seccion" id="valores-titulo" data-revela>Cómo trabajamos</h2>
+      <dl data-revela>
+        <div><dt>Una persona de principio a fin</dt><dd>El fisio que te valora es el que te trata y el que te da el alta. No tienes que contar tu historia dos veces.</dd></div>
+        <div><dt>Cincuenta minutos de verdad</dt><dd>Una sala cerrada y un solo paciente. Si una sesión se alarga cinco minutos, no corre prisa.</dd></div>
+        <div><dt>Te decimos cuándo no nos necesitas</dt><dd>Si lo tuyo no es para fisioterapia o necesitas antes otra prueba, te lo decimos y te orientamos hacia tu médico.</dd></div>
+        <div><dt>Precios publicados</dt><dd>Lo que cuesta está en la web y no cambia según el tratamiento. Sin matrícula, sin permanencia y con factura.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===== EL LUGAR -->
+    <!-- THE PLACE ===== -->
+    <section class="lugar" aria-labelledby="lugar-titulo">
+      <figure class="lugar__foto" data-revela>
+        <img src="assets/img/postal-cordoba.webp" width="1600" height="804" alt="Postal de los años veinte con vecinos y un burro junto al río en Córdoba" loading="lazy" decoding="async">
+      </figure>
+      <div class="lugar__texto">
+        <h2 class="titulo-seccion" id="lugar-titulo" data-revela>El sitio</h2>
+        <p data-revela>Un bajo sin escalones, con la puerta a pie de calle y un baño adaptado. Dos salas de tratamiento cerradas, una sala de ejercicio con espalderas y pesas, y una sala aparte para suelo pélvico con su propia entrada desde el pasillo.</p>
+        <p data-revela>Hay aparcamiento de bicis en la puerta y una parada de autobús a dos minutos. <a class="enlace" href="contacto.html">Cómo llegar</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== PIE: la marca construida en grande -->
+  <!-- FOOTER: the mark built large ===== -->
+  <footer class="pie" aria-labelledby="pie-titulo">
+    <h2 class="oculto" id="pie-titulo">La Curva Fisioterapia</h2>
+    <div class="pie__marca" aria-hidden="true">
+      <span style="--alto:78%;--fondo:var(--campo-1)"><b class="pie__letra">l</b></span>
+      <span style="--alto:62%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+      <span class="pie__hueco"></span>
+      <span style="--alto:100%;--fondo:var(--acento);--letra:var(--acento-tinta)"><b class="pie__letra">c</b></span>
+      <span style="--alto:86%;--fondo:var(--campo-2)"><b class="pie__letra">u</b></span>
+      <span style="--alto:70%;--fondo:var(--campo-3)"><b class="pie__letra">r</b></span>
+      <span style="--alto:92%;--fondo:var(--campo-1)"><b class="pie__letra">v</b></span>
+      <span style="--alto:66%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+    </div>
+    <div class="pie__columnas">
+      <ul class="pie__lista" aria-label="La clínica">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="tratamientos.html">Tratamientos</a></li>
+        <li><a href="tarifas.html">Tarifas</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Más">
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="creditos.html">Créditos</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Legal">
+        <li><a href="aviso-legal.html">Aviso legal</a></li>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="cookies.html">Cookies</a></li>
+      </ul>
+      <address class="pie__contacto">
+        <p>Calle de la Curva, 9, bajo<br>Córdoba</p>
+        <p><a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a></p>
+      </address>
+    </div>
+    <div class="pie__final">
+      <div>
+        <p class="pie__demo">Marca ficticia. Web de demostración de <a class="enlace" href="https://danimefle.com">danimefle.com</a>.</p>
+        <p>© 2026 La Curva Fisioterapia. La información de esta web es orientativa y no sustituye la valoración de un profesional sanitario. Láminas y fotos: <a class="enlace" href="creditos.html">créditos</a>.</p>
+      </div>
+      <a class="boton boton--pequeno" href="#contenido">Volver arriba</a>
+    </div>
+  </footer>
+</body>
+</html>

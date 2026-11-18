@@ -1,0 +1,264 @@
+<!doctype html>
+<!--
+  contacto.html · Contacto y cita · La Curva Fisioterapia
+  Página de la web de demostración de La Curva Fisioterapia (marca ficticia).
+  Page of the La Curva Fisioterapia demo site (fictional brand).
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacto y cita · La Curva Fisioterapia</title>
+  <meta name="description" content="Pide cita en La Curva Fisioterapia: formulario, dirección en la calle de la Curva de Córdoba, horario y plano para llegar.">
+  <!-- Negocio ficticio: que no aparezca en buscadores como si existiera -->
+  <!-- Fictional business: keep it out of search results -->
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://lacurva.danimefle.com/contacto">
+  <meta property="og:url" content="https://lacurva.danimefle.com/contacto">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="La Curva Fisioterapia">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Contacto y cita · La Curva Fisioterapia">
+  <meta property="og:description" content="Pide cita en La Curva Fisioterapia: formulario, dirección en la calle de la Curva de Córdoba, horario y plano para llegar.">
+  <meta property="og:image" content="https://lacurva.danimefle.com/assets/og/contacto.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Página de contacto de La Curva Fisioterapia">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contacto y cita · La Curva Fisioterapia">
+  <meta name="twitter:description" content="Pide cita en La Curva Fisioterapia: formulario, dirección en la calle de la Curva de Córdoba, horario y plano para llegar.">
+  <meta name="twitter:image" content="https://lacurva.danimefle.com/assets/og/contacto.jpg">
+  <meta name="theme-color" content="#f7f7f5">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <!-- Fuente precargada -->
+  <!-- Preloaded font -->
+  <link rel="preload" href="assets/fonts/roundo-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/estilos.css">
+  <!-- Marca la página como "con JS" antes de pintar (fichero externo por la CSP) -->
+  <!-- Flags the page as "JS on" before paint (external file because of the CSP) -->
+  <script src="assets/js/init.js"></script>
+  <script src="assets/js/main.js" defer></script>
+  <!-- Analítica sin cookies (Plausible) -->
+  <!-- Cookieless analytics (Plausible) -->
+  <script defer data-domain="lacurva.danimefle.com" src="https://analytics.danimefle.com/js/script.js"></script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===== CABECERA -->
+  <!-- HEADER ===== -->
+  <header class="cabecera" data-cabecera>
+    <a class="marca" href="index.html" aria-label="La Curva Fisioterapia, inicio">
+      <span class="marca__forma" aria-hidden="true"></span>
+      <span class="marca__nombre">la curva</span>
+    </a>
+    <!-- Botón del menú en móvil (lo maneja main.js) -->
+    <!-- Phone menu button (handled by main.js) -->
+    <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu" data-menu-boton>Menú</button>
+    <nav aria-label="Principal">
+      <ul class="menu" id="menu">
+        <li><a href="tratamientos.html">Tratamientos</a></li>
+        <li><a href="tarifas.html">Tarifas</a></li>
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="contacto.html" aria-current="page">Contacto</a></li>
+        <li><a class="boton" href="contacto.html#formulario">Pedir cita</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <!-- ===== CABEZA DE PÁGINA -->
+    <!-- PAGE HEAD ===== -->
+    <section class="pagina-cabeza" aria-labelledby="titulo-pagina">
+      <div class="pagina-cabeza__texto">
+        <h1 id="titulo-pagina" data-revela>Contacto y cita</h1>
+        <p class="pagina-cabeza__entrada" data-revela>Cuéntanos qué te pasa y cuándo te viene bien. Te respondemos el mismo día laborable con una propuesta de hora.</p>
+      </div>
+      <figure class="pagina-cabeza__forma" style="--fondo:var(--campo-3)" data-revela>
+        <img src="assets/img/mano.webp" width="400" height="560" alt="Grabado antiguo de los músculos de la mano" fetchpriority="high" decoding="async">
+      </figure>
+    </section>
+
+    <!-- ===== FORMULARIO Y DATOS -->
+    <!-- FORM AND DETAILS ===== -->
+    <section class="contacto" aria-label="Formulario y datos de contacto">
+      <form class="formulario" id="formulario" data-demo-form novalidate aria-labelledby="form-titulo">
+        <h2 id="form-titulo">Pide tu cita</h2>
+        <p class="ayuda" id="form-ayuda">Los campos marcados con * son obligatorios. Esta es una web de demostración: el formulario no envía ni guarda nada.</p>
+        <div class="campo">
+          <label for="c-nombre">Nombre *</label>
+          <input id="c-nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="c-nombre-error">
+          <p class="error" id="c-nombre-error" data-error-de="c-nombre"></p>
+        </div>
+        <div class="campo">
+          <label for="c-contacto">Teléfono o correo *</label>
+          <input id="c-contacto" name="contacto" type="text" autocomplete="email" required aria-describedby="c-contacto-ayuda c-contacto-error">
+          <p class="ayuda" id="c-contacto-ayuda">Donde prefieras que te respondamos.</p>
+          <p class="error" id="c-contacto-error" data-error-de="c-contacto"></p>
+        </div>
+        <div class="campo">
+          <label for="c-motivo">Motivo</label>
+          <select id="c-motivo" name="motivo" data-motivo-campo>
+            <option value="">Elige la zona o el motivo</option>
+                <option>Zona lumbar</option>
+                <option>Espalda alta</option>
+                <option>Cuello</option>
+                <option>Cabeza y mandíbula</option>
+                <option>Hombro</option>
+                <option>Codo y muñeca</option>
+                <option>Cadera</option>
+                <option>Muslo e isquios</option>
+                <option>Rodilla</option>
+                <option>Tobillo y pie</option>
+                <option>Suelo pélvico</option>
+                <option>Readaptación o posoperatorio</option>
+                <option>Bono de cinco sesiones</option>
+                <option>Otra cosa</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="c-cuando">Cuándo te viene bien</label>
+          <select id="c-cuando" name="cuando">
+            <option>Por la mañana</option>
+            <option>Por la tarde</option>
+            <option>Sábado por la mañana</option>
+            <option>Me da igual</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="c-mensaje">Cuéntanos un poco (opcional)</label>
+          <textarea id="c-mensaje" name="mensaje" rows="4"></textarea>
+        </div>
+        <div class="campo campo--check">
+          <input id="c-privacidad" name="privacidad" type="checkbox" required aria-describedby="c-privacidad-error">
+          <label for="c-privacidad">He leído la <a class="enlace" href="privacidad.html">política de privacidad</a> *</label>
+        </div>
+        <p class="error" id="c-privacidad-error" data-error-de="c-privacidad"></p>
+        <button class="cupon__enviar" type="submit">Pedir cita</button>
+        <p class="estado-envio" role="status" data-estado-envio></p>
+      </form>
+
+      <div class="datos-contacto">
+        <div data-revela>
+          <h2>Dónde estamos</h2>
+          <p>Calle de la Curva, 9, bajo<br>Córdoba</p>
+        </div>
+        <div data-revela>
+          <h2>Horario</h2>
+          <dl>
+            <div><dt>Lunes a viernes</dt><dd>8:00 a 14:00 y 16:00 a 21:30</dd></div>
+            <div><dt>Sábados</dt><dd>9:00 a 13:00</dd></div>
+            <div><dt>Domingos y festivos</dt><dd>Cerrado</dd></div>
+          </dl>
+        </div>
+        <div data-revela>
+          <h2>Correo</h2>
+          <p><a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a></p>
+        </div>
+        <figure class="plano" data-revela>
+          <svg viewBox="0 0 600 420" role="img" aria-labelledby="plano-titulo plano-desc" focusable="false">
+            <title id="plano-titulo">Plano orientativo</title>
+            <desc id="plano-desc">Dibujo sencillo del entorno: la calle de la Curva hace un arco; la clínica está en el número 9, en la parte de fuera del arco. Arriba a la derecha queda el mercado y junto al cruce, la parada de autobús.</desc>
+            <!-- Manzanas y calles dibujadas, no es un mapa real -->
+            <!-- Drawn blocks and streets, not a real map -->
+            <rect x="0" y="0" width="600" height="420" fill="#ebebe8"/>
+            <rect x="410" y="24" width="166" height="130" fill="#dcdcd7"/>
+            <rect x="430" y="262" width="146" height="134" fill="#dcdcd7"/>
+            <path d="M0 210 H600" stroke="#ffffff" stroke-width="34" fill="none"/>
+            <path d="M380 0 V420" stroke="#ffffff" stroke-width="28" fill="none"/>
+            <!-- La calle de la Curva: el motivo de la marca, con su nombre siguiendo el arco -->
+            <!-- Calle de la Curva: the brand motif, with its name following the arc -->
+            <path id="calle-curva" d="M60 20 A 320 320 0 0 0 380 340" stroke="#d0106f" stroke-width="30" fill="none"/>
+            <text font-size="24" font-family="Roundo, sans-serif" font-weight="600" fill="#000000" dy="-24"><textPath href="#calle-curva" startOffset="10%">Calle de la Curva</textPath></text>
+            <!-- La clínica, fuera del arco -->
+            <!-- The clinic, outside the arc -->
+            <path d="M132 300 h34 v34 a34 34 0 0 1 -34 -34 z" fill="#000000"/>
+            <text x="20" y="372" font-size="24" font-family="Roundo, sans-serif" font-weight="600" fill="#000000">La Curva, 9</text>
+            <text x="432" y="96" font-size="22" font-family="Roundo, sans-serif" fill="#000000">Mercado</text>
+            <rect x="400" y="234" width="22" height="22" fill="#000000"/>
+            <text x="432" y="252" font-size="22" font-family="Roundo, sans-serif" fill="#000000">Bus</text>
+          </svg>
+          <figcaption>Plano dibujado y orientativo. La calle y la clínica son ficticias.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== TU PRIMERA VISITA -->
+    <!-- YOUR FIRST VISIT ===== -->
+    <section class="partes" aria-labelledby="visita-titulo">
+      <h2 class="titulo-seccion" id="visita-titulo" data-revela>Tu primera visita</h2>
+      <ul class="partes__lista">
+        <li class="parte" data-revela>
+          <figure class="parte__lamina" style="--fondo:var(--campo-2)"><img src="assets/img/vertebras-lairesse.webp" width="820" height="1200" alt="Lámina antigua con vértebras" loading="lazy" decoding="async"></figure>
+          <h3>Trae lo que tengas</h3>
+          <p>Informes, pruebas de imagen o la lista de medicación. No hace falta volante del médico para venir.</p>
+        </li>
+        <li class="parte" data-revela>
+          <figure class="parte__lamina" style="--fondo:var(--campo-1)"><img src="assets/img/ficha-pie.webp" width="960" height="1200" alt="Grabado de los músculos del pie" loading="lazy" decoding="async"></figure>
+          <h3>Ropa cómoda</h3>
+          <p>Algo con lo que puedas moverte. Para espalda o cuello, mejor una camiseta de tirantes debajo.</p>
+        </li>
+        <li class="parte" data-revela>
+          <figure class="parte__lamina" style="--fondo:var(--campo-3)"><img src="assets/img/postal-cordoba.webp" width="1600" height="804" alt="Postal antigua de un paseo junto al río en Córdoba" loading="lazy" decoding="async"></figure>
+          <h3>Cinco minutos antes</h3>
+          <p>Para rellenar una ficha corta con tus datos. La sesión empieza y acaba a su hora.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Aviso sanitario -->
+    <!-- Health notice -->
+    <aside class="aviso-salud" aria-labelledby="aviso-salud-titulo">
+      <h2 id="aviso-salud-titulo">Antes de nada</h2>
+      <p>Lo que cuenta esta web es orientativo y no sustituye la valoración de un profesional sanitario. Si tienes un dolor muy intenso o que no cede en reposo, fiebre, pérdida de fuerza o de sensibilidad, o te has dado un golpe fuerte, acude antes a tu médico o a urgencias.</p>
+    </aside>
+  </main>
+
+  <!-- ===== PIE: la marca construida en grande -->
+  <!-- FOOTER: the mark built large ===== -->
+  <footer class="pie" aria-labelledby="pie-titulo">
+    <h2 class="oculto" id="pie-titulo">La Curva Fisioterapia</h2>
+    <div class="pie__marca" aria-hidden="true">
+      <span style="--alto:78%;--fondo:var(--campo-1)"><b class="pie__letra">l</b></span>
+      <span style="--alto:62%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+      <span class="pie__hueco"></span>
+      <span style="--alto:100%;--fondo:var(--acento);--letra:var(--acento-tinta)"><b class="pie__letra">c</b></span>
+      <span style="--alto:86%;--fondo:var(--campo-2)"><b class="pie__letra">u</b></span>
+      <span style="--alto:70%;--fondo:var(--campo-3)"><b class="pie__letra">r</b></span>
+      <span style="--alto:92%;--fondo:var(--campo-1)"><b class="pie__letra">v</b></span>
+      <span style="--alto:66%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+    </div>
+    <div class="pie__columnas">
+      <ul class="pie__lista" aria-label="La clínica">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="tratamientos.html">Tratamientos</a></li>
+        <li><a href="tarifas.html">Tarifas</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Más">
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="creditos.html">Créditos</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Legal">
+        <li><a href="aviso-legal.html">Aviso legal</a></li>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="cookies.html">Cookies</a></li>
+      </ul>
+      <address class="pie__contacto">
+        <p>Calle de la Curva, 9, bajo<br>Córdoba</p>
+        <p><a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a></p>
+      </address>
+    </div>
+    <div class="pie__final">
+      <div>
+        <p class="pie__demo">Marca ficticia. Web de demostración de <a class="enlace" href="https://danimefle.com">danimefle.com</a>.</p>
+        <p>© 2026 La Curva Fisioterapia. La información de esta web es orientativa y no sustituye la valoración de un profesional sanitario. Láminas y fotos: <a class="enlace" href="creditos.html">créditos</a>.</p>
+      </div>
+      <a class="boton boton--pequeno" href="#contenido">Volver arriba</a>
+    </div>
+  </footer>
+</body>
+</html>

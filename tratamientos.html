@@ -1,0 +1,309 @@
+<!doctype html>
+<!--
+  tratamientos.html · Tratamientos de fisioterapia · La Curva Fisioterapia
+  Página de la web de demostración de La Curva Fisioterapia (marca ficticia).
+  Page of the La Curva Fisioterapia demo site (fictional brand).
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tratamientos de fisioterapia · La Curva Fisioterapia</title>
+  <meta name="description" content="Espalda, cuello, hombro, lesiones deportivas, suelo pélvico y readaptación: qué incluye cada tratamiento, sesiones orientativas y precio.">
+  <!-- Negocio ficticio: que no aparezca en buscadores como si existiera -->
+  <!-- Fictional business: keep it out of search results -->
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://lacurva.danimefle.com/tratamientos">
+  <meta property="og:url" content="https://lacurva.danimefle.com/tratamientos">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="La Curva Fisioterapia">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Tratamientos de fisioterapia · La Curva Fisioterapia">
+  <meta property="og:description" content="Espalda, cuello, hombro, lesiones deportivas, suelo pélvico y readaptación: qué incluye cada tratamiento, sesiones orientativas y precio.">
+  <meta property="og:image" content="https://lacurva.danimefle.com/assets/og/tratamientos.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Página de tratamientos de La Curva Fisioterapia">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tratamientos de fisioterapia · La Curva Fisioterapia">
+  <meta name="twitter:description" content="Espalda, cuello, hombro, lesiones deportivas, suelo pélvico y readaptación: qué incluye cada tratamiento, sesiones orientativas y precio.">
+  <meta name="twitter:image" content="https://lacurva.danimefle.com/assets/og/tratamientos.jpg">
+  <meta name="theme-color" content="#f7f7f5">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <!-- Fuente precargada -->
+  <!-- Preloaded font -->
+  <link rel="preload" href="assets/fonts/roundo-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/estilos.css">
+  <!-- Marca la página como "con JS" antes de pintar (fichero externo por la CSP) -->
+  <!-- Flags the page as "JS on" before paint (external file because of the CSP) -->
+  <script src="assets/js/init.js"></script>
+  <script src="assets/js/main.js" defer></script>
+  <!-- Analítica sin cookies (Plausible) -->
+  <!-- Cookieless analytics (Plausible) -->
+  <script defer data-domain="lacurva.danimefle.com" src="https://analytics.danimefle.com/js/script.js"></script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===== CABECERA -->
+  <!-- HEADER ===== -->
+  <header class="cabecera" data-cabecera>
+    <a class="marca" href="index.html" aria-label="La Curva Fisioterapia, inicio">
+      <span class="marca__forma" aria-hidden="true"></span>
+      <span class="marca__nombre">la curva</span>
+    </a>
+    <!-- Botón del menú en móvil (lo maneja main.js) -->
+    <!-- Phone menu button (handled by main.js) -->
+    <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu" data-menu-boton>Menú</button>
+    <nav aria-label="Principal">
+      <ul class="menu" id="menu">
+        <li><a href="tratamientos.html" aria-current="page">Tratamientos</a></li>
+        <li><a href="tarifas.html">Tarifas</a></li>
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a class="boton" href="contacto.html#formulario">Pedir cita</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <!-- ===== CABEZA DE PÁGINA -->
+    <!-- PAGE HEAD ===== -->
+    <section class="pagina-cabeza" aria-labelledby="titulo-pagina">
+      <div class="pagina-cabeza__texto">
+        <h1 id="titulo-pagina" data-revela>Tratamientos</h1>
+        <p class="pagina-cabeza__entrada" data-revela>Seis tipos de consulta que vemos cada semana, con lo que suele incluir cada tratamiento, cuántas sesiones calculamos al principio y lo que cuesta.</p>
+        <p class="pagina-cabeza__acciones" data-revela><a class="boton" href="contacto.html#formulario">Pedir cita</a> <a class="enlace" href="tarifas.html">Ver tarifas y bonos</a></p>
+      </div>
+      <figure class="pagina-cabeza__forma" style="--fondo:var(--campo-2)" data-revela>
+        <img src="assets/img/vertebras-lairesse.webp" width="820" height="1200" alt="Lámina antigua con vértebras cervicales, dorsales y lumbares" fetchpriority="high" decoding="async">
+      </figure>
+    </section>
+
+    <!-- ===== LISTA DE TRATAMIENTOS -->
+    <!-- TREATMENT LIST ===== -->
+    <section class="trat" aria-label="Tratamientos uno a uno">
+      <nav class="trat__indice" aria-labelledby="indice-titulo">
+        <h2 id="indice-titulo">En esta página</h2>
+        <ul>
+          <li><a href="#espalda">Espalda</a></li>
+          <li><a href="#cuello">Cuello, cabeza y mandíbula</a></li>
+          <li><a href="#miembro-superior">Hombro, codo y muñeca</a></li>
+          <li><a href="#deporte">Lesiones deportivas</a></li>
+          <li><a href="#suelo-pelvico">Suelo pélvico</a></li>
+          <li><a href="#readaptacion">Readaptación y posoperatorio</a></li>
+          <li><a href="#tecnicas">Técnicas</a></li>
+        </ul>
+      </nav>
+      <div class="trat__lista">
+        <article class="tratamiento" id="espalda" aria-labelledby="espalda-titulo">
+          <figure class="tratamiento__lamina" style="--fondo:var(--campo-2)" data-revela>
+            <img src="assets/img/ficha-lumbar.webp" width="880" height="1100" alt="Grabado de una vértebra lumbar" loading="lazy" decoding="async">
+          </figure>
+          <div class="tratamiento__texto">
+            <h2 id="espalda-titulo" data-revela>Espalda</h2>
+            <p data-revela><strong>Para quién.</strong> Dolor lumbar o dorsal, ciática, hernia o protrusión discal, rigidez al levantarte o dolor después de muchas horas sentado.</p>
+            <p data-revela><strong>Cómo lo trabajamos.</strong> Hablamos de cómo empezó y de qué lo empeora, revisamos cómo te mueves y te explicamos lo que vemos con palabras normales. Usamos terapia manual para moverte con menos molestia y ejercicio desde la primera semana, porque la fuerza y el movimiento son una parte central del tratamiento de la espalda.</p>
+            <h3 data-revela>Qué incluye</h3>
+            <ul class="lista-curva" data-revela>
+              <li>Explicación de lo que pasa y de lo que no tiene por qué preocuparte</li>
+              <li>Terapia manual y movilización de la columna</li>
+              <li>Ejercicio progresivo de fuerza y control</li>
+              <li>Pautas para el trabajo, el coche y el sueño</li>
+            </ul>
+            <dl class="datos-linea" data-revela>
+              <div><dt>sesiones orientativas</dt><dd>4 a 8</dd></div>
+              <div><dt>cada sesión</dt><dd>50 min</dd></div>
+              <div><dt>la sesión, o 40 € con bono</dt><dd>45 €</dd></div>
+            </dl>
+            <p data-revela><a class="enlace" href="contacto.html#motivo=Zona%20lumbar">Pedir cita para espalda</a></p>
+          </div>
+        </article>
+        <article class="tratamiento" id="cuello" aria-labelledby="cuello-titulo">
+          <figure class="tratamiento__lamina" style="--fondo:var(--campo-3)" data-revela>
+            <img src="assets/img/ficha-atlas.webp" width="720" height="900" alt="Grabado de la primera vértebra del cuello, el atlas" loading="lazy" decoding="async">
+          </figure>
+          <div class="tratamiento__texto">
+            <h2 id="cuello-titulo" data-revela>Cuello, cabeza y mandíbula</h2>
+            <p data-revela><strong>Para quién.</strong> Dolor cervical, tortícolis, hormigueo en el brazo, dolor de cabeza tensional, bruxismo o molestias al abrir la boca.</p>
+            <p data-revela><strong>Cómo lo trabajamos.</strong> Trabajamos cuello y mandíbula juntos, porque a menudo van de la mano. Terapia manual, punción seca si la valoración lo aconseja y ejercicios de control cervical. Si aprietas los dientes de noche, podemos coordinarnos con tu dentista.</p>
+            <h3 data-revela>Qué incluye</h3>
+            <ul class="lista-curva" data-revela>
+              <li>Valoración del cuello, los hombros y la mandíbula</li>
+              <li>Terapia manual y, si procede, punción seca</li>
+              <li>Ejercicios de control cervical para casa</li>
+              <li>Revisión del puesto de trabajo con una foto que nos traigas</li>
+            </ul>
+            <dl class="datos-linea" data-revela>
+              <div><dt>sesiones orientativas</dt><dd>3 a 6</dd></div>
+              <div><dt>cada sesión</dt><dd>50 min</dd></div>
+              <div><dt>la sesión, o 40 € con bono</dt><dd>45 €</dd></div>
+            </dl>
+            <p data-revela><a class="enlace" href="contacto.html#motivo=Cuello">Pedir cita para cuello, cabeza y mandíbula</a></p>
+          </div>
+        </article>
+        <article class="tratamiento" id="miembro-superior" aria-labelledby="miembro-superior-titulo">
+          <figure class="tratamiento__lamina" style="--fondo:var(--campo-1)" data-revela>
+            <img src="assets/img/mano.webp" width="400" height="560" alt="Grabado antiguo de los músculos de la mano" loading="lazy" decoding="async">
+          </figure>
+          <div class="tratamiento__texto">
+            <h2 id="miembro-superior-titulo" data-revela>Hombro, codo y muñeca</h2>
+            <p data-revela><strong>Para quién.</strong> Tendinopatía del hombro, hombro congelado, codo de tenista o de pádel, túnel carpiano y tendinitis de muñeca.</p>
+            <p data-revela><strong>Cómo lo trabajamos.</strong> Con los tendones trabajamos con carga bien dosificada. Ajustamos el ejercicio semana a semana, usamos terapia manual para ganar movilidad y revisamos el gesto que lo provoca: la raqueta, el ratón o la forma de coger peso.</p>
+            <h3 data-revela>Qué incluye</h3>
+            <ul class="lista-curva" data-revela>
+              <li>Ejercicio de carga progresiva para el tendón</li>
+              <li>Terapia manual para ganar rango de movimiento</li>
+              <li>Revisión del gesto deportivo o de trabajo</li>
+              <li>Control cada dos semanas para ajustar la carga</li>
+            </ul>
+            <dl class="datos-linea" data-revela>
+              <div><dt>sesiones orientativas</dt><dd>4 a 10</dd></div>
+              <div><dt>cada sesión</dt><dd>50 min</dd></div>
+              <div><dt>la sesión, o 40 € con bono</dt><dd>45 €</dd></div>
+            </dl>
+            <p data-revela><a class="enlace" href="contacto.html#motivo=Hombro">Pedir cita para hombro, codo y muñeca</a></p>
+          </div>
+        </article>
+        <article class="tratamiento" id="deporte" aria-labelledby="deporte-titulo">
+          <figure class="tratamiento__lamina" style="--fondo:var(--campo-3)" data-revela>
+            <img src="assets/img/ficha-pie.webp" width="960" height="1200" alt="Grabado de los músculos de la planta del pie" loading="lazy" decoding="async">
+          </figure>
+          <div class="tratamiento__texto">
+            <h2 id="deporte-titulo" data-revela>Lesiones deportivas</h2>
+            <p data-revela><strong>Para quién.</strong> Esguinces de tobillo, roturas fibrilares, sobrecargas, tendón de Aquiles, fascitis plantar y molestias de rodilla al correr.</p>
+            <p data-revela><strong>Cómo lo trabajamos.</strong> Primero trabajamos la fase inicial de la lesión y después la movilidad, el equilibrio y la fuerza. Antes de volver a entrenar hacemos pruebas sencillas para comparar las dos piernas y decidir contigo el siguiente paso.</p>
+            <h3 data-revela>Qué incluye</h3>
+            <ul class="lista-curva" data-revela>
+              <li>Tratamiento de la fase inicial de la lesión</li>
+              <li>Equilibrio, fuerza y trabajo específico de tu deporte</li>
+              <li>Pruebas de fuerza y salto antes de volver</li>
+              <li>Plan para el regreso a los entrenamientos</li>
+            </ul>
+            <dl class="datos-linea" data-revela>
+              <div><dt>sesiones orientativas</dt><dd>3 a 8</dd></div>
+              <div><dt>cada sesión</dt><dd>50 min</dd></div>
+              <div><dt>la sesión, o 40 € con bono</dt><dd>45 €</dd></div>
+            </dl>
+            <p data-revela><a class="enlace" href="contacto.html#motivo=Tobillo%20y%20pie">Pedir cita para lesiones deportivas</a></p>
+          </div>
+        </article>
+        <article class="tratamiento" id="suelo-pelvico" aria-labelledby="suelo-pelvico-titulo">
+          <figure class="tratamiento__lamina" style="--fondo:var(--campo-1)" data-revela>
+            <img src="assets/img/ficha-pelvis.webp" width="1280" height="800" alt="Grabado de los huesos de la pelvis" loading="lazy" decoding="async">
+          </figure>
+          <div class="tratamiento__texto">
+            <h2 id="suelo-pelvico-titulo" data-revela>Suelo pélvico</h2>
+            <p data-revela><strong>Para quién.</strong> Escapes de orina, recuperación tras el parto, sensación de peso, dolor pélvico o dolor en las relaciones.</p>
+            <p data-revela><strong>Cómo lo trabajamos.</strong> En sala aparte y con la fisioterapeuta de suelo pélvico. Primero hablamos con calma de lo que te pasa. La exploración interna solo se hace si tú quieres, después de explicarte para qué sirve, y puedes parar en cualquier momento. Puedes venir con tu bebé.</p>
+            <h3 data-revela>Qué incluye</h3>
+            <ul class="lista-curva" data-revela>
+              <li>Entrevista y valoración en sala privada</li>
+              <li>Ejercicio de suelo pélvico y de la zona abdominal</li>
+              <li>Pautas para el día a día y para volver al deporte</li>
+              <li>Coordinación con tu matrona o tu ginecóloga si hace falta</li>
+            </ul>
+            <dl class="datos-linea" data-revela>
+              <div><dt>sesiones orientativas</dt><dd>6 a 10</dd></div>
+              <div><dt>cada sesión</dt><dd>50 min</dd></div>
+              <div><dt>la sesión, o 40 € con bono</dt><dd>45 €</dd></div>
+            </dl>
+            <p data-revela><a class="enlace" href="contacto.html#motivo=Suelo%20pélvico">Pedir cita para suelo pélvico</a></p>
+          </div>
+        </article>
+        <article class="tratamiento" id="readaptacion" aria-labelledby="readaptacion-titulo">
+          <figure class="tratamiento__lamina" style="--fondo:var(--campo-2)" data-revela>
+            <img src="assets/img/ficha-piernas.webp" width="992" height="1240" alt="Grabado de las piernas vistas por detrás, con los músculos al descubierto" loading="lazy" decoding="async">
+          </figure>
+          <div class="tratamiento__texto">
+            <h2 id="readaptacion-titulo" data-revela>Readaptación y posoperatorio</h2>
+            <p data-revela><strong>Para quién.</strong> Después de una operación de rodilla, cadera u hombro, o tras una lesión larga que te ha tenido parado.</p>
+            <p data-revela><strong>Cómo lo trabajamos.</strong> Seguimos las indicaciones de tu traumatólogo y vamos por fases: movilidad, fuerza, control y vuelta a la actividad. Medimos para no ir a ciegas y te decimos con claridad cuándo puedes dar el siguiente paso.</p>
+            <h3 data-revela>Qué incluye</h3>
+            <ul class="lista-curva" data-revela>
+              <li>Trabajo por fases según las indicaciones del cirujano</li>
+              <li>Mediciones de fuerza y movilidad en cada fase</li>
+              <li>Ejercicio en la sala y pauta para casa</li>
+              <li>Informe para tu médico cuando lo necesites</li>
+            </ul>
+            <dl class="datos-linea" data-revela>
+              <div><dt>sesiones orientativas</dt><dd>8 a 16</dd></div>
+              <div><dt>cada sesión</dt><dd>50 min</dd></div>
+              <div><dt>la sesión, o 40 € con bono</dt><dd>45 €</dd></div>
+            </dl>
+            <p data-revela><a class="enlace" href="contacto.html#motivo=Readaptación%20o%20posoperatorio">Pedir cita para readaptación y posoperatorio</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== TÉCNICAS -->
+    <!-- TECHNIQUES ===== -->
+    <section class="tecnicas" id="tecnicas" aria-labelledby="tecnicas-titulo">
+      <h2 class="titulo-seccion" id="tecnicas-titulo" data-revela>Técnicas que usamos</h2>
+      <dl data-revela>
+        <div><dt>Ejercicio terapéutico</dt><dd>La base de casi todos los tratamientos. Pocos ejercicios, bien elegidos y con una carga que subimos a medida que respondes.</dd></div>
+        <div><dt>Terapia manual</dt><dd>Movilizaciones y técnicas sobre músculos y articulaciones para moverte con menos molestia mientras trabajas lo demás.</dd></div>
+        <div><dt>Punción seca</dt><dd>Solo si la valoración lo aconseja y tú estás de acuerdo. Te explicamos antes en qué consiste y qué puedes notar después.</dd></div>
+        <div><dt>Electroterapia</dt><dd>Como apoyo puntual, por ejemplo para el dolor en fases iniciales. Nunca como única parte de la sesión.</dd></div>
+        <div><dt>Vendaje funcional</dt><dd>Para dar seguridad en la vuelta al deporte o en momentos concretos, con indicaciones de cuándo quitarlo.</dd></div>
+        <div><dt>Educación</dt><dd>Entender qué te pasa ayuda. Te contamos lo que vemos, qué puedes hacer tú y qué señales deben hacerte consultar a tu médico.</dd></div>
+      </dl>
+    </section>
+
+    <!-- Aviso sanitario -->
+    <!-- Health notice -->
+    <aside class="aviso-salud" aria-labelledby="aviso-salud-titulo">
+      <h2 id="aviso-salud-titulo">Antes de nada</h2>
+      <p>Lo que cuenta esta web es orientativo y no sustituye la valoración de un profesional sanitario. Si tienes un dolor muy intenso o que no cede en reposo, fiebre, pérdida de fuerza o de sensibilidad, o te has dado un golpe fuerte, acude antes a tu médico o a urgencias.</p>
+    </aside>
+  </main>
+
+  <!-- ===== PIE: la marca construida en grande -->
+  <!-- FOOTER: the mark built large ===== -->
+  <footer class="pie" aria-labelledby="pie-titulo">
+    <h2 class="oculto" id="pie-titulo">La Curva Fisioterapia</h2>
+    <div class="pie__marca" aria-hidden="true">
+      <span style="--alto:78%;--fondo:var(--campo-1)"><b class="pie__letra">l</b></span>
+      <span style="--alto:62%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+      <span class="pie__hueco"></span>
+      <span style="--alto:100%;--fondo:var(--acento);--letra:var(--acento-tinta)"><b class="pie__letra">c</b></span>
+      <span style="--alto:86%;--fondo:var(--campo-2)"><b class="pie__letra">u</b></span>
+      <span style="--alto:70%;--fondo:var(--campo-3)"><b class="pie__letra">r</b></span>
+      <span style="--alto:92%;--fondo:var(--campo-1)"><b class="pie__letra">v</b></span>
+      <span style="--alto:66%;--fondo:var(--campo-3)"><b class="pie__letra">a</b></span>
+    </div>
+    <div class="pie__columnas">
+      <ul class="pie__lista" aria-label="La clínica">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="tratamientos.html">Tratamientos</a></li>
+        <li><a href="tarifas.html">Tarifas</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Más">
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="creditos.html">Créditos</a></li>
+      </ul>
+      <ul class="pie__lista" aria-label="Legal">
+        <li><a href="aviso-legal.html">Aviso legal</a></li>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="cookies.html">Cookies</a></li>
+      </ul>
+      <address class="pie__contacto">
+        <p>Calle de la Curva, 9, bajo<br>Córdoba</p>
+        <p><a class="enlace" href="mailto:hola@lacurva.example">hola@lacurva.example</a></p>
+      </address>
+    </div>
+    <div class="pie__final">
+      <div>
+        <p class="pie__demo">Marca ficticia. Web de demostración de <a class="enlace" href="https://danimefle.com">danimefle.com</a>.</p>
+        <p>© 2026 La Curva Fisioterapia. La información de esta web es orientativa y no sustituye la valoración de un profesional sanitario. Láminas y fotos: <a class="enlace" href="creditos.html">créditos</a>.</p>
+      </div>
+      <a class="boton boton--pequeno" href="#contenido">Volver arriba</a>
+    </div>
+  </footer>
+</body>
+</html>

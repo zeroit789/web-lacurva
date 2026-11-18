@@ -1,0 +1,10 @@
+# Ficheros de trabajo que no se publican
+# Working files that are not published
+captura-*.png
+vista.jpg
+node_modules/
+.wrangler/
+hoja-direccion.txt
+.local/
+__pycache__/
+hoja-direccion.txt
