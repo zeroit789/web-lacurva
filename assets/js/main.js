@@ -212,8 +212,15 @@
     // guiones entre cifras) y correo con @ y dominio con punto.
     // Spanish 9-digit phone (starting 6, 7, 8 or 9; optional +34 or 0034, spaces, dots or dashes between
     // digits) and an email with @ and a dotted domain.
-    function esTelefono(v) { return /^(?:\+34|0034)?[6-9]\d{8}$/.test(v.replace(/[\s.\-()]/g, '')); }
-    function esCorreo(v) { return /^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(v); }
+    function esTelefono(v) {
+      // Solo prefijo, cifras y un separador (espacio, punto o guion) entre cifras; sin paréntesis sueltos.
+      // Only prefix, digits and one separator (space, dot or dash) between digits; no stray brackets.
+      if (!/^(?:(?:\+34|0034)[\s.-]?)?\d(?:[\s.-]?\d)*$/.test(v)) return false;
+      return /^(?:\+34|0034)?[6-9]\d{8}$/.test(v.replace(/[\s.-]/g, ''));
+    }
+    // Correo: parte local sin espacios y dominio de etiquetas no vacías separadas por puntos, acabado en 2+ letras.
+    // Email: local part without spaces and a domain of non-empty dot-separated labels, ending in 2+ letters.
+    function esCorreo(v) { return /^[^\s@]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/.test(v); }
     // Comprobación de formato por campo y su mensaje si falla / Per-field format check and its message if it fails
     var formatos = {
       'f-telefono': { ok: esTelefono, msg: 'Escribe un teléfono de 9 cifras, por ejemplo 612 345 678.' },
