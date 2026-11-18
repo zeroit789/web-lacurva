@@ -13,6 +13,28 @@
 
   var reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- Precios: una sola lógica para el mapa del dolor y la calculadora ---------- */
+  /* ---------- Prices: one logic for the pain map and the calculator ---------- */
+  // Sesión suelta, bono de cinco y bono de diez (los mismos importes que la tabla de tarifas.html).
+  // Single session, five-pack and ten-pack (the same amounts as the table in tarifas.html).
+  var SUELTA = 45, BONO5 = 200, BONO10 = 370;
+  // Busca la forma más barata de cubrir N sesiones con bonos de 10, de 5 y sesiones sueltas.
+  // Finds the cheapest way to cover N sessions with 10-packs, 5-packs and single sessions.
+  function planMasBarato(n) {
+    var mejorPlan = null;
+    for (var a = 0; a <= Math.ceil(n / 10); a++) {
+      for (var b = 0; b <= Math.ceil(n / 5); b++) {
+        var resto = Math.max(0, n - a * 10 - b * 5);
+        var coste = a * BONO10 + b * BONO5 + resto * SUELTA;
+        var sobran = Math.max(0, a * 10 + b * 5 - n);
+        if (!mejorPlan || coste < mejorPlan.coste || (coste === mejorPlan.coste && sobran < mejorPlan.sobran)) {
+          mejorPlan = { a: a, b: b, c: resto, coste: coste, sobran: sobran };
+        }
+      }
+    }
+    return mejorPlan;
+  }
+
   /* ---------- Entradas al hacer scroll ---------- */
   /* ---------- Scroll entrances ---------- */
   // Escalona los elementos de cada sección en orden de lectura (70 ms entre uno y otro).
@@ -89,6 +111,15 @@
 
     controles.forEach(function (c) {
       c.addEventListener('click', function () { elegir(c.getAttribute('data-zona'), true); });
+    });
+    // El total de cada zona sale de planMasBarato, igual que en la calculadora de tarifas.html
+    // (el HTML ya trae las mismas cifras para quien no tiene JavaScript).
+    // Each zone's total comes from planMasBarato, as in the tarifas.html calculator
+    // (the HTML already carries the same figures for visitors without JavaScript).
+    document.querySelectorAll('[data-total-sesiones]').forEach(function (dd) {
+      var r = dd.getAttribute('data-total-sesiones').split('-');
+      var cifra = dd.querySelector('.cifra');
+      if (r.length === 2 && cifra) cifra.textContent = planMasBarato(+r[0]).coste + '–' + planMasBarato(+r[1]).coste;
     });
     // La zona lumbar abre por defecto: es la consulta más común
     // Lumbar opens by default: the most common visit
@@ -177,17 +208,36 @@
       'c-nombre': 'Escribe tu nombre.', 'c-contacto': 'Escribe un teléfono o un correo.',
       'c-privacidad': 'Marca la casilla para continuar.'
     };
+    // Teléfono español de 9 cifras (6, 7, 8 o 9 delante; con +34 o 0034 opcional, y espacios, puntos o
+    // guiones entre cifras) y correo con @ y dominio con punto.
+    // Spanish 9-digit phone (starting 6, 7, 8 or 9; optional +34 or 0034, spaces, dots or dashes between
+    // digits) and an email with @ and a dotted domain.
+    function esTelefono(v) { return /^(?:\+34|0034)?[6-9]\d{8}$/.test(v.replace(/[\s.\-()]/g, '')); }
+    function esCorreo(v) { return /^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(v); }
+    // Comprobación de formato por campo y su mensaje si falla / Per-field format check and its message if it fails
+    var formatos = {
+      'f-telefono': { ok: esTelefono, msg: 'Escribe un teléfono de 9 cifras, por ejemplo 612 345 678.' },
+      'c-contacto': { ok: function (v) { return esTelefono(v) || esCorreo(v); }, msg: 'Escribe un teléfono de 9 cifras o un correo como nombre@dominio.es.' }
+    };
+    // Devuelve el mensaje de error de un campo, o '' si está bien / Returns a field's error message, or '' if valid
+    function fallo(campo) {
+      if (campo.type === 'checkbox') return campo.checked ? '' : (mensajes[campo.id] || 'Marca la casilla.');
+      var v = campo.value.trim();
+      if (!v) return mensajes[campo.id] || 'Rellena este campo.';
+      var f = formatos[campo.id];
+      return f && !f.ok(v) ? f.msg : '';
+    }
     document.querySelectorAll('[data-demo-form]').forEach(function (form) {
       var estado = form.querySelector('[data-estado-envio]');
       form.addEventListener('submit', function (ev) {
         ev.preventDefault();
         var primero = null;
         form.querySelectorAll('[required]').forEach(function (campo) {
-          var vacio = campo.type === 'checkbox' ? !campo.checked : !campo.value.trim();
+          var msg = fallo(campo);
           var error = form.querySelector('[data-error-de="' + campo.id + '"]');
-          campo.setAttribute('aria-invalid', vacio ? 'true' : 'false');
-          if (error) error.textContent = vacio ? (mensajes[campo.id] || 'Rellena este campo.') : '';
-          if (vacio && !primero) primero = campo;
+          campo.setAttribute('aria-invalid', msg ? 'true' : 'false');
+          if (error) error.textContent = msg;
+          if (msg && !primero) primero = campo;
         });
         if (primero) {
           if (estado) estado.textContent = '';
@@ -210,12 +260,12 @@
       // the "needs JavaScript" note, visible by default, is hidden
       form.querySelectorAll('[type="submit"]').forEach(function (b) { b.disabled = false; });
       form.querySelectorAll('[data-aviso-sin-js]').forEach(function (p) { p.hidden = true; });
-      // El error se borra en cuanto el campo se rellena / The error clears as soon as the field is filled
+      // El error se borra en cuanto el campo queda bien (relleno y, si toca, con formato válido)
+      // The error clears as soon as the field is valid (filled and, where needed, well formed)
       form.addEventListener('input', function (ev) {
         var c = ev.target;
         if (c.getAttribute('aria-invalid') === 'true') {
-          var ok = c.type === 'checkbox' ? c.checked : c.value.trim();
-          if (ok) {
+          if (!fallo(c)) {
             c.setAttribute('aria-invalid', 'false');
             var e = form.querySelector('[data-error-de="' + c.id + '"]');
             if (e) e.textContent = '';
@@ -301,8 +351,10 @@
       if (!cab.classList.contains('is-abierta')) return;
       if (ev.key === 'Escape') { ev.preventDefault(); cerrar(true); return; }
       if (ev.key !== 'Tab') return;
-      // Trampa de foco: botón y enlaces del menú / Focus trap: the button and the menu links
-      var l = enlaces(), orden = [boton].concat(l);
+      // Trampa de foco: el logo (sigue a la vista), el botón y los enlaces del menú
+      // Focus trap: the logo (still visible), the button and the menu links
+      var marca = cab.querySelector('.marca');
+      var l = enlaces(), orden = (marca ? [marca] : []).concat([boton], l);
       var idx = orden.indexOf(document.activeElement);
       if (ev.shiftKey && idx <= 0) { ev.preventDefault(); orden[orden.length - 1].focus(); }
       else if (!ev.shiftKey && idx === orden.length - 1) { ev.preventDefault(); orden[0].focus(); }
@@ -338,38 +390,29 @@
 
   /* ---------- Calculadora de bonos (tarifas.html) ---------- */
   /* ---------- Bundle calculator (tarifas.html) ---------- */
-  // Busca la forma más barata de cubrir N sesiones con bonos de 10, de 5 y sesiones sueltas.
-  // Finds the cheapest way to cover N sessions with 10-packs, 5-packs and single sessions.
+  // Muestra la forma más barata (planMasBarato) para las sesiones elegidas.
+  // Shows the cheapest way (planMasBarato) for the chosen number of sessions.
   function prepararCalculadora() {
     var caja = document.querySelector('[data-calculadora]');
     if (!caja) return;
     var rango = caja.querySelector('input[type="range"]');
     var total = caja.querySelector('[data-total]');
     var detalle = caja.querySelector('[data-detalle]');
-    var SUELTA = 45, BONO5 = 200, BONO10 = 370;
     function plural(n, uno, varios) { return n + ' ' + (n === 1 ? uno : varios); }
-    function mejor(n) {
-      var mejorPlan = null;
-      for (var a = 0; a <= Math.ceil(n / 10); a++) {
-        for (var b = 0; b <= Math.ceil(n / 5); b++) {
-          var resto = Math.max(0, n - a * 10 - b * 5);
-          var coste = a * BONO10 + b * BONO5 + resto * SUELTA;
-          var sobran = Math.max(0, a * 10 + b * 5 - n);
-          if (!mejorPlan || coste < mejorPlan.coste || (coste === mejorPlan.coste && sobran < mejorPlan.sobran)) {
-            mejorPlan = { a: a, b: b, c: resto, coste: coste, sobran: sobran };
-          }
-        }
-      }
-      return mejorPlan;
+    // Une una lista en español: «a», «a y b», «a, b y c» / Joins a list in Spanish: "a", "a y b", "a, b y c"
+    function unir(partes) {
+      return partes.length < 2 ? partes.join('') : partes.slice(0, -1).join(', ') + ' y ' + partes[partes.length - 1];
     }
     function pintar() {
       var n = +rango.value;
-      var m = mejor(n);
+      var m = planMasBarato(n);
       var partes = [];
       if (m.a) partes.push(m.a === 1 ? 'un bono de diez' : plural(m.a, 'bono de diez', 'bonos de diez'));
-      if (m.b) partes.push(m.b === 1 ? 'un bono de cinco' : plural(m.b, 'bono de cinco', 'bonos de cinco'));
+      // Si ya se ha nombrado el bono de diez, el de cinco no repite «bono»: «un bono de diez, uno de cinco…»
+      // If the ten-pack is already named, the five-pack does not repeat "bono": "un bono de diez, uno de cinco…"
+      if (m.b) partes.push(m.a ? (m.b === 1 ? 'uno de cinco' : m.b + ' de cinco') : (m.b === 1 ? 'un bono de cinco' : plural(m.b, 'bono de cinco', 'bonos de cinco')));
       if (m.c) partes.push(m.c === 1 ? 'una sesión suelta' : plural(m.c, 'sesión suelta', 'sesiones sueltas'));
-      var texto = 'Para ' + plural(n, 'sesión', 'sesiones') + ': ' + partes.join(' y ') + '.';
+      var texto = 'Para ' + plural(n, 'sesión', 'sesiones') + ': ' + unir(partes) + '.';
       if (m.sobran) texto += ' Te ' + (m.sobran === 1 ? 'sobra una sesión' : 'sobran ' + m.sobran + ' sesiones') + ', y aun así sale más barato.';
       if (m.coste < n * SUELTA) texto += ' Sesión a sesión serían ' + n * SUELTA + ' €.';
       total.textContent = m.coste + ' €';

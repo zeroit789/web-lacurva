@@ -35,6 +35,8 @@
   /* Cinco pasos de tipo */
   /* Five type steps */
   --paso-pequeno: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  /* Notas y texto corrido pequeño: nunca por debajo de 16 px / Notes and small running text: never below 16px */
+  --paso-nota: 1rem;
   --paso-cuerpo: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
   --paso-entrada: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
   --paso-titulo: clamp(2rem, 1.3rem + 3.2vw, 4rem);
@@ -219,12 +221,12 @@ h1, h2, h3 { font-weight: 500; letter-spacing: -0.025em; line-height: 1.05; text
 .zona p { max-width: 58ch; }
 .zona__datos { display: grid; grid-template-columns: auto auto; justify-content: start; column-gap: 3rem; row-gap: 1rem; margin: 0.75rem 0 1rem; }
 .zona__datos > div { display: flex; flex-direction: column-reverse; gap: 0.35rem; }
-.zona__datos dt { font-size: var(--paso-pequeno); color: var(--tinta-suave); }
+.zona__datos dt { font-size: var(--paso-nota); color: var(--tinta-suave); }
 .zona__datos dd { font-size: var(--paso-cuerpo); }
 .zona__datos .cifra { font-size: var(--paso-titulo); font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
 .zona__total { grid-column: 1 / -1; }
 .zona .boton { justify-self: start; }
-.nota { margin-top: 1.5rem; font-size: var(--paso-pequeno); color: var(--tinta-suave); max-width: 46ch; }
+.nota { margin-top: 1.5rem; font-size: var(--paso-nota); color: var(--tinta-suave); max-width: 46ch; }
 /* Con JS: solo se ve la zona elegida, que entra deslizando */
 /* With JS: only the chosen zone shows, sliding in */
 .js .zona[hidden] { display: none; }
@@ -346,7 +348,7 @@ html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-
 .cupon__enviar { height: 56px; background: var(--tinta); color: var(--fondo-pagina); font-weight: 600; border-radius: 0 0 56px 0; transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease; }
 .cupon__enviar:active { transform: scale(0.98); }
 @media (hover: hover) and (pointer: fine) { .cupon__enviar:hover { background: var(--acento); } }
-.cupon__estado { min-height: 1.5em; font-size: var(--paso-pequeno); }
+.cupon__estado { min-height: 1.5em; font-size: var(--paso-nota); }
 
 /* ---------- PIE */
 /* FOOTER ---------- */
@@ -484,7 +486,7 @@ html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-
   .fichas { grid-template-columns: 1fr 1fr; gap: 1.75rem 8px; }
   .ficha--doble { grid-column: 1 / -1; order: -1; }
   
-  .ficha__dato { font-size: var(--paso-pequeno); }
+  .ficha__dato { font-size: var(--paso-nota); }
 
   .como__intro { grid-template-columns: 1fr; gap: 1.25rem; }
   .como__intro h2, .como__intro p { grid-column: 1; }
@@ -534,6 +536,12 @@ html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-
   .menu-listo .cabecera.is-abierta .menu { display: flex; position: fixed; inset: 0; z-index: 7; flex-direction: column; align-items: flex-start; justify-content: center; gap: 0.5rem; padding: 6rem var(--margen) 3rem; background: var(--fondo-pagina); overflow-y: auto; }
   .menu-listo .cabecera.is-abierta .menu a:not(.boton) { font-size: var(--paso-titulo); color: var(--tinta); background: none; }
   .menu-listo .cabecera.is-abierta .menu .boton { margin-top: 1.5rem; }
+  /* Con el menú abierto el logo sigue a la vista sobre el panel y el botón «Cerrar» va a la derecha
+     (el nav queda vacío en medio, así que el botón pasa al final).
+     With the menu open the logo stays visible above the panel and the "Cerrar" button sits on the right
+     (the nav is left empty in the middle, so the button moves to the end). */
+  .menu-listo .menu-boton { order: 2; }
+  .menu-listo .cabecera.is-abierta .marca { position: relative; z-index: 8; }
   /* Sin JS (o hasta que main.js pone menu-listo) el menú se queda visible y se reparte en varias líneas */
   /* Without JS (or until main.js sets menu-listo) the menu stays visible and wraps */
   html:not(.menu-listo) .cabecera { flex-wrap: wrap; }
@@ -581,7 +589,7 @@ html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-
 .tratamiento__texto p { max-width: 60ch; }
 .datos-linea { display: flex; flex-wrap: wrap; gap: 0.5rem 2.5rem; margin-top: 0.5rem; }
 .datos-linea > div { display: flex; flex-direction: column-reverse; gap: 0.25rem; }
-.datos-linea dt { font-size: var(--paso-pequeno); color: var(--tinta-suave); }
+.datos-linea dt { font-size: var(--paso-nota); color: var(--tinta-suave); }
 .datos-linea dd { font-size: var(--paso-entrada); font-weight: 500; }
 .lista-curva { display: grid; gap: 0.5rem; }
 .lista-curva li { display: flex; gap: 0.7rem; align-items: baseline; max-width: 62ch; }
@@ -601,7 +609,7 @@ html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-
 .tarifas h2 { grid-column: 1 / -1; margin-bottom: 1rem; }
 .tabla-caja { grid-column: 1 / -1; overflow-x: auto; }
 .tabla { width: 100%; border-collapse: collapse; font-size: var(--paso-cuerpo); }
-.tabla caption { text-align: left; color: var(--tinta-suave); font-size: var(--paso-pequeno); padding-bottom: 0.75rem; }
+.tabla caption { text-align: left; color: var(--tinta-suave); font-size: var(--paso-nota); padding-bottom: 0.75rem; }
 .tabla th, .tabla td { text-align: left; padding: 1rem 1rem 1rem 0; border-bottom: 2px solid var(--superficie); vertical-align: top; }
 .tabla thead th { font-size: var(--paso-pequeno); color: var(--tinta-suave); font-weight: 500; }
 .tabla tbody th { font-weight: 600; }
@@ -668,8 +676,8 @@ html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-
 .campo--check input { width: 24px; height: 24px; min-height: 0; margin-top: 0.15rem; accent-color: var(--tinta); flex: none; }
 .campo--check label { font-weight: 400; }
 .campo .enlace { color: var(--tinta); text-decoration-color: currentColor; }
-.ayuda { font-size: var(--paso-pequeno); color: #23283b; }
-.error { font-size: var(--paso-pequeno); font-weight: 600; color: #6d0035; background: #fde7f1; padding: 0.15rem 0.5rem; justify-self: start; }
+.ayuda { font-size: var(--paso-nota); color: #23283b; }
+.error { font-size: var(--paso-nota); font-weight: 600; color: #6d0035; background: #fde7f1; padding: 0.15rem 0.5rem; justify-self: start; }
 .error:empty { display: none; }
 .campo [aria-invalid="true"] { outline: 3px solid #6d0035; outline-offset: 0; }
 .formulario .cupon__enviar { margin-top: 0.5rem; }
@@ -679,10 +687,10 @@ html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-
 .datos-contacto { grid-column: 8 / span 5; display: grid; gap: 2rem; }
 .datos-contacto h2 { font-size: var(--paso-entrada); margin-bottom: 0.5rem; }
 .datos-contacto dl { display: grid; gap: 0.75rem; }
-.datos-contacto dt { font-size: var(--paso-pequeno); color: var(--tinta-suave); }
+.datos-contacto dt { font-size: var(--paso-nota); color: var(--tinta-suave); }
 .plano { margin: 0; }
 .plano svg { width: 100%; height: auto; display: block; background: var(--superficie); border-radius: 30% 0 0 0 / 40% 0 0 0; }
-.plano figcaption { margin-top: 0.6rem; font-size: var(--paso-pequeno); color: var(--tinta-suave); }
+.plano figcaption { margin-top: 0.6rem; font-size: var(--paso-nota); color: var(--tinta-suave); }
 
 /* ---------- TEXTO LEGAL Y CRÉDITOS */
 /* LEGAL TEXT AND CREDITS ---------- */
@@ -703,7 +711,7 @@ html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-
 
 /* ---------- Pie: línea de demostración */
 /* Footer: demo line ---------- */
-.pie__demo { font-size: var(--paso-pequeno); }
+.pie__demo { font-size: var(--paso-nota); }
 
 /* ---------- Páginas interiores en tableta y móvil */
 /* Inner pages on tablet and phone ---------- */
@@ -737,7 +745,7 @@ html:not(.acordeon-listo) .etapa__cuerpo { position: static; display: grid; min-
   .tabla thead { display: none; }
   .tabla tr { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 1rem; padding: 1rem 0; border-bottom: 2px solid var(--superficie); }
   .tabla th, .tabla td { padding: 0; border: 0; }
-  .tabla td.nota { grid-column: 1 / -1; color: var(--tinta-suave); font-size: var(--paso-pequeno); }
+  .tabla td.nota { grid-column: 1 / -1; color: var(--tinta-suave); font-size: var(--paso-nota); }
   .tabla td.duracion { grid-column: 1 / -1; font-size: var(--paso-pequeno); }
   .creditos-tabla tr { grid-template-columns: 72px 1fr; }
   .creditos-tabla td { grid-column: 2; }

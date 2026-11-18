@@ -71,14 +71,14 @@ abrir `index.html` con doble clic, aunque así no se aplican las cabeceras.
 - **Imágenes:** en `assets/img/` (WebP). Si cambias una, actualiza su `width`/`height`, su `alt` y los créditos.
 - **Mapa del dolor:** cada zona es un `<article class="zona">` en `index.html`; los puntos de la lámina son botones
   con su posición en `--x` / `--y` (porcentaje sobre la lámina).
-- **Precios de la calculadora:** constantes `SUELTA`, `BONO5` y `BONO10` en `assets/js/main.js`.
+- **Precios de la calculadora y del mapa del dolor:** constantes `SUELTA`, `BONO5` y `BONO10` en `assets/js/main.js`. El total de cada zona del mapa usa la misma función (`planMasBarato`); si cambias los precios, cambia también las cifras de `data-total-sesiones` en `index.html` (son las que se ven sin JavaScript).
 - **Para un negocio real:** quita `noindex` (meta `robots` de cada página y `X-Robots-Tag` en `_headers`), cambia
   los datos de ejemplo por los reales, conecta el formulario a un servicio de envío y revisa los textos legales y
   sanitarios con un profesional.
 
 ### Créditos y licencias
 
-- **Código:** licencia MIT (ver `LICENSE`).
+- **Código:** licencia MIT (ver `LICENSE`). Los avisos sobre lo que no cubre (imágenes, tipografía y marca) están en [`NOTICE.md`](NOTICE.md).
 - **Imágenes:** láminas de la Wellcome Collection (CC BY 4.0), una lámina de la Biblioteca de la Universidad de
   Leiden (dominio público) y una postal de Córdoba de los años veinte (dominio público), todas vía Wikimedia
   Commons. Detalle en `creditos.html` y `CREDITOS.md`.
@@ -153,14 +153,14 @@ directly, but the headers are not applied that way.
 - **Images:** in `assets/img/` (WebP). If you swap one, update its `width`/`height`, its `alt` and the credits.
 - **Pain map:** each area is an `<article class="zona">` in `index.html`; the plate hotspots are buttons
   positioned with `--x` / `--y` (percentages of the plate).
-- **Calculator prices:** the `SUELTA`, `BONO5` and `BONO10` constants in `assets/js/main.js`.
+- **Calculator and pain map prices:** the `SUELTA`, `BONO5` and `BONO10` constants in `assets/js/main.js`. Each map area's total uses the same function (`planMasBarato`); if you change the prices, also update the figures next to `data-total-sesiones` in `index.html` (they are what visitors without JavaScript see).
 - **For a real business:** remove `noindex` (the `robots` meta on every page and `X-Robots-Tag` in `_headers`),
   replace the sample data with real data, connect the form to a sending service and have the legal and health
   copy reviewed by a professional.
 
 ### Credits and licences
 
-- **Code:** MIT licence (see `LICENSE`).
+- **Code:** MIT licence (see `LICENSE`). Notices on what it does not cover (images, typeface and brand) are in [`NOTICE.md`](NOTICE.md).
 - **Images:** plates from the Wellcome Collection (CC BY 4.0), one plate from Leiden University Library (public
   domain) and a 1920s postcard of Córdoba (public domain), all via Wikimedia Commons. Details in `creditos.html`
   and `CREDITOS.md`.
